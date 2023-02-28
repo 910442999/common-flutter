@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../utils/theme_utils.dart';
 import '/res/colors.dart';
 import '/res/dimens.dart';
 import '/res/gaps.dart';
@@ -33,7 +32,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color _backgroundColor = backgroundColor ?? context.backgroundColor;
+    final Color _backgroundColor = backgroundColor ?? Theme.of(context).scaffoldBackgroundColor;
 
     final SystemUiOverlayStyle _overlayStyle =
         ThemeData.estimateBrightnessForColor(_backgroundColor) ==
@@ -54,7 +53,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 backImg,
                 width: 22,
                 height: 22,
-                color: backImgColor ?? ThemeUtils.getIconColor(context),
+                color: backImgColor ?? Colours.dark_text,
               ),
             ))
         : Gaps.empty;
@@ -68,7 +67,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           minWidth: 42,
           text: actionName.toString(),
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          textColor: context.isDark ? Colours.dark_text : Colours.text,
+          textColor: Theme.of(context).brightness == Brightness.dark ? Colours.dark_text : Colours.text,
           backgroundColor: Colors.transparent,
           onPressed: onPressed,
         ),

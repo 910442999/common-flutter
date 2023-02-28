@@ -12,9 +12,31 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  plugin_platform_interface: ^2.0.2
+  #  plugin_platform_interface: ^2.1.4
   fluttertoast: ^8.2.1
   flutter_easyloading: ^3.0.5
+  permission_handler: ^10.2.0
+  #  仿微信选择相册
+  wechat_assets_picker: ^7.2.0
+  #  路径管理
+  path_provider: ^2.0.13
+  #  图片剪辑
+  image_cropper: ^3.0.1
+  #  图片压缩
+  flutter_luban: ^0.1.13
+  #  十进制数计算
+  decimal: ^2.3.2
+  #  数据存储
+  shared_preferences: ^2.0.18
+  synchronized: ^3.0.1
+  #  本地化语言，日期格式化，数字格式化等
+  intl: ^0.17.0
+  # 处理键盘事件 https://github.com/diegoveloper/flutter_keyboard_actions
+  keyboard_actions: ^4.2.0
+  # 启动URL的插件（支持Web） https://github.com/flutter/plugins/tree/master/packages/url_launcher
+  url_launcher: ^6.1.10
+  #  日期地址选择
+  flutter_pickers: ^2.1.9
 
 dev_dependencies:
   flutter_test:

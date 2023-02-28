@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '/res/colors.dart';
 import '/res/dimens.dart';
-import '/utils/theme_utils.dart';
 
 /// 默认字号18，白字蓝底，高度48
 class MyButton extends StatelessWidget {
@@ -36,7 +35,7 @@ class MyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDark = context.isDark;
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return TextButton(
         child: Text(text, style: TextStyle(fontSize: fontSize)),
         onPressed: onPressed,

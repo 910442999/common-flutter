@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-List<String> nameItems = <String>['私聊', '关注', /*'不喜欢',*/ '举报'];
-List<String> urlItems = <String>[
-  'chat.png',
-  'guanzhu.png',
-  // 'like1.png',
-  'jubao.png',
-];
-
 class MenuDialog extends StatelessWidget {
+  List<String> nameItems = <String>['私聊', '关注', /*'不喜欢',*/ '举报'];
+  List<String> urlItems = <String>[
+    'chat.png',
+    'guanzhu.png',
+    // 'like1.png',
+    'jubao.png',
+  ];
   Function onSelected;
 
   MenuDialog(this.onSelected);

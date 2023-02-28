@@ -236,19 +236,19 @@ class DialogUtil {
   }
 
 //分享弹窗
-//   static void shareDialog(BuildContext context, String title) {
-//     showModalBottomSheet(
-//         shape: const RoundedRectangleBorder(
-//             borderRadius: BorderRadius.only(
-//                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
-//         context: context,
-//         builder: (BuildContext context) {
-//           return ShareDialog(
-//             title: title,
-//             url: Constant.shareUrl,
-//           );
-//         });
-//   }
+  static void shareDialog(BuildContext context, String title, String url) {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+        context: context,
+        builder: (BuildContext context) {
+          return ShareDialog(
+            title: title,
+            url: url,
+          );
+        });
+  }
 
 //菜单弹窗
   static void menuDialog(BuildContext context, Function onSelected) {

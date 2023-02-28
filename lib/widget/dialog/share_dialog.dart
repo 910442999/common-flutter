@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../res/gaps.dart';
 
-List<String> nameItems = <String>['微信', '朋友圈', '链接'];
-List<String> urlItems = <String>[
-  'icon_wechat.png',
-  'icon_wechat2.png',
-  'icon_copy_url.png'
-];
+
 
 class ShareDialog extends StatelessWidget {
+  List<String> nameItems = <String>['微信', '朋友圈', '链接'];
+  List<String> urlItems = <String>[
+    'icon_wechat.png',
+    'icon_wechat2.png',
+    'icon_copy_url.png'
+  ];
   ShareDialog({
     required this.title,
     required this.url,

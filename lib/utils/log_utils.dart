@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 
 /// 输出Log工具类
 class Log {
-  static const String tag = 'YUANQUANAPP-LOG';
+  static const String tag = 'LOG-UTILS';
   static const int _maxLen = 5000;
 
   static void d(String msg, {String tag = tag}) {

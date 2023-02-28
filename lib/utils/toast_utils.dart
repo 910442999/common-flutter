@@ -27,6 +27,6 @@ class ToastUtils {
   }
 
   static void cancel() {
-    ToastUtils.cancel();
+    Fluttertoast.cancel();
   }
 }
