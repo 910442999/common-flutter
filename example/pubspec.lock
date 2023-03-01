@@ -158,14 +158,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.13"
-  flutter_pickers:
+  flutter_picker:
     dependency: transitive
     description:
-      name: flutter_pickers
-      sha256: f38a9d9229afed75f76bae64e628b78b9c20194873e3c141783523cf21ac8a95
+      name: flutter_picker
+      sha256: "2f94c6eefba8697b07e3cd008b75f06b4ba7053cb26d23ae0fcd5932b7dc75af"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.9"
+    version: "2.1.0"
   flutter_spinkit:
     dependency: transitive
     description:

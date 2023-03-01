@@ -110,12 +110,14 @@ class MediaUtil {
             return;
           }
           try {
-            String? tempPath = await compressImage(File(croppedFile.path));
+            String? tempPath = await compressImage(File(filePath));
             if (!TextUtil.isEmpty(tempPath)) {
               File tempFile = File(tempPath!);
               if (tempFile.lengthSync() != null &&
                   tempFile.lengthSync() < imageSize * 1024) {
                 filePath = tempFile.path;
+                if (success != null) success(true, filePath);
+                return;
               } else {
                 if (success != null) success(false, "图片太大，请裁剪后重新选择！");
                 return;
