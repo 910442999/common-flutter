@@ -4,118 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_picker/picker.dart';
 import 'package:intl/intl.dart';
+import 'package:yqcommon/utils/picker/data/work_data.dart';
 
 import '../../res/colors.dart';
-import 'locations_data.dart';
+import 'data/ethnicity_data.dart';
+import 'data/locations_data.dart';
+import 'data/picker_data.dart';
 
 const double kPickerHeight = 216.0;
 const double kItemHeight = 40.0;
 const Color kBtnColor = Color(0xFF323232); //50
 const Color kTitleColor = Color(0xFF787878); //120
 const double kTextFontSize = 17.0;
-
-typedef StringClickCallback = void Function(int selectIndex, Object? selectStr);
-typedef ArrayClickCallback = void Function(
-    List<int> selecteds, List<dynamic> strData);
-typedef ClickBeforeCallBack = Future<bool> Function(
-    List<int> selecteds, List<dynamic> strData);
-
-typedef DataCallback = void Function(
-    List<int> selecteds, List<dynamic> strData);
-
-typedef DateClickCallback = void Function(
-    dynamic selectDateStr, dynamic selectDate);
-
-typedef AddressCallback(String province, String city, String? town);
-
-enum DateType {
-  YM, // y ,m
-  YMD, // y, m, d
-  YMD_HM, // y, m, d, hh, mm
-}
-
-enum PickerType {
-  sex, // 性别
-  education, // 学历
-  subject, // 学科
-  constellation, // 星座
-  zodiac, // 生肖
-  ethnicity, // 名族
-  height, // 身高
-  weight, // 体重
-  emotion, // 情感状态
-  living, // 居住情况
-  buyHouse, // 住房
-  buyCar, // 购车
-  income, // 年收入
-  work, // 职业
-}
-
-var dataList = {
-  PickerType.emotion: ['单身', '恋爱中', '离异', '丧偶', '已婚'],
-  PickerType.living: ['租房自住', '与人合租', '住宿舍', '与父母同住', '住自己的房子'],
-  PickerType.buyHouse: ['计划购房中', '已购房', '暂未购房'],
-  PickerType.buyCar: ['已购车（豪华型）', '已购车（中档）', '已购车（经济性）', '暂未购车'],
-  PickerType.income: [
-    '5万以下',
-    '5～10万',
-    '10～20万',
-    '20～30万',
-    '30～40万',
-    '40～50万',
-    '50～60万',
-    '60～70万',
-    '70～80万',
-    '80～90万',
-    '90～100万',
-    '100万以上'
-  ],
-};
-var multiDataList = {
-  PickerType.work: {
-    "IT服务": ["计算机软件", "计算机硬件", "信息服务", "互联网和相关服务", "程序员", "其他"],
-    "制造业": [
-      "机械/电子",
-      "服装/纺织",
-      "汽车",
-      "金属制品",
-      "食品/饮料",
-      "家具/家纺",
-      "重工制造",
-      "家电/数码",
-      "橡胶/塑料",
-      "日用品/化妆品",
-      "化学原料制品",
-      "文教/工美/体育/娱乐用品",
-      "烟酒/茶",
-      "非金属矿物",
-      "其他"
-    ],
-    "批发/零售": ["批发", "零售", "超市/便利店/百货商场", "进出口", "其他"],
-    "生活服务": ["餐饮", "居民服务", "租赁和商务服务", "酒店/住宿", "其他"],
-    "文化/体育/娱乐业": ["文化/体育", "娱乐/旅游", "新闻传媒", "其他"],
-    "建筑/房地产": ["建筑业", "建材装修", "房地产", "其他"],
-    "教育": ["学前教育", "初中等教育", "高等教育", "培训机构", "其他"],
-    "运输/物流/仓储": ["物流/仓储", "道路/铁路运输", "邮政/快递", "航空运输", "水上运输", "其他"],
-    "医疗": ["医院/医疗机构", "医疗器械", "医药制造", "医药流通", "其他"],
-    "政府": [
-      "党政机关",
-      "国家权力/行政机构",
-      "检察院/法院/公安",
-      "民政/人社/交通/卫生",
-      "发改委/经信委/商务局/统计局",
-      "国土/规划",
-      "税务/海关/工商/环保/物价/药品",
-      "政协/民主党派",
-      "地方政府",
-      "其他"
-    ],
-    "金融": ["保险", "银行", "证券/投资/基金", "其他"],
-    "能源/采矿": ["电力/热力/燃气/水供应业", "石油/天然气", "煤炭", "有色金属", "钢铁", "其他"],
-    "农林渔牧": ["农林渔牧"],
-    "其他行业": ["科学研究和技术服务业", "社会组织", "水利和环境管理"],
-  }
-};
 
 class PickerUtils {
   // /** 日期选择器*/
@@ -294,8 +194,7 @@ class PickerUtils {
   //   );
   // }
   /** 日期选择器*/
-  static void showDatePicker(
-    BuildContext context, {
+  static void showDatePicker(BuildContext context, {
     DateType? dateType,
     String? title,
     DateTime? maxValue,
@@ -304,7 +203,7 @@ class PickerUtils {
     DateTimePickerAdapter? adapter,
     String? cancelText,
     VoidCallback? onCancel,
-    required DateClickCallback clickCallback,
+    required Function(dynamic selectDateStr, dynamic selectDate) clickCallback,
   }) {
     int timeType;
     if (dateType == DateType.YM) {
@@ -331,25 +230,25 @@ class PickerUtils {
         title: title,
         cancelText: cancelText,
         clickCallBack: (Picker picker, List<int> selecteds) {
-      var time = (picker.adapter as DateTimePickerAdapter).value;
-      var timeStr =
-          '${time!.year.toString()}-${time.month.toString().padLeft(2, '0')}-${time.day.toString().padLeft(2, '0')}';
-      print(timeStr + "-------" + "------" + picker.adapter.text);
-      clickCallback(timeStr, picker.adapter.text);
-    }, onCancel: onCancel);
+          var time = (picker.adapter as DateTimePickerAdapter).value;
+          var timeStr =
+              '${time!.year.toString()}-${time.month.toString().padLeft(
+              2, '0')}-${time.day.toString().padLeft(2, '0')}';
+          print(timeStr + "-------" + "------" + picker.adapter.text);
+          clickCallback(timeStr, picker.adapter.text);
+        },
+        onCancel: onCancel);
   }
 
   /**
    * 地址
    */
   static void showAddressPicker(BuildContext context,
-      {AddressCallback? clickCallback}) async {
-    // var jsonStr = await rootBundle.loadString('assets/data/city.json');
-    // List<LocationsData> provinces = locationsDataFromJson(jsonStr);
+      {required Function(List<dynamic> strData, List<
+          int> selecteds) clickCallBack}) async {
     List<PickerItem> provinces2 = [];
     for (var element in locations) {
       List<PickerItem> city = [];
-      // List<LocationsData> provinces = locationsDataFromJson();
       for (var element2 in element['children'] as List) {
         city.add(PickerItem(text: null, value: element2['label']));
       }
@@ -357,73 +256,130 @@ class PickerUtils {
           .add(PickerItem(text: null, value: element['label'], children: city));
     }
     openModalPicker(context, adapter: PickerDataAdapter(data: provinces2),
-        clickCallBack: (Picker picker, List<int> value) {
-      print(picker.adapter.text);
-      print(value.toString());
-      print(picker.getSelectedValues());
-      // clickCallBack(provinces2[selecteds[0]]);
-    });
-  }
-
-  /** 单列*/
-  static void showModalPicker<T>(
-    BuildContext context, {
-    required List<T> data,
-    String? title,
-    int? normalIndex,
-    PickerDataAdapter? adapter,
-    required StringClickCallback clickCallBack,
-  }) {
-    openModalPicker(context,
-        adapter: adapter ?? PickerDataAdapter(pickerData: data, isArray: false),
         clickCallBack: (Picker picker, List<int> selecteds) {
-      //          print(picker.adapter.text);
-      clickCallBack(selecteds[0], data[selecteds[0]]);
-    }, selecteds: [normalIndex ?? 0], title: title);
+          print(selecteds.toString());
+          print(picker.getSelectedValues());
+          clickCallBack(picker.getSelectedValues(), selecteds);
+        });
+  }
+
+  /** 职业 */
+  static void showWorkPicker(BuildContext context, {
+    String? title,
+    List<int>? normalIndex,
+    PickerDataAdapter? adapter,
+    required Function(List<dynamic> strData, List<int> selecteds) clickCallBack,
+  }) {
+    List<PickerItem> work1 = [];
+    for (var element in workData) {
+      List<PickerItem> work2 = [];
+      for (var element2 in element['children'] as List) {
+        work2.add(PickerItem(text: null, value: element2['label']));
+      }
+      work1.add(
+          PickerItem(text: null, value: element['label'], children: work2));
+    }
+    openModalPicker(context,
+        adapter: adapter ?? PickerDataAdapter(data: work1),
+        clickCallBack: (Picker picker, List<int> selecteds) {
+          print(selecteds.toString());
+          print(picker.getSelectedValues());
+          clickCallBack(picker.getSelectedValues(), selecteds);
+        }, selecteds: normalIndex, title: title);
   }
 
   /** 单列*/
-  static void showDialogPicker<T>(
-    BuildContext context, {
+  static void showSinglePicker<T>(BuildContext context, {
+    required var data,
+    String? title,
+    int? normalIndex,
+    PickerDataAdapter? adapter,
+    required Function(int selectIndex, String selectStr) clickCallBack,
+  }) {
+    List mData = [];
+    if (data is PickerType) {
+      if (data == PickerType.sex) {
+        mData = singleData[PickerType.sex]!;
+      } else if (data == PickerType.education) {
+        mData = singleData[PickerType.education]!;
+      } else if (data == PickerType.subject) {
+        mData = singleData[PickerType.subject]!;
+      } else if (data == PickerType.constellation) {
+        mData = singleData[PickerType.constellation]!;
+      } else if (data == PickerType.zodiac) {
+        mData = singleData[PickerType.zodiac]!;
+      } else if (data == PickerType.ethnicity) {
+        mData = ethnicityData;
+      } else if (data == PickerType.emotion) {
+        mData = singleData[PickerType.emotion]!;
+      } else if (data == PickerType.living) {
+        mData = singleData[PickerType.living]!;
+      } else if (data == PickerType.buyHouse) {
+        mData = singleData[PickerType.buyHouse]!;
+      } else if (data == PickerType.buyCar) {
+        mData = singleData[PickerType.buyCar]!;
+      } else if (data == PickerType.income) {
+        mData = singleData[PickerType.income]!;
+      } else if (data == PickerType.height) {
+        mData.addAll(
+            List.generate(120, (index) => (100 + index).toString() + "cm"));
+        mData.add("220cm以上");
+      } else if (data == PickerType.weight) {
+        mData.addAll(
+            List.generate(100, (index) => (30 + index).toString() + "kg"));
+        mData.add("130kg以上");
+      }
+    } else if (data is List) {
+      mData.addAll(data);
+    }
+    openModalPicker(context,
+        adapter:
+        adapter ?? PickerDataAdapter(pickerData: mData, isArray: false),
+        clickCallBack: (Picker picker, List<int> selecteds) {
+          clickCallBack(selecteds[0], mData[selecteds[0]].toString());
+        }, selecteds: [normalIndex ?? 0], title: title);
+  }
+
+  /** 单列*/
+  static void showDialogPicker<T>(BuildContext context, {
     required List<T> data,
     String? title,
     int? normalIndex,
     PickerDataAdapter? adapter,
-    required StringClickCallback clickCallBack,
+    required Function(int selectIndex, Object? selectStr) clickCallBack,
   }) {
     openDialogPicker(context,
         adapter: adapter ?? PickerDataAdapter(pickerData: data, isArray: false),
         clickCallBack: (Picker picker, List<int> selecteds) {
-      clickCallBack(selecteds[0], data[selecteds[0]]);
-    }, selecteds: [normalIndex ?? 0], title: title);
+          clickCallBack(selecteds[0], data[selecteds[0]]);
+        }, selecteds: [normalIndex ?? 0], title: title);
   }
 
   /** 多列 */
-  static void showMultipleModalPicker<T>(
-    BuildContext context, {
-    required List<T> data,
+  static void showMultiPicker<T>(BuildContext context, {
+    required var data,
     String? title,
     List<int>? normalIndex,
     PickerDataAdapter? adapter,
-    required ArrayClickCallback clickCallBack,
+    required Function(List<int> selecteds, List<dynamic> strData) clickCallBack,
   }) {
     openModalPicker(context,
         adapter: adapter ?? PickerDataAdapter(pickerData: data, isArray: true),
         clickCallBack: (Picker picker, List<int> selecteds) {
-      clickCallBack(selecteds, picker.getSelectedValues());
-    }, selecteds: normalIndex, title: title);
+          clickCallBack(selecteds, picker.getSelectedValues());
+        }, selecteds: normalIndex, title: title);
   }
 
   /** 自定义多列 */
-  static Widget showDataPicker<T>(
-    BuildContext context, {
+  static Widget showDataPicker<T>(BuildContext context, {
     required List<T> data,
     String? title,
     List<int>? normalIndex,
     PickerDataAdapter? adapter,
-    ArrayClickCallback? clickCallBack,
-    ClickBeforeCallBack? clickBeforeCallBack,
-    DataCallback? dataCallback,
+    Function(List<int> selecteds, List<dynamic> strData)? clickCallBack,
+    Future<bool> Function(List<int> selecteds, List<dynamic> strData)?
+    clickBeforeCallBack,
+    Function(List<int> selecteds, List<dynamic> strData)? dataCallback,
   }) {
     Picker picker = Picker(
       title: Text(title ?? "请选择",
@@ -432,9 +388,9 @@ class PickerUtils {
       cancelText: '取消',
       confirmText: '确定',
       cancelTextStyle:
-          const TextStyle(color: kBtnColor, fontSize: kTextFontSize),
+      const TextStyle(color: kBtnColor, fontSize: kTextFontSize),
       confirmTextStyle:
-          const TextStyle(color: Colours.app_main, fontSize: kTextFontSize),
+      const TextStyle(color: Colours.app_main, fontSize: kTextFontSize),
       itemExtent: kItemHeight,
       height: kPickerHeight,
       selecteds: normalIndex,
@@ -442,24 +398,23 @@ class PickerUtils {
       onConfirm: clickCallBack == null
           ? null
           : (Picker picker, List<int> selecteds) {
-              clickCallBack(selecteds, picker.getSelectedValues());
-            },
+        clickCallBack(selecteds, picker.getSelectedValues());
+      },
       onConfirmBefore: clickBeforeCallBack == null
           ? null
           : (picker, selected) async {
-              return clickBeforeCallBack(selected, picker.getSelectedValues());
-            },
+        return clickBeforeCallBack(selected, picker.getSelectedValues());
+      },
       onSelect: dataCallback == null
           ? null
           : (Picker picker, int index, List<int> selecteds) {
-              dataCallback(selecteds, picker.getSelectedValues());
-            },
+        dataCallback(selecteds, picker.getSelectedValues());
+      },
     );
     return picker.makePicker();
   }
 
-  static void openModalPicker(
-    BuildContext context, {
+  static void openModalPicker(BuildContext context, {
     required PickerAdapter adapter,
     String? title,
     String? cancelText,
@@ -468,49 +423,48 @@ class PickerUtils {
     required PickerConfirmCallback clickCallBack,
   }) {
     Picker(
-            adapter: adapter,
-            title: Text(title ?? "请选择",
-                style: TextStyle(color: kTitleColor, fontSize: kTextFontSize)),
-            selecteds: selecteds,
-            cancelText: cancelText ?? '取消',
-            confirmText: '确定',
-            cancelTextStyle:
-                TextStyle(color: kBtnColor, fontSize: kTextFontSize),
-            confirmTextStyle:
-                TextStyle(color: kBtnColor, fontSize: kTextFontSize),
-            textAlign: TextAlign.right,
-            itemExtent: kItemHeight,
-            height: kPickerHeight,
-            selectedTextStyle: TextStyle(color: Colors.black),
-            onCancel: onCancel,
-            onConfirm: clickCallBack)
+        adapter: adapter,
+        title: Text(title ?? "请选择",
+            style: TextStyle(color: kTitleColor, fontSize: kTextFontSize)),
+        selecteds: selecteds,
+        cancelText: cancelText ?? '取消',
+        confirmText: '确定',
+        cancelTextStyle:
+        TextStyle(color: kBtnColor, fontSize: kTextFontSize),
+        confirmTextStyle:
+        TextStyle(color: kBtnColor, fontSize: kTextFontSize),
+        textAlign: TextAlign.right,
+        itemExtent: kItemHeight,
+        height: kPickerHeight,
+        selectedTextStyle: TextStyle(color: Colors.black),
+        onCancel: onCancel,
+        onConfirm: clickCallBack)
         .showModal(context);
   }
 
-  static void openDialogPicker(
-    BuildContext context, {
+  static void openDialogPicker(BuildContext context, {
     required PickerAdapter adapter,
     String? title,
     List<int>? selecteds,
     required PickerConfirmCallback clickCallBack,
   }) {
     Picker(
-            hideHeader: true,
-            adapter: adapter,
-            title: new Text(title ?? "请选择",
-                style: TextStyle(color: kTitleColor, fontSize: kTextFontSize)),
-            selecteds: selecteds,
-            cancelText: '取消',
-            confirmText: '确定',
-            cancelTextStyle:
-                TextStyle(color: kBtnColor, fontSize: kTextFontSize),
-            confirmTextStyle:
-                TextStyle(color: kBtnColor, fontSize: kTextFontSize),
-            textAlign: TextAlign.right,
-            itemExtent: kItemHeight,
-            height: kPickerHeight,
-            selectedTextStyle: TextStyle(color: Colors.black),
-            onConfirm: clickCallBack)
+        hideHeader: true,
+        adapter: adapter,
+        title: new Text(title ?? "请选择",
+            style: TextStyle(color: kTitleColor, fontSize: kTextFontSize)),
+        selecteds: selecteds,
+        cancelText: '取消',
+        confirmText: '确定',
+        cancelTextStyle:
+        TextStyle(color: kBtnColor, fontSize: kTextFontSize),
+        confirmTextStyle:
+        TextStyle(color: kBtnColor, fontSize: kTextFontSize),
+        textAlign: TextAlign.right,
+        itemExtent: kItemHeight,
+        height: kPickerHeight,
+        selectedTextStyle: TextStyle(color: Colors.black),
+        onConfirm: clickCallBack)
         .showDialog(context);
   }
 }

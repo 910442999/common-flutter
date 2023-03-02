@@ -1,8 +1,5 @@
-// To parse this JSON data, do
-//
-//     final locationsData = locationsDataFromJson(jsonString);
-
 import 'dart:convert';
+
 const locations = [
   {
     "label": "北京",
@@ -15674,19 +15671,19 @@ class LocationsData {
   List<LocationsData>? children;
 
   factory LocationsData.fromJson(Map<String, dynamic> json) => LocationsData(
-        label: json["label"],
-        value: json["value"],
-        children: json["children"] != null
-            ? List<LocationsData>.from(
-                json["children"].map((x) => LocationsData.fromJson(x)))
-            : null,
-      );
+    label: json["label"],
+    value: json["value"],
+    children: json["children"] != null
+        ? List<LocationsData>.from(
+        json["children"].map((x) => LocationsData.fromJson(x)))
+        : null,
+  );
 
   Map<String, dynamic> toJson() => {
-        "label": label,
-        "value": value,
-        "children": children != null
-            ? List<dynamic>.from(children!.map((x) => x.toJson()))
-            : null,
-      };
+    "label": label,
+    "value": value,
+    "children": children != null
+        ? List<dynamic>.from(children!.map((x) => x.toJson()))
+        : null,
+  };
 }
