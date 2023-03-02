@@ -65,13 +65,12 @@ class SpUtil {
   }
 
   /// get obj list.
-  static List<T>? getObjList<T>(String key, T f(Map v),
-      {List<T>? defValue = const []}) {
+  static List<T> getObjList<T>(String key, T f(Map v), {List<T>? defValue}) {
     List<Map>? dataList = getObjectList(key);
     List<T>? list = dataList?.map((value) {
       return f(value);
     }).toList();
-    return list ?? defValue;
+    return list ?? defValue ?? const [];
   }
 
   /// get object list.

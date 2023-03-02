@@ -111,14 +111,4 @@ class PermissionUtils {
     }
     // exit(0);
   }
-
-  static showDialog(BuildContext context, String content) {
-    DialogUtil.showAlert(context, content,
-        confirmText: "打开"
-        /* +
-        (Platform.isAndroid ? "，该应用即将退出" : '!')*/
-        , onPressed: () {
-      openAppSetting();
-    });
-  }
 }

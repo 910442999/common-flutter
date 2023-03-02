@@ -14,4 +14,11 @@ export 'time_util.dart';
 export 'toast_utils.dart';
 export 'ui_utils.dart';
 export 'directory_util.dart';
+export 'number_text_input_formatter.dart';
+export 'audio_player_util.dart';
+export 'image_utils.dart';
+export 'html_util.dart';
+export 'tts_util.dart';
+export 'wechat_utils.dart';
+
 

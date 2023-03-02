@@ -13,7 +13,10 @@ class TextUtil {
         text == "null" ||
         text == "" ||
         text.isEmpty ||
-        text.trim().toString().isEmpty;
+        text
+            .trim()
+            .toString()
+            .isEmpty;
   }
 
   static String isEmptyToData(String text, String defaults) {
@@ -62,24 +65,32 @@ class TextUtil {
       {int digit = 3, String pattern = ','}) {
     List<String> list = num.toString().split('.');
     String left =
-        formatDigitPatternEnd(list[0], digit: digit, pattern: pattern);
+    formatDigitPatternEnd(list[0], digit: digit, pattern: pattern);
     String right = list[1];
     return '$left.$right';
   }
 
   /// hideNumber
-  static String hideNumber(String phoneNo,
+  static String hideNumber(String? phoneNo,
       {int start = 3, int end = 7, String replacement = '****'}) {
+    if (isEmpty(phoneNo)) {
+      return "";
+    } else if (phoneNo!.length < 11) {
+      return phoneNo;
+    }
     return phoneNo.replaceRange(start, end, replacement);
   }
 
   ///隐藏昵称
-  static String hideNickName(String nickName,
+  static String hideString(String? string,
       {int start = 2, String replacement = '**'}) {
-    if (nickName.length > start) {
-      return nickName.replaceRange(start, nickName.length, replacement);
+    if (isEmpty(string)) {
+      return "";
     }
-    return nickName.replaceRange(1, nickName.length, replacement);
+    if (string!.length > start) {
+      return string.replaceRange(start, string.length, replacement);
+    }
+    return string.replaceRange(1, string.length, replacement);
   }
 
   /// replace
