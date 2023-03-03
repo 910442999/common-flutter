@@ -211,7 +211,7 @@ class DialogUtil {
   //多选
   static void showCheckBoxDialog(
       BuildContext context, String? title, List<String> options,
-      {double? height, Function(int, String)? onPressed}) {
+      {required Function(List<int>, List<String>) onPressed, double? height}) {
     showModalBottomSheet<List<int>>(
         context: context,
         backgroundColor: Colors.transparent,
@@ -236,29 +236,58 @@ class DialogUtil {
   }
 
 //分享弹窗
-  static void shareDialog(BuildContext context, String title, String url) {
+  static void shareDialog(BuildContext context, String title, String url,
+      List<String> nameItems, List<String> urlItems) {
     showModalBottomSheet(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         context: context,
         builder: (BuildContext context) {
-          return ShareDialog(
-            title: title,
-            url: url,
-          );
+          return ShareDialog(nameItems, urlItems, title: title, url: url);
         });
   }
 
 //菜单弹窗
-  static void menuDialog(BuildContext context, Function onSelected) {
+  static void menuDialog(BuildContext context, List<String> nameItems,
+      List<String> urlItems, Function onSelected) {
     showModalBottomSheet(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         context: context,
         builder: (BuildContext context) {
-          return MenuDialog(onSelected);
+          return MenuDialog(nameItems, urlItems, onSelected);
         });
+  }
+  /// 更多的 menu，用于处理会话页面更多按钮等
+  static Widget showMoreMenu(List<String> actionList,
+      {Widget? child,
+        EdgeInsetsGeometry? padding,
+        Function(String key)? onSelected}) {
+    List<PopupMenuEntry<String>> items = [];
+    actionList.forEach((key) {
+      PopupMenuItem<String> p = PopupMenuItem(
+        height: 35,
+        child: Container(
+          padding: padding,
+          alignment: Alignment.center,
+          child: Text(
+            key,
+            textAlign: TextAlign.center,
+          ),
+        ),
+        value: key,
+      );
+      items.add(p);
+    });
+    return PopupMenuButton<String>(
+      // padding: const EdgeInsets.all(0),
+      onSelected: onSelected,
+      offset: const Offset(0, 30),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+      child: child ?? const Icon(Icons.more_vert),
+      itemBuilder: (BuildContext context) => items,
+    );
   }
 }

@@ -8,11 +8,11 @@ class CheckBoxDialog extends StatefulWidget {
   CheckBoxDialog({
     Key? key,
     required this.options,
-    this.onPressed,
+    required this.onPressed,
     this.title,
   }) : super(key: key);
 
-  final Function(int, String)? onPressed;
+  final Function(List<int>, List<String>) onPressed;
   final List<String> options;
   final String? title;
 
@@ -21,28 +21,30 @@ class CheckBoxDialog extends StatefulWidget {
 }
 
 class _CheckBoxDialog extends State<CheckBoxDialog> {
-  // List<bool> isChecks = [];
-  // StringBuffer str_checks_tmp = new StringBuffer();
-  Set<int> selected = <int>{};
+  Set<int> selectedIndex = <int>{};
+  Set<String> selectedData = <String>{};
 
   Widget getItem(int index) {
+    String data = widget.options[index];
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         height: 42.0,
         child: CheckboxListTile(
-          value: selected.contains(index),
+          value: selectedIndex.contains(index),
           onChanged: (value) {
             if (mounted) {
               setState(() {
-                if (selected.contains(index)) {
-                  selected.remove(index);
+                if (selectedIndex.contains(index)) {
+                  selectedIndex.remove(index);
+                  selectedData.remove(index);
                 } else {
-                  selected.add(index);
+                  selectedIndex.add(index);
+                  selectedData.add(data);
                 }
               });
             }
           },
-          title: Text(widget.options[index]),
+          title: Text(data),
           // activeColor: Colours.red,
           // selected: false,
           // checkColor: Colours.app_main,
@@ -57,21 +59,12 @@ class _CheckBoxDialog extends State<CheckBoxDialog> {
             isBack: false,
             actionName: "完成",
             onPressed: () {
-              if (selected.isEmpty) {
+              if (selectedIndex.isEmpty) {
                 ToastUtils.show("至少选择一个选项！");
                 return;
               }
-
-              if (widget.onPressed != null) {
-                // widget.onPressed!(
-                //     num,
-                //     str_checks_tmp
-                //         .toString()
-                //         .substring(0, str_checks_tmp.toString().length - 1)
-                //         .toString());
-                Navigator.of(context).pop();
-              }
-              // Navigator.pop(context);
+              widget.onPressed(selectedIndex.toList(), selectedData.toList());
+              Navigator.of(context).pop();
             }),
         body: ListView.builder(
           itemExtent: 48.0,

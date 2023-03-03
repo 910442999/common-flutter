@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 
 class MenuDialog extends StatelessWidget {
-  List<String> nameItems = <String>['私聊', '关注', /*'不喜欢',*/ '举报'];
-  List<String> urlItems = <String>[
-    'chat.png',
-    'guanzhu.png',
-    // 'like1.png',
-    'jubao.png',
-  ];
+  List<String> nameItems;
+  List<String> urlItems;
   Function onSelected;
 
-  MenuDialog(this.onSelected);
+  MenuDialog(this.nameItems, this.urlItems, this.onSelected);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +29,7 @@ class MenuDialog extends StatelessWidget {
                     behavior: HitTestBehavior.opaque,
                     onTap: () {
                       Navigator.pop(context);
-                      if (onSelected != null) onSelected(nameItems[index]);
+                      onSelected(nameItems[index]);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +38,7 @@ class MenuDialog extends StatelessWidget {
                             padding:
                                 const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
                             child: Image.asset(
-                              'assets/images/${urlItems[index]}',
+                              urlItems[index],
                               width: 50.0,
                               height: 50.0,
                               fit: BoxFit.fill,

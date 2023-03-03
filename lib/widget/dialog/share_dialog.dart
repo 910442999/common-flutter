@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import '../../res/gaps.dart';
-
-
+import '../../utils/index.dart';
 
 class ShareDialog extends StatelessWidget {
-  List<String> nameItems = <String>['微信', '朋友圈', '链接'];
-  List<String> urlItems = <String>[
-    'icon_wechat.png',
-    'icon_wechat2.png',
-    'icon_copy_url.png'
-  ];
-  ShareDialog({
+  List<String> nameItems;
+  List<String> urlItems;
+
+  ShareDialog(
+    this.nameItems,
+    this.urlItems, {
     required this.title,
     required this.url,
     this.imageUrl,
+    this.transaction,
     this.height,
     this.showCancel,
   });
@@ -21,6 +20,7 @@ class ShareDialog extends StatelessWidget {
   final String url;
   final String title;
   final String? imageUrl;
+  final String? transaction;
   double? height;
   bool? showCancel;
 
@@ -76,7 +76,7 @@ class ShareDialog extends StatelessWidget {
     return GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
-          // _share(index);
+          _share(index);
           if (showCancel ?? true) Navigator.pop(context);
         },
         child: Container(
@@ -96,18 +96,18 @@ class ShareDialog extends StatelessWidget {
         ));
   }
 
-// void _share(int type) {
-//   if (type == 0) {
-//     _shareWeChat(WeChatScene.SESSION);
-//   } else if (type == 1) {
-//     _shareWeChat(WeChatScene.TIMELINE);
-//   } else {
-//     UiUtils.clipboard(url);
-//   }
-// }
-//
-// void _shareWeChat(WeChatScene chatScene) {
-//   WechatUtils.shareWeChat(title, url, "更多有趣的灵魂都在淘玩咖APP里等你哦", chatScene,
-//       thumbnail: imageUrl);
-// }
+void _share(int type) {
+  if (type == 0) {
+    _shareWeChat(WeChatScene.SESSION);
+  } else if (type == 1) {
+    _shareWeChat(WeChatScene.TIMELINE);
+  } else {
+    UiUtils.clipboard(url);
+  }
+}
+
+void _shareWeChat(WeChatScene chatScene) {
+  WechatUtils.shareWeChat(title, url, chatScene,
+      transaction: transaction, thumbnail: imageUrl);
+}
 }

@@ -41,6 +41,10 @@ dependencies:
   cached_network_image: ^3.2.3
   flutter_tts: ^3.6.3
   fluwx: ^3.12.2
+  ota_update: ^4.0.2
+  # WebView插件 https://github.com/flutter/plugins/tree/master/packages/webview_flutter
+  webview_flutter: ^4.0.6
+  flutter_svg: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -74,9 +78,9 @@ flutter:
         fileName: yqcommon_web.dart
 
   # To add assets to your plugin package, add an assets section, like this:
-  assets:
-    - assets/
-    - assets/data/
+#  assets:
+#    - assets/
+#    - assets/data/
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages
