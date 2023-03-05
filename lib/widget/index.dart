@@ -13,3 +13,4 @@ export 'widget_to_image.dart';
 export 'count_item_widget.dart';
 export 'check_box_widget.dart';
 export 'chip_widget.dart';
+export 'voice_widget.dart';

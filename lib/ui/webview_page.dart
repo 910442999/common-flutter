@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../utils/index.dart';
 import '../res/index.dart';
@@ -107,7 +108,17 @@ Page resource error:
 
     _controller = controller;
   }
-
+  _loadHtmlFromAssets(String? fileHtml) async {
+    if (!TextUtil.isEmpty(fileHtml)) {
+      String fileHtmlContents =
+      await rootBundle.loadString("assets/web/" + fileHtml!);
+      // _controller.future.then((v) => v?.loadUrl(Uri.dataFromString(
+      //     fileHtmlContents,
+      //     mimeType: 'text/html',
+      //     encoding: Encoding.getByName('utf-8'))
+      //     .toString()));
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

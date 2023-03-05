@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yqcommon/utils/index.dart';
 
 import '../res/index.dart';
 
@@ -17,11 +18,13 @@ class CountItemWidget extends StatefulWidget {
 
   final clickCallback addClick;
   final clickCallback subClick;
+  String? toastContent;
 
   CountItemWidget({
     Key? key,
     this.isEnable = true,
     required this.count,
+    this.toastContent,
     required this.multiplier,
     required this.addClick,
     required this.subClick,
@@ -33,12 +36,14 @@ class CountItemWidget extends StatefulWidget {
 class _CountItemWidgetState extends State<CountItemWidget> {
   /// 数量
   late int _count;
+  String? toastContent;
   late int _multiplier;
 
   void initState() {
     super.initState();
     this._count = widget.count;
     this._multiplier = widget.multiplier;
+    this.toastContent = widget.toastContent;
   }
 
   Widget _centerNumber() {
@@ -84,6 +89,7 @@ class _CountItemWidgetState extends State<CountItemWidget> {
       onTap: () {
         if (!widget.isEnable) {
           print("禁止响应");
+          if (toastContent != null) ToastUtils.show(toastContent!);
           return;
         }
         setState(() {
