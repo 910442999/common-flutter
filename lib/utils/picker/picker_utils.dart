@@ -206,6 +206,7 @@ class PickerUtils {
     clickBeforeCallBack,
     Function(List<int> selecteds, List<dynamic> strData)? dataCallback,
   }) {
+    Color primaryColor = Theme.of(context).primaryColor;
     Picker picker = Picker(
       title: Text(title ?? "请选择",
           style: const TextStyle(color: kTitleColor, fontSize: kTextFontSize)),
@@ -214,8 +215,7 @@ class PickerUtils {
       confirmText: '确定',
       cancelTextStyle:
       const TextStyle(color: kBtnColor, fontSize: kTextFontSize),
-      confirmTextStyle:
-      const TextStyle(color: Colours.app_main, fontSize: kTextFontSize),
+      confirmTextStyle: TextStyle(color: primaryColor, fontSize: kTextFontSize),
       itemExtent: kItemHeight,
       height: kPickerHeight,
       selecteds: normalIndex,

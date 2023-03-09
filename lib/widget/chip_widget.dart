@@ -4,24 +4,26 @@ import '/res/colors.dart';
 /**
  * 自定义Chip
  */
-Widget ChipWidget(String name, bool isSelected,
-    {Color borderColor = Colours.app_main,
+Widget ChipWidget(BuildContext context, String name, bool isSelected,
+    {Color? borderColor,
     Color unBorderColor = Colours.bg_gray,
     Color textColor = Colours.text_gray,
     double fontSize = 12,
     bool border = true, //边框or填充
     EdgeInsetsGeometry? padding}) {
+  Color primaryColor = Theme.of(context).primaryColor;
   return Container(
     alignment: Alignment.center,
     padding: padding,
     decoration: isSelected
         ? border
             ? BoxDecoration(
-                border: Border.all(width: 1, color: borderColor),
+                border:
+                    Border.all(width: 1, color: borderColor ?? primaryColor),
                 borderRadius: BorderRadius.circular(20.0),
               )
             : BoxDecoration(
-                color: borderColor,
+                color: borderColor ?? primaryColor,
                 borderRadius: BorderRadius.circular(20.0),
               )
         : border

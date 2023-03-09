@@ -5,12 +5,13 @@ import '../res/index.dart';
 /**
  * 复选框
  */
-Widget CheckBoxWidget(String name, bool isSelected,
-    {Color borderColor = Colours.app_main,
+Widget CheckBoxWidget(BuildContext context, String name, bool isSelected,
+    {Color? borderColor,
     Color textColor = Colours.material_bg,
     double fontSize = 13,
     EdgeInsetsGeometry? padding,
     VoidCallback? onPressed}) {
+  Color primaryColor = Theme.of(context).primaryColor;
   var child = Container(
     alignment: Alignment.center,
     padding: padding,
@@ -23,7 +24,7 @@ Widget CheckBoxWidget(String name, bool isSelected,
     ),
     decoration: isSelected
         ? BoxDecoration(
-            color: Colours.app_main,
+            color: borderColor ?? primaryColor,
             borderRadius: BorderRadius.circular(20.0),
           )
         : BoxDecoration(

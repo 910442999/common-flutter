@@ -22,15 +22,6 @@ class TextStyles {
   static const TextStyle textBold26 =
   TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold);
 
-  static const TextStyle textMain18 = TextStyle(
-    fontSize: Dimens.font_sp18,
-    color: Colours.app_main,
-  );
-  static const TextStyle textMain16 = TextStyle(
-    fontSize: Dimens.font_sp16,
-    color: Colours.app_main,
-  );
-
   static const TextStyle textWhite14 = TextStyle(
     fontSize: Dimens.font_sp14,
     color: Colors.white,

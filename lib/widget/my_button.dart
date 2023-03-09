@@ -59,7 +59,7 @@ class MyButton extends StatelessWidget {
                       : Colours.button_disabled);
             }
             return backgroundColor ??
-                (isDark ? Colours.dark_app_main : Colours.app_main);
+                (isDark ? Theme.of(context).primaryColorDark : Theme.of(context).primaryColor);
           }),
           // 水波纹
           overlayColor: MaterialStateProperty.resolveWith((states) {

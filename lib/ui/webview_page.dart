@@ -108,10 +108,11 @@ Page resource error:
 
     _controller = controller;
   }
+
   _loadHtmlFromAssets(String? fileHtml) async {
     if (!TextUtil.isEmpty(fileHtml)) {
       String fileHtmlContents =
-      await rootBundle.loadString("assets/web/" + fileHtml!);
+          await rootBundle.loadString("assets/web/" + fileHtml!);
       // _controller.future.then((v) => v?.loadUrl(Uri.dataFromString(
       //     fileHtmlContents,
       //     mimeType: 'text/html',
@@ -119,15 +120,17 @@ Page resource error:
       //     .toString()));
     }
   }
+
   @override
   Widget build(BuildContext context) {
+    Color primaryColor = Theme.of(context).primaryColor;
     return WillPopScope(
       onWillPop: () async {
-          final bool canGoBack = await _controller.canGoBack();
-          if (canGoBack) {
-            // 网页可以返回时，优先返回上一页
-            await _controller.goBack();
-            return Future.value(false);
+        final bool canGoBack = await _controller.canGoBack();
+        if (canGoBack) {
+          // 网页可以返回时，优先返回上一页
+          await _controller.goBack();
+          return Future.value(false);
         }
         return Future.value(true);
       },
@@ -142,8 +145,7 @@ Page resource error:
               LinearProgressIndicator(
                 value: _progressValue / 100,
                 backgroundColor: Colors.transparent,
-                valueColor:
-                const AlwaysStoppedAnimation<Color>(Colours.app_main),
+                valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
                 minHeight: 2,
               )
             else
