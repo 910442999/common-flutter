@@ -7,12 +7,14 @@ import '../../../res/styles.dart';
 class TimeLineWidget extends StatefulWidget {
   int type;
   String title;
-  String content;
+  String? content;
+  Widget? widget;
   Color colorPrimary;
 
   TimeLineWidget({
     required this.title,
-    required this.content,
+    this.content,
+    this.widget,
     required this.colorPrimary,
     this.type = 0,
   });
@@ -102,11 +104,14 @@ class _TimeLineWidgetState extends State<TimeLineWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(widget.title, style: TextStyles.textBoldDark16),
-                    Gaps.vGap5,
-                    Text(
-                      widget.content,
-                      style: TextStyles.textGray14,
-                    ),
+                    if (widget.content != null) Gaps.vGap5,
+                    if (widget.content != null)
+                      Text(
+                        widget.content.toString(),
+                        style: TextStyles.textGray14,
+                      ),
+                    if (widget.widget != null) Gaps.vGap5,
+                    if (widget.widget != null) widget.widget!,
                   ]),
             ),
           ),
