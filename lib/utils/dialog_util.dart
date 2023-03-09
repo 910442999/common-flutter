@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:yqcommon/res/colors.dart';
 import '../res/gaps.dart';
 import '../widget/dialog/check_box_dialog.dart';
 import '../widget/dialog/menu_dialog.dart';
@@ -179,6 +180,8 @@ class DialogUtil {
     if (tips.isEmpty) {
       return;
     }
+    List<Function()> values = tips.values.toList();
+    List<String> keys = tips.keys.toList();
     showModalBottomSheet(
       context: mContext,
       builder: (context) => SafeArea(
@@ -189,13 +192,17 @@ class DialogUtil {
               controller: ScrollController(),
               itemCount: tips.length,
               itemBuilder: (BuildContext context, int index) {
-                return MyButton(
-                    minHeight: 60,
+                return TextButton(
                     onPressed: () {
-                      Function() clickEvent = tips.values.toList()[index];
+                      Function() clickEvent = values[index];
                       Navigator.pop(mContext);
                       clickEvent();
-                    });
+                    },
+                    style: ButtonStyle(minimumSize: MaterialStateProperty.all<Size>(const Size(double.infinity, 60))),
+                    child: Text(
+                      keys[index],
+                      style: const TextStyle(color:Colours.black_333333,fontSize: 18),
+                    ));
               },
               separatorBuilder: (BuildContext context, int index) {
                 return Container(
@@ -260,11 +267,12 @@ class DialogUtil {
           return MenuDialog(nameItems, urlItems, onSelected);
         });
   }
+
   /// 更多的 menu，用于处理会话页面更多按钮等
   static Widget showMoreMenu(List<String> actionList,
       {Widget? child,
-        EdgeInsetsGeometry? padding,
-        Function(String key)? onSelected}) {
+      EdgeInsetsGeometry? padding,
+      Function(String key)? onSelected}) {
     List<PopupMenuEntry<String>> items = [];
     actionList.forEach((key) {
       PopupMenuItem<String> p = PopupMenuItem(
