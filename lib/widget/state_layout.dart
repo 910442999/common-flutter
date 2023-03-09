@@ -12,6 +12,7 @@ class StateLayout extends StatelessWidget {
       this.hintText,
       this.image,
       this.pressedText,
+      this.primaryColor,
       this.onPressed})
       : super(key: key);
 
@@ -20,21 +21,21 @@ class StateLayout extends StatelessWidget {
   final String? image;
   final VoidCallback? onPressed;
   final String? pressedText;
-
+  final Color? primaryColor;
   @override
   Widget build(BuildContext context) {
-    // final Color primaryColor = Theme.of(context).primaryColor;
     return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           if (type == StateType.loading)
-            const CircularProgressIndicator(
-              color: Colours.app_main,
+            CircularProgressIndicator(
+              color: primaryColor,
             )
           else if (type != StateType.empty)
             Opacity(
-              opacity: Theme.of(context).brightness == Brightness.dark ? 0.5 : 1,
+              opacity:
+                  Theme.of(context).brightness == Brightness.dark ? 0.5 : 1,
               child: LoadAssetImage(
                 type != StateType.order ||
                         image == null ||
