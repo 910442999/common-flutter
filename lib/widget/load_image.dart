@@ -100,6 +100,7 @@ class LoadAssetImage extends StatelessWidget {
       this.fit,
       this.format = ImageFormat.png,
       this.color,
+      this.package,
       this.onPressed})
       : super(key: key);
 
@@ -112,7 +113,7 @@ class LoadAssetImage extends StatelessWidget {
   final ImageFormat format;
   final Color? color;
   final VoidCallback? onPressed;
-
+  final String? package;
   @override
   Widget build(BuildContext context) {
     Widget widget = Image.asset(
@@ -123,7 +124,7 @@ class LoadAssetImage extends StatelessWidget {
       cacheHeight: cacheHeight,
       fit: fit,
       color: color,
-
+      package:package,
       /// 忽略图片语义
       excludeFromSemantics: true,
     );
