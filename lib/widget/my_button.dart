@@ -6,7 +6,7 @@ import '/res/dimens.dart';
 class MyButton extends StatelessWidget {
   const MyButton({
     Key? key,
-    this.text = '',
+    required this.text,
     this.fontSize = Dimens.font_sp18,
     this.textColor,
     this.disabledTextColor,

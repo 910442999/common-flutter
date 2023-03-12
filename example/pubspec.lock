@@ -217,6 +217,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.1.4"
+  fixnum:
+    dependency: transitive
+    description:
+      name: fixnum
+      sha256: "25517a4deb0c03aa0f32fd12db525856438902d9c16536311e76cdc57b31d7d1"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -480,6 +488,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.8.2"
+  path_drawing:
+    dependency: transitive
+    description:
+      name: path_drawing
+      sha256: bbb1934c0cbb03091af082a6389ca2080345291ef07a5fa6d6e078ba8682f977
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.1"
   path_parsing:
     dependency: transitive
     description:
@@ -632,6 +648,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.2.4"
+  protobuf:
+    dependency: transitive
+    description:
+      name: protobuf
+      sha256: "01dd9bd0fa02548bf2ceee13545d4a0ec6046459d847b6b061d8a27237108a08"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.0"
   provider:
     dependency: transitive
     description:
@@ -765,6 +789,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.0"
+  svgaplayer_flutter:
+    dependency: transitive
+    description:
+      name: svgaplayer_flutter
+      sha256: "13ad44aabb454e0094962b260c5333662fbd2879c7f9f8d2595b3c4b79817651"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.2.0"
   synchronized:
     dependency: transitive
     description:

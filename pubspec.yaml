@@ -45,6 +45,7 @@ dependencies:
   # WebView插件 https://github.com/flutter/plugins/tree/master/packages/webview_flutter
   webview_flutter: ^4.0.6
   flutter_svg: ^2.0.2
+  svgaplayer_flutter: ^2.2.0
   flutter_plugin_record_plus: ^0.0.15
 
 dev_dependencies:
@@ -74,9 +75,9 @@ flutter:
         pluginClass: YqcommonPlugin
       ios:
         pluginClass: YqcommonPlugin
-      web:
-        pluginClass: YqcommonWeb
-        fileName: yqcommon_web.dart
+#      web:
+#        pluginClass: YqcommonWeb
+#        fileName: yqcommon_web.dart
 
   # To add assets to your plugin package, add an assets section, like this:
 #  assets:

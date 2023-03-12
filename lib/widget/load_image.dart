@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../utils/index.dart';
@@ -59,27 +60,47 @@ class LoadImage extends StatelessWidget {
       } else if (borderRadius != null) {
         _imageWidget = ClipRRect(
             borderRadius: borderRadius,
-            child: CachedNetworkImage(
-              imageUrl: image!,
-              placeholder: (_, __) => _image,
-              errorWidget: (_, __, dynamic error) => _image,
-              width: width,
-              height: height,
-              fit: fit,
-              memCacheWidth: cacheWidth,
-              memCacheHeight: cacheHeight,
-            ));
+            child: kIsWeb
+                ? Image.network(
+                    image!,
+                    height: height,
+                    width: width,
+                    cacheWidth: cacheWidth,
+                    cacheHeight: cacheHeight,
+                    fit: fit,
+                    excludeFromSemantics: true,
+                  )
+                : CachedNetworkImage(
+                    imageUrl: image!,
+                    placeholder: (_, __) => _image,
+                    errorWidget: (_, __, dynamic error) => _image,
+                    width: width,
+                    height: height,
+                    fit: fit,
+                    memCacheWidth: cacheWidth,
+                    memCacheHeight: cacheHeight,
+                  ));
       } else {
-        _imageWidget = CachedNetworkImage(
-          imageUrl: image!,
-          placeholder: (_, __) => _image,
-          errorWidget: (_, __, dynamic error) => _image,
-          width: width,
-          height: height,
-          fit: fit,
-          memCacheWidth: cacheWidth,
-          memCacheHeight: cacheHeight,
-        );
+        _imageWidget = kIsWeb
+            ? Image.network(
+                image!,
+                height: height,
+                width: width,
+                cacheWidth: cacheWidth,
+                cacheHeight: cacheHeight,
+                fit: fit,
+                excludeFromSemantics: true,
+              )
+            : CachedNetworkImage(
+                imageUrl: image!,
+                placeholder: (_, __) => _image,
+                errorWidget: (_, __, dynamic error) => _image,
+                width: width,
+                height: height,
+                fit: fit,
+                memCacheWidth: cacheWidth,
+                memCacheHeight: cacheHeight,
+              );
       }
     }
     return GestureDetector(
@@ -114,6 +135,7 @@ class LoadAssetImage extends StatelessWidget {
   final Color? color;
   final VoidCallback? onPressed;
   final String? package;
+
   @override
   Widget build(BuildContext context) {
     Widget widget = Image.asset(
@@ -124,7 +146,8 @@ class LoadAssetImage extends StatelessWidget {
       cacheHeight: cacheHeight,
       fit: fit,
       color: color,
-      package:package,
+      package: package,
+
       /// 忽略图片语义
       excludeFromSemantics: true,
     );
