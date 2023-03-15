@@ -13,7 +13,7 @@ class LoadImage extends StatelessWidget {
     this.height,
     this.fit = BoxFit.cover,
     this.format = ImageFormat.png,
-    this.holderImg = "state/empty",
+    this.holderImg,
     this.cacheWidth,
     this.cacheHeight,
     this.circleRadius,
@@ -26,7 +26,7 @@ class LoadImage extends StatelessWidget {
   final double? height;
   final BoxFit fit;
   final ImageFormat format;
-  final String holderImg;
+  final String? holderImg;
   final int? cacheWidth;
   final int? cacheHeight;
   final double? circleRadius;
@@ -125,7 +125,7 @@ class LoadAssetImage extends StatelessWidget {
       this.onPressed})
       : super(key: key);
 
-  final String image;
+  final String? image;
   final double? width;
   final double? height;
   final int? cacheWidth;
@@ -139,14 +139,14 @@ class LoadAssetImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget widget = Image.asset(
-      ImageUtils.getImgPath(image, format: format),
+      image == null ? "assets/images/empty.png" : ImageUtils.getImgPath(image!, format: format),
       height: height,
       width: width,
       cacheWidth: cacheWidth,
       cacheHeight: cacheHeight,
       fit: fit,
       color: color,
-      package: package,
+      package: image == null ? "yqcommon" : package,
 
       /// 忽略图片语义
       excludeFromSemantics: true,

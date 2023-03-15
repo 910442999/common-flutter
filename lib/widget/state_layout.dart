@@ -6,14 +6,13 @@ import '../../../widget/index.dart';
 
 /// design/9暂无状态页面/index.html#artboard3
 class StateLayout extends StatelessWidget {
-  const StateLayout(
-      {Key? key,
-      required this.type,
-      this.hintText,
-      this.image,
-      this.pressedText,
-      this.primaryColor,
-      this.onPressed})
+  const StateLayout({Key? key,
+    required this.type,
+    this.hintText,
+    this.image,
+    this.pressedText,
+    this.primaryColor,
+    this.onPressed})
       : super(key: key);
 
   final StateType type;
@@ -22,6 +21,7 @@ class StateLayout extends StatelessWidget {
   final VoidCallback? onPressed;
   final String? pressedText;
   final Color? primaryColor;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,26 +32,29 @@ class StateLayout extends StatelessWidget {
             CircularProgressIndicator(
               color: primaryColor,
             )
-          else if (type != StateType.empty)
-            Opacity(
-              opacity:
-                  Theme.of(context).brightness == Brightness.dark ? 0.5 : 1,
-              child: LoadAssetImage(
-                type != StateType.order ||
-                        image == null ||
-                        TextUtil.isEmpty(image)
-                    ? '${type.img}'
-                    : image!,
-                width: 120,
+          else
+            if (type != StateType.empty)
+              Opacity(
+                opacity:
+                Theme
+                    .of(context)
+                    .brightness == Brightness.dark ? 0.5 : 1,
+                child: LoadAssetImage(
+                  image == null &&
+                      TextUtil.isEmpty(image)
+                      ? '${type.img}'
+                      : image!,
+                  width: 120,
+                ),
               ),
-            ),
           const SizedBox(
             width: double.infinity,
             height: Dimens.gap_dp16,
           ),
           Text(
             hintText ?? type.hintText,
-            style: Theme.of(context)
+            style: Theme
+                .of(context)
                 .textTheme
                 .subtitle2
                 ?.copyWith(fontSize: Dimens.font_sp14),
@@ -100,7 +103,8 @@ enum StateType {
 }
 
 extension StateTypeExtension on StateType {
-  String get img => <String>[
+  String get img =>
+      <String>[
         'state/zwdd',
         'state/zwsp',
         'state/zwwl',
@@ -111,7 +115,8 @@ extension StateTypeExtension on StateType {
         "other"
       ][index];
 
-  String get hintText => <String>[
+  String get hintText =>
+      <String>[
         '暂无订单',
         '暂无内容',
         '网络连接异常，请检查网络！',
