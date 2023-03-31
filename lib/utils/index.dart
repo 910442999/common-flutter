@@ -20,5 +20,8 @@ export 'image_utils.dart';
 export 'html_util.dart';
 export 'tts_util.dart';
 export 'wechat_utils.dart';
+export 'package:oktoast/oktoast.dart';
+export 'package:flutter_easyloading/flutter_easyloading.dart';
+
 
 

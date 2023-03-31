@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:yqcommon/utils/index.dart';
 import 'package:yqcommon/widget/dialog/update_dialog.dart';
 
 import 'splash_page.dart';
@@ -33,6 +34,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: SplashPage());
+    return const OKToast(
+        backgroundColor: Colors.black54,
+        textPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+        radius: 20.0,
+        dismissOtherOnShow: true,
+        position: ToastPosition.bottom,
+        child: MaterialApp(home: SplashPage()));
   }
 }
