@@ -16,4 +16,3 @@ export 'chip_widget.dart';
 export 'voice_widget.dart';
 export 'time_line_widget.dart';
 export 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
-export 'package:bruno/bruno.dart';
