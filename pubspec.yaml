@@ -47,6 +47,7 @@ dependencies:
   flutter_svg: ^2.0.2
   svgaplayer_flutter: ^2.2.0
   flutter_plugin_record_plus: ^0.0.15
+  bruno: ^3.3.0
 
 dev_dependencies:
   flutter_test:
