@@ -13,7 +13,7 @@ class LoadImage extends StatelessWidget {
     this.height,
     this.fit = BoxFit.cover,
     this.format = ImageFormat.png,
-    this.holderImg = "assets/images/empty.png",
+    this.holderImg,
     this.cacheWidth,
     this.cacheHeight,
     this.circleRadius,
@@ -26,7 +26,7 @@ class LoadImage extends StatelessWidget {
   final double? height;
   final BoxFit fit;
   final ImageFormat format;
-  final String holderImg;
+  final String? holderImg;
   final int? cacheWidth;
   final int? cacheHeight;
   final double? circleRadius;
@@ -125,7 +125,7 @@ class LoadAssetImage extends StatelessWidget {
       this.onPressed})
       : super(key: key);
 
-  final String image;
+  final String? image;
   final double? width;
   final double? height;
   final int? cacheWidth;
@@ -138,19 +138,21 @@ class LoadAssetImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget widget = Image.asset(
-      ImageUtils.getImgPath(image, format: format),
-      height: height,
-      width: width,
-      cacheWidth: cacheWidth,
-      cacheHeight: cacheHeight,
-      fit: fit,
-      color: color,
-      package: package,
+    Widget widget = image == null
+        ? CircularProgressIndicator(color: color)
+        : Image.asset(
+            ImageUtils.getImgPath(image!, format: format),
+            height: height,
+            width: width,
+            cacheWidth: cacheWidth,
+            cacheHeight: cacheHeight,
+            fit: fit,
+            color: color,
+            package: package,
 
-      /// 忽略图片语义
-      excludeFromSemantics: true,
-    );
+            /// 忽略图片语义
+            excludeFromSemantics: true,
+          );
     if (onPressed == null) {
       return widget;
     }
