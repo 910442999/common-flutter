@@ -30,7 +30,9 @@ class StateLayout extends StatelessWidget {
         children: <Widget>[
           if (type == StateType.loading)
             CircularProgressIndicator(
-              color: primaryColor,
+              color: primaryColor ?? Theme
+                  .of(context)
+                  .primaryColor,
             )
           else
             if (type != StateType.empty)

@@ -14,13 +14,8 @@ class ImageUtils {
     return 'assets/images/$name.${format.value}';
   }
 
-  static ImageProvider getImageProvider(String? imageUrl,
-      {String? holderImg, String? package}) {
-    if (TextUtil.isEmpty(imageUrl)) {
-      return AssetImage(getImgPath(holderImg ?? "empty"),
-          package: holderImg == null ? "yqcommon" : package);
-    }
-    return CachedNetworkImageProvider(imageUrl!);
+  static ImageProvider getImageProvider(String imageUrl) {
+    return CachedNetworkImageProvider(imageUrl);
   }
 }
 

@@ -25,17 +25,17 @@ class _ImagePreviewPageState extends State<ImagePreviewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(children: <Widget>[
-      Center(
-          child: SingleChildScrollView(
-        child: _getImageWidget(),
-      )),
-      Container(
-          height: 80,
-          child: const MyAppBar(
-            backImgColor: Colours.material_bg,
-            backgroundColor: Colours.translucent50,
-          ))
-    ]));
+          Center(
+              child: SingleChildScrollView(
+                child: _getImageWidget(),
+              )),
+          Container(
+              height: 80,
+              child: const MyAppBar(
+                backImgColor: Colours.material_bg,
+                backgroundColor: Colours.translucent50,
+              ))
+        ]));
   }
 
   //优先加载本地路径图片，否则加载网络图片
@@ -58,8 +58,11 @@ class _ImagePreviewPageState extends State<ImagePreviewPage> {
               child: CircularProgressIndicator(
                 value: loadingProgress.expectedTotalBytes != null
                     ? loadingProgress.cumulativeBytesLoaded /
-                        loadingProgress.expectedTotalBytes!
+                    loadingProgress.expectedTotalBytes!
                     : null,
+                color: Theme
+                    .of(context)
+                    .primaryColor,
               ),
             );
           }

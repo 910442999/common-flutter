@@ -6,8 +6,7 @@ import '../../../utils/index.dart';
 
 /// 图片加载（支持本地与网络图片）
 class LoadImage extends StatelessWidget {
-  LoadImage(
-    this.image, {
+  LoadImage(this.image, {
     Key? key,
     this.width,
     this.height,
@@ -53,54 +52,52 @@ class LoadImage extends StatelessWidget {
       if (circleRadius != null) {
         _imageWidget = CircleAvatar(
           radius: circleRadius,
-          backgroundColor: Colors.transparent,
-          backgroundImage:
-              ImageUtils.getImageProvider(image, holderImg: holderImg),
+          backgroundImage: ImageUtils.getImageProvider(image!),
         );
       } else if (borderRadius != null) {
         _imageWidget = ClipRRect(
             borderRadius: borderRadius,
             child: kIsWeb
                 ? Image.network(
-                    image!,
-                    height: height,
-                    width: width,
-                    cacheWidth: cacheWidth,
-                    cacheHeight: cacheHeight,
-                    fit: fit,
-                    excludeFromSemantics: true,
-                  )
+              image!,
+              height: height,
+              width: width,
+              cacheWidth: cacheWidth,
+              cacheHeight: cacheHeight,
+              fit: fit,
+              excludeFromSemantics: true,
+            )
                 : CachedNetworkImage(
-                    imageUrl: image!,
-                    placeholder: (_, __) => _image,
-                    errorWidget: (_, __, dynamic error) => _image,
-                    width: width,
-                    height: height,
-                    fit: fit,
-                    memCacheWidth: cacheWidth,
-                    memCacheHeight: cacheHeight,
-                  ));
+              imageUrl: image!,
+              placeholder: (_, __) => _image,
+              errorWidget: (_, __, dynamic error) => _image,
+              width: width,
+              height: height,
+              fit: fit,
+              memCacheWidth: cacheWidth,
+              memCacheHeight: cacheHeight,
+            ));
       } else {
         _imageWidget = kIsWeb
             ? Image.network(
-                image!,
-                height: height,
-                width: width,
-                cacheWidth: cacheWidth,
-                cacheHeight: cacheHeight,
-                fit: fit,
-                excludeFromSemantics: true,
-              )
+          image!,
+          height: height,
+          width: width,
+          cacheWidth: cacheWidth,
+          cacheHeight: cacheHeight,
+          fit: fit,
+          excludeFromSemantics: true,
+        )
             : CachedNetworkImage(
-                imageUrl: image!,
-                placeholder: (_, __) => _image,
-                errorWidget: (_, __, dynamic error) => _image,
-                width: width,
-                height: height,
-                fit: fit,
-                memCacheWidth: cacheWidth,
-                memCacheHeight: cacheHeight,
-              );
+          imageUrl: image!,
+          placeholder: (_, __) => _image,
+          errorWidget: (_, __, dynamic error) => _image,
+          width: width,
+          height: height,
+          fit: fit,
+          memCacheWidth: cacheWidth,
+          memCacheHeight: cacheHeight,
+        );
       }
     }
     return GestureDetector(
@@ -114,15 +111,15 @@ class LoadImage extends StatelessWidget {
 class LoadAssetImage extends StatelessWidget {
   const LoadAssetImage(this.image,
       {Key? key,
-      this.width,
-      this.height,
-      this.cacheWidth,
-      this.cacheHeight,
-      this.fit,
-      this.format = ImageFormat.png,
-      this.color,
-      this.package,
-      this.onPressed})
+        this.width,
+        this.height,
+        this.cacheWidth,
+        this.cacheHeight,
+        this.fit,
+        this.format = ImageFormat.png,
+        this.color,
+        this.package,
+        this.onPressed})
       : super(key: key);
 
   final String? image;
@@ -139,20 +136,21 @@ class LoadAssetImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget widget = image == null
-        ? CircularProgressIndicator(color: color)
+        ? SizedBox(height: height,
+        width: width)
         : Image.asset(
-            ImageUtils.getImgPath(image!, format: format),
-            height: height,
-            width: width,
-            cacheWidth: cacheWidth,
-            cacheHeight: cacheHeight,
-            fit: fit,
-            color: color,
-            package: package,
+      ImageUtils.getImgPath(image!, format: format),
+      height: height,
+      width: width,
+      cacheWidth: cacheWidth,
+      cacheHeight: cacheHeight,
+      fit: fit,
+      color: color,
+      package: package,
 
-            /// 忽略图片语义
-            excludeFromSemantics: true,
-          );
+      /// 忽略图片语义
+      excludeFromSemantics: true,
+    );
     if (onPressed == null) {
       return widget;
     }
