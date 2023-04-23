@@ -85,7 +85,7 @@ class ShareDialog extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.asset(
-                'assets/images/${urlItems[index]}',
+                urlItems[index],
                 width: 40.0,
                 height: 40.0,
                 fit: BoxFit.fill,
