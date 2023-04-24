@@ -324,10 +324,10 @@ packages:
     dependency: transitive
     description:
       name: fluwx
-      sha256: "875fa48b93c15b9d67ec94c70836bb320d6f86834b0ae819ae0c63629e80446a"
+      sha256: "485b19e75f78d1b2ba867bc36d9e726fd236de6fb0f7587e5eaa840e1bef1a4c"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.12.2"
+    version: "3.13.1"
   html:
     dependency: transitive
     description:

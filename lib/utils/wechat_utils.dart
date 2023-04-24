@@ -19,8 +19,8 @@ class WechatUtils {
     return await fluwx.isWeChatInstalled;
   }
 
-  static Future<bool> shareWeChat(String title, String url,
-      WeChatScene chatScene,
+  static Future<bool> shareWeChat(
+      String title, String url, WeChatScene chatScene,
       {String? transaction, String? thumbnail}) async {
     fluwx.WeChatScene scene;
     if (chatScene == WeChatScene.SESSION) {
@@ -37,8 +37,8 @@ class WechatUtils {
           thumbnail: thumbnail == null
               ? null
               : thumbnail.startsWith('https:') || thumbnail.startsWith('http:')
-              ? fluwx.WeChatImage.network(thumbnail)
-              : fluwx.WeChatImage.asset(thumbnail),
+                  ? fluwx.WeChatImage.network(thumbnail)
+                  : fluwx.WeChatImage.asset(thumbnail),
           scene: scene,
           description: transaction); //仅在android上有效。
       return fluwx.shareToWeChat(model);
@@ -48,8 +48,8 @@ class WechatUtils {
     }
   }
 
-  static Future<bool> shareWeChatImage(String title, File file,
-      WeChatScene chatScene,
+  static Future<bool> shareWeChatImage(
+      String title, File file, WeChatScene chatScene,
       {String? transaction, String? thumbnail}) async {
     fluwx.WeChatScene scene;
     if (chatScene == WeChatScene.SESSION) {
@@ -66,8 +66,8 @@ class WechatUtils {
           thumbnail: thumbnail == null
               ? null
               : thumbnail.startsWith('https:') || thumbnail.startsWith('http:')
-              ? fluwx.WeChatImage.network(thumbnail)
-              : fluwx.WeChatImage.asset(thumbnail),
+                  ? fluwx.WeChatImage.network(thumbnail)
+                  : fluwx.WeChatImage.asset(thumbnail),
           scene: scene,
           description: transaction); //仅在android上有效。
       return fluwx.shareToWeChat(model);
@@ -77,9 +77,10 @@ class WechatUtils {
     }
   }
 
-  static Future<bool> shareWeChatMiniProgram(String url, String userName) {
-    var model =
-    fluwx.WeChatShareMiniProgramModel(webPageUrl: url, userName: userName);
+  static Future<bool> shareWeChatMiniProgram(
+      String url, String userName, fluwx.WeChatImage thumbnail) {
+    var model = fluwx.WeChatShareMiniProgramModel(
+        webPageUrl: url, userName: userName, thumbnail: thumbnail);
     return fluwx.shareToWeChat(model);
   }
 

@@ -40,7 +40,7 @@ dependencies:
   audioplayers: ^3.0.1
   cached_network_image: ^3.2.3
   flutter_tts: ^3.6.3
-  fluwx: ^3.12.2
+  fluwx: ^3.13.1
   ota_update: ^4.0.2
   # WebView插件 https://github.com/flutter/plugins/tree/master/packages/webview_flutter
   webview_flutter: ^4.0.6
