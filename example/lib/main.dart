@@ -3,7 +3,6 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:yqcommon/utils/index.dart';
-import 'package:yqcommon/widget/dialog/update_dialog.dart';
 
 import 'splash_page.dart';
 

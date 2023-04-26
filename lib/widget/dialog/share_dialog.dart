@@ -96,18 +96,11 @@ class ShareDialog extends StatelessWidget {
         ));
   }
 
-void _share(int type) {
-  if (type == 0) {
-    _shareWeChat(WeChatScene.SESSION);
-  } else if (type == 1) {
-    _shareWeChat(WeChatScene.TIMELINE);
-  } else {
-    UiUtils.clipboard(url);
+  void _share(int type) {
+    if (type == 0) {
+    } else if (type == 1) {
+    } else {
+      UiUtils.clipboard(url);
+    }
   }
-}
-
-void _shareWeChat(WeChatScene chatScene) {
-  WechatUtils.shareWeChat(title, url, chatScene,
-      transaction: transaction, thumbnail: imageUrl);
-}
 }

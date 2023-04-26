@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:yqcommon/utils/text_util.dart';
 
 class ImageUtils {
   static ImageProvider getAssetImage(String name,
@@ -12,10 +10,6 @@ class ImageUtils {
   static String getImgPath(String name,
       {ImageFormat format = ImageFormat.png}) {
     return 'assets/images/$name.${format.value}';
-  }
-
-  static ImageProvider getImageProvider(String imageUrl) {
-    return CachedNetworkImageProvider(imageUrl);
   }
 }
 

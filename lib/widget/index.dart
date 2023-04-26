@@ -1,6 +1,6 @@
 export 'my_app_bar.dart';
 export 'my_button.dart';
-export 'load_image.dart';
+export 'load_web_image.dart';
 export 'image_button.dart';
 export 'my_card.dart';
 export 'my_scroll_view.dart';
@@ -9,7 +9,6 @@ export 'op_rich_text.dart';
 export 'rating_bar.dart';
 export 'search_bar.dart';
 export 'state_layout.dart';
-export 'widget_to_image.dart';
 export 'count_item_widget.dart';
 export 'check_box_widget.dart';
 export 'chip_widget.dart';

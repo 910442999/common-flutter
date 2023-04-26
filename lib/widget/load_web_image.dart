@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,7 +5,8 @@ import '../../../utils/index.dart';
 
 /// 图片加载（支持本地与网络图片）
 class LoadImage extends StatelessWidget {
-  LoadImage(this.image, {
+  LoadImage(
+    this.image, {
     Key? key,
     this.width,
     this.height,
@@ -50,15 +50,9 @@ class LoadImage extends StatelessWidget {
       _imageWidget = _image;
     } else {
       if (circleRadius != null) {
-        _imageWidget = CircleAvatar(
-          radius: circleRadius,
-          backgroundImage: ImageUtils.getImageProvider(image!),
-        );
-      } else if (borderRadius != null) {
         _imageWidget = ClipRRect(
-            borderRadius: borderRadius,
-            child: kIsWeb
-                ? Image.network(
+            borderRadius: BorderRadius.circular(circleRadius!),
+            child: Image.network(
               image!,
               height: height,
               width: width,
@@ -66,20 +60,21 @@ class LoadImage extends StatelessWidget {
               cacheHeight: cacheHeight,
               fit: fit,
               excludeFromSemantics: true,
-            )
-                : CachedNetworkImage(
-              imageUrl: image!,
-              placeholder: (_, __) => _image,
-              errorWidget: (_, __, dynamic error) => _image,
-              width: width,
+            ));
+      } else if (borderRadius != null) {
+        _imageWidget = ClipRRect(
+            borderRadius: borderRadius,
+            child: Image.network(
+              image!,
               height: height,
+              width: width,
+              cacheWidth: cacheWidth,
+              cacheHeight: cacheHeight,
               fit: fit,
-              memCacheWidth: cacheWidth,
-              memCacheHeight: cacheHeight,
+              excludeFromSemantics: true,
             ));
       } else {
-        _imageWidget = kIsWeb
-            ? Image.network(
+        _imageWidget = Image.network(
           image!,
           height: height,
           width: width,
@@ -87,16 +82,6 @@ class LoadImage extends StatelessWidget {
           cacheHeight: cacheHeight,
           fit: fit,
           excludeFromSemantics: true,
-        )
-            : CachedNetworkImage(
-          imageUrl: image!,
-          placeholder: (_, __) => _image,
-          errorWidget: (_, __, dynamic error) => _image,
-          width: width,
-          height: height,
-          fit: fit,
-          memCacheWidth: cacheWidth,
-          memCacheHeight: cacheHeight,
         );
       }
     }
@@ -111,15 +96,15 @@ class LoadImage extends StatelessWidget {
 class LoadAssetImage extends StatelessWidget {
   const LoadAssetImage(this.image,
       {Key? key,
-        this.width,
-        this.height,
-        this.cacheWidth,
-        this.cacheHeight,
-        this.fit,
-        this.format = ImageFormat.png,
-        this.color,
-        this.package,
-        this.onPressed})
+      this.width,
+      this.height,
+      this.cacheWidth,
+      this.cacheHeight,
+      this.fit,
+      this.format = ImageFormat.png,
+      this.color,
+      this.package,
+      this.onPressed})
       : super(key: key);
 
   final String? image;
@@ -136,21 +121,20 @@ class LoadAssetImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget widget = image == null
-        ? SizedBox(height: height,
-        width: width)
+        ? SizedBox(height: height, width: width)
         : Image.asset(
-      ImageUtils.getImgPath(image!, format: format),
-      height: height,
-      width: width,
-      cacheWidth: cacheWidth,
-      cacheHeight: cacheHeight,
-      fit: fit,
-      color: color,
-      package: package,
+            ImageUtils.getImgPath(image!, format: format),
+            height: height,
+            width: width,
+            cacheWidth: cacheWidth,
+            cacheHeight: cacheHeight,
+            fit: fit,
+            color: color,
+            package: package,
 
-      /// 忽略图片语义
-      excludeFromSemantics: true,
-    );
+            /// 忽略图片语义
+            excludeFromSemantics: true,
+          );
     if (onPressed == null) {
       return widget;
     }
