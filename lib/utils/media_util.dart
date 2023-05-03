@@ -51,14 +51,14 @@ class MediaUtil {
     return PermissionUtils.requestAudioCall(context);
   }
 
-  void pickImage(BuildContext context,
-      {double aspectRatio = 1 / 1,
-      int imageSize = 200,
+  Future<Map<String, dynamic>> pickImage(BuildContext context,
+      {int aspectRatio = 1,
+      int cropStyle = 0,
+      int imageSize = 500,
       bool compress = false,
-      bool cropper = false,
-      Function(bool success, String? data)? success,
-      Function(String message)? fail}) async {
+      bool cropper = false}) async {
     String? filePath;
+    Map<String, dynamic> map = {"code": 0, "message": "", "data": ""};
     try {
       bool permission = await PermissionUtils.requestStorage(context);
       if (permission) {
@@ -71,23 +71,34 @@ class MediaUtil {
           filePath = file.path;
           //是否需要裁剪 ,不需要直接返回文件路径
           if (!cropper) {
-            if (success != null) success(true, filePath);
-            return;
+            map["code"] = 200;
+            map["data"] = filePath;
+            return map;
           }
 
           if (TargetPlatform.android == defaultTargetPlatform) {
             filePath = filePath.replaceFirst("file://", "");
           }
+          List<CropAspectRatioPreset> aspectRatioPresets = [];
+          if (aspectRatio == 1) {
+            aspectRatioPresets.add(CropAspectRatioPreset.square);
+          } else if (aspectRatio == 2) {
+            aspectRatioPresets.add(CropAspectRatioPreset.ratio4x3);
+          }
+          CropStyle style = CropStyle.rectangle;
+          if (cropStyle == 1) {
+            style = CropStyle.circle;
+          }
           CroppedFile? croppedFile = await ImageCropper().cropImage(
               sourcePath: filePath,
-              aspectRatioPresets: [CropAspectRatioPreset.square],
-              cropStyle: CropStyle.circle,
+              aspectRatioPresets: aspectRatioPresets,
+              cropStyle: style,
               uiSettings: [
                 AndroidUiSettings(
                     // toolbarTitle: '编辑图片',
                     toolbarColor: Colors.white,
                     // toolbarWidgetColor: Colors.white,
-                    initAspectRatio: CropAspectRatioPreset.square,
+                    initAspectRatio: aspectRatioPresets[0],
                     hideBottomControls: true,
                     lockAspectRatio: true),
                 IOSUiSettings(
@@ -96,8 +107,9 @@ class MediaUtil {
                 )
               ]);
           if (croppedFile == null) {
-            if (success != null) success(false, null);
-            return;
+            map["code"] = 201;
+            // map["message"] = "图片未裁剪！";
+            return map;
           } else {
             filePath = croppedFile.path;
           }
@@ -106,8 +118,9 @@ class MediaUtil {
 
           //是否需要压缩 ,不需要压缩直接返回文件路径
           if (!compress) {
-            if (success != null) success(true, filePath);
-            return;
+            map["code"] = 200;
+            map["data"] = filePath;
+            return map;
           }
           try {
             String? tempPath = await compressImage(File(filePath));
@@ -116,46 +129,41 @@ class MediaUtil {
               if (tempFile.lengthSync() != null &&
                   tempFile.lengthSync() < imageSize * 1024) {
                 filePath = tempFile.path;
-                if (success != null) success(true, filePath);
-                return;
+                map["code"] = 200;
+                map["data"] = filePath;
+                return map;
               } else {
-                if (success != null) success(false, "图片太大，请裁剪后重新选择！");
-                return;
+                map["code"] = 202;
+                map["message"] = "图片太大，请裁剪后重新选择！";
+                return map;
               }
             } else {
-              if (success != null) success(false, "图片格式不正确！");
-              return;
+              map["code"] = 203;
+              map["message"] = "图片格式不正确！";
+              return map;
             }
           } catch (e) {
-            if (success != null) success(false, null);
-            return;
+            map["code"] = 204;
+            // map["message"] = "图片压缩异常！";
+            return map;
           }
         } else {
           Log.d("从选择相册页面返回未选择图片");
-          if (success != null) success(false, null);
-          return;
+          map["code"] = 205;
+          // map["message"] = "从选择相册页面返回未选择图片！";
+          return map;
         }
       } else {
-        if (fail != null) fail("您暂未授权访问相册权限，请打开设置页授权");
+        map["code"] = 206;
+        map["message"] = "您暂未授权访问相册权限，请打开设置页授权";
+        return map;
       }
     } catch (e) {
-      if (fail != null) fail("图片处理异常");
-      return;
+      map["code"] = 207;
+      map["message"] = "图片处理异常";
+      return map;
     }
   }
-
-  //选择本地文件，成功返回文件信息
-  // Future<List<File>> pickFiles() async {
-  //   // FilePickerResult result =
-  //   //     await FilePicker.platform.pickFiles(allowMultiple: true);
-  //   // if (result != null) {
-  //   //   List<File> files = result.paths.map((path) => File(path)).toList();
-  //   //   return files;
-  //   // } else {
-  //   //   // User canceled the picker
-  //   //   return null;
-  //   // }
-  // }
 
   //开始录音
   void startRecordAudio() async {
@@ -240,7 +248,7 @@ class MediaUtil {
     return path;
   }
 
-  Future<String?> compressImage(File? imageFile, {int imageSize = 200}) async {
+  Future<String?> compressImage(File? imageFile, {int imageSize = 500}) async {
     if (imageFile != null) {
       //不足时 无需压缩
       // if (imageFile != null &&
