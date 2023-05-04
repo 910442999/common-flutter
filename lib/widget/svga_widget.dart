@@ -77,18 +77,14 @@ class _SVGAWidgetState extends State<SVGAWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: SVGAImage(
-          animationController!,
-          fit: widget.fit ?? BoxFit.contain,
-          clearsAfterStop: widget.clearsAfterStop ?? false,
-          allowDrawingOverflow: widget.allowOverflow,
-          filterQuality: widget.filterQuality ??
-              (kIsWeb ? FilterQuality.high : FilterQuality.low),
-          preferredSize: Size(widget.width, widget.height),
-        ),
-      ),
+    return SVGAImage(
+      animationController!,
+      fit: widget.fit ?? BoxFit.contain,
+      clearsAfterStop: widget.clearsAfterStop ?? false,
+      allowDrawingOverflow: widget.allowOverflow,
+      filterQuality: widget.filterQuality ??
+          (kIsWeb ? FilterQuality.high : FilterQuality.low),
+      preferredSize: Size(widget.width, widget.height),
     );
   }
 }
