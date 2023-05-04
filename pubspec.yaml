@@ -21,7 +21,7 @@ dependencies:
   #  路径管理
   path_provider: ^2.0.13
   #  图片剪辑
-  image_cropper: ^3.0.1
+  image_cropper: ^3.0.3
   #  图片压缩
   flutter_luban: ^0.1.13
   #  十进制数计算
