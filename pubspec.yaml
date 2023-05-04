@@ -16,7 +16,7 @@ dependencies:
   oktoast: ^3.3.1
   flutter_easyloading: ^3.0.5
   #  图片剪辑
-  image_cropper: ^3.0.1
+  image_cropper: ^3.0.3
   #  十进制数计算
   decimal: ^2.3.2
   #  数据存储
