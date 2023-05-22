@@ -17,7 +17,7 @@ dependencies:
   flutter_easyloading: ^3.0.5
   permission_handler: ^10.2.0
   #  仿微信选择相册
-  wechat_assets_picker: ^7.2.0
+  wechat_assets_picker: ^8.5.0
   #  路径管理
   path_provider: ^2.0.13
   #  图片剪辑
