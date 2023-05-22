@@ -6,7 +6,7 @@ import 'package:flutter_luban/flutter_luban.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+// import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'log_utils.dart';
 import 'permission_util.dart';
 import 'picker/picker_method.dart';
@@ -63,96 +63,96 @@ class MediaUtil {
       bool permission = await PermissionUtils.requestStorage(context);
       if (permission) {
         //      =================选择图片======================
-        final List<AssetEntity>? result =
-            await PickMethod.image(1).method(context, <AssetEntity>[]);
+        // final List<AssetEntity>? result =
+        //     await PickMethod.image(1).method(context, <AssetEntity>[]);
         //      =================剪辑和压缩图片======================
-        if (result != null) {
-          File file = (await result[0].file)!;
-          filePath = file.path;
-          //是否需要裁剪 ,不需要直接返回文件路径
-          if (!cropper) {
-            map["code"] = 200;
-            map["data"] = filePath;
+        // if (result != null) {
+        //   File file = (await result[0].file)!;
+        //   filePath = file.path;
+        //   //是否需要裁剪 ,不需要直接返回文件路径
+        //   if (!cropper) {
+        //     map["code"] = 200;
+        //     map["data"] = filePath;
             return map;
-          }
-
-          if (TargetPlatform.android == defaultTargetPlatform) {
-            filePath = filePath.replaceFirst("file://", "");
-          }
-          List<CropAspectRatioPreset> aspectRatioPresets = [];
-          if (aspectRatio == 1) {
-            aspectRatioPresets.add(CropAspectRatioPreset.square);
-          } else if (aspectRatio == 2) {
-            aspectRatioPresets.add(CropAspectRatioPreset.ratio4x3);
-          }
-          CropStyle style = CropStyle.rectangle;
-          if (cropStyle == 1) {
-            style = CropStyle.circle;
-          }
-          CroppedFile? croppedFile = await ImageCropper().cropImage(
-              sourcePath: filePath,
-              aspectRatioPresets: aspectRatioPresets,
-              cropStyle: style,
-              uiSettings: [
-                AndroidUiSettings(
-                    // toolbarTitle: '编辑图片',
-                    toolbarColor: Colors.white,
-                    // toolbarWidgetColor: Colors.white,
-                    initAspectRatio: aspectRatioPresets[0],
-                    hideBottomControls: true,
-                    lockAspectRatio: true),
-                IOSUiSettings(
-                  minimumAspectRatio: 1.0,
-                  aspectRatioLockEnabled: true,
-                )
-              ]);
-          if (croppedFile == null) {
-            map["code"] = 201;
-            // map["message"] = "图片未裁剪！";
-            return map;
-          } else {
-            filePath = croppedFile.path;
-          }
-          // Log.e(
-          //     "剪辑后大小 ：${croppedFile?.lengthSync() == null ? '' : PeanutiCommonUtils.getRollupSize(croppedFile?.lengthSync())}");
-
-          //是否需要压缩 ,不需要压缩直接返回文件路径
-          if (!compress) {
-            map["code"] = 200;
-            map["data"] = filePath;
-            return map;
-          }
-          try {
-            String? tempPath = await compressImage(File(filePath));
-            if (!TextUtil.isEmpty(tempPath)) {
-              File tempFile = File(tempPath!);
-              if (tempFile.lengthSync() != null &&
-                  tempFile.lengthSync() < imageSize * 1024) {
-                filePath = tempFile.path;
-                map["code"] = 200;
-                map["data"] = filePath;
-                return map;
-              } else {
-                map["code"] = 202;
-                map["message"] = "图片太大，请裁剪后重新选择！";
-                return map;
-              }
-            } else {
-              map["code"] = 203;
-              map["message"] = "图片格式不正确！";
-              return map;
-            }
-          } catch (e) {
-            map["code"] = 204;
-            // map["message"] = "图片压缩异常！";
-            return map;
-          }
-        } else {
-          Log.d("从选择相册页面返回未选择图片");
-          map["code"] = 205;
-          // map["message"] = "从选择相册页面返回未选择图片！";
-          return map;
-        }
+        //   }
+        //
+        //   if (TargetPlatform.android == defaultTargetPlatform) {
+        //     filePath = filePath.replaceFirst("file://", "");
+        //   }
+        //   // List<CropAspectRatioPreset> aspectRatioPresets = [];
+        //   // if (aspectRatio == 1) {
+        //   //   aspectRatioPresets.add(CropAspectRatioPreset.square);
+        //   // } else if (aspectRatio == 2) {
+        //   //   aspectRatioPresets.add(CropAspectRatioPreset.ratio4x3);
+        //   // }
+        //   // CropStyle style = CropStyle.rectangle;
+        //   // if (cropStyle == 1) {
+        //   //   style = CropStyle.circle;
+        //   // }
+        //   // CroppedFile? croppedFile = await ImageCropper().cropImage(
+        //   //     sourcePath: filePath,
+        //   //     aspectRatioPresets: aspectRatioPresets,
+        //   //     cropStyle: style,
+        //   //     uiSettings: [
+        //   //       AndroidUiSettings(
+        //   //           // toolbarTitle: '编辑图片',
+        //   //           toolbarColor: Colors.white,
+        //   //           // toolbarWidgetColor: Colors.white,
+        //   //           initAspectRatio: aspectRatioPresets[0],
+        //   //           hideBottomControls: true,
+        //   //           lockAspectRatio: true),
+        //   //       IOSUiSettings(
+        //   //         minimumAspectRatio: 1.0,
+        //   //         aspectRatioLockEnabled: true,
+        //   //       )
+        //   //     ]);
+        //   // if (croppedFile == null) {
+        //   //   map["code"] = 201;
+        //   //   // map["message"] = "图片未裁剪！";
+        //   //   return map;
+        //   // } else {
+        //   //   filePath = croppedFile.path;
+        //   // }
+        //   // Log.e(
+        //   //     "剪辑后大小 ：${croppedFile?.lengthSync() == null ? '' : PeanutiCommonUtils.getRollupSize(croppedFile?.lengthSync())}");
+        //
+        //   //是否需要压缩 ,不需要压缩直接返回文件路径
+        //   if (!compress) {
+        //     map["code"] = 200;
+        //     map["data"] = filePath;
+        //     return map;
+        //   }
+        //   try {
+        //     String? tempPath = await compressImage(File(filePath));
+        //     if (!TextUtil.isEmpty(tempPath)) {
+        //       File tempFile = File(tempPath!);
+        //       if (tempFile.lengthSync() != null &&
+        //           tempFile.lengthSync() < imageSize * 1024) {
+        //         filePath = tempFile.path;
+        //         map["code"] = 200;
+        //         map["data"] = filePath;
+        //         return map;
+        //       } else {
+        //         map["code"] = 202;
+        //         map["message"] = "图片太大，请裁剪后重新选择！";
+        //         return map;
+        //       }
+        //     } else {
+        //       map["code"] = 203;
+        //       map["message"] = "图片格式不正确！";
+        //       return map;
+        //     }
+        //   } catch (e) {
+        //     map["code"] = 204;
+        //     // map["message"] = "图片压缩异常！";
+        //     return map;
+        //   }
+        // } else {
+        //   Log.d("从选择相册页面返回未选择图片");
+        //   map["code"] = 205;
+        //   // map["message"] = "从选择相册页面返回未选择图片！";
+        //   return map;
+        // }
       } else {
         map["code"] = 206;
         map["message"] = "您暂未授权访问相册权限，请打开设置页授权";
