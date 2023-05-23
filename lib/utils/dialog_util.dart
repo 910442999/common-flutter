@@ -12,8 +12,8 @@ import 'toast_utils.dart';
 
 class DialogUtil {
   ///加载对话框
-  static void showLoading({String? defValue}) {
-    EasyLoading.show(status: '正在加载...');
+  static void showLoading({String defValue = "正在加载..."}) {
+    EasyLoading.show(status: defValue);
   }
 
   static void dismissLoading() {
@@ -23,14 +23,14 @@ class DialogUtil {
   ///警告对话框(系统)
   static void showAlert(BuildContext context, String? content,
       {String? title,
-      TextSpan? textSpan,
-      String? confirmText, //确定按钮文本
-      String? cancelText, //取消按钮文本
-      Function? onPressed,
-      Function? onCancel,
-      bool isCancel = true,
-      bool onWillPop = true,
-      bool confirmDismiss = true}) {
+        TextSpan? textSpan,
+        String? confirmText, //确定按钮文本
+        String? cancelText, //取消按钮文本
+        Function? onPressed,
+        Function? onCancel,
+        bool isCancel = true,
+        bool onWillPop = true,
+        bool confirmDismiss = true}) {
     List<Widget> actions = [];
     if (isCancel) {
       actions.add(CupertinoDialogAction(
@@ -76,16 +76,16 @@ class DialogUtil {
                     children: <Widget>[
                       content != null && content.isNotEmpty
                           ? Text(
-                              content,
-                              style: const TextStyle(fontSize: 16, height: 1.5),
-                            )
+                        content,
+                        style: const TextStyle(fontSize: 16, height: 1.5),
+                      )
                           : Gaps.empty,
                       textSpan != null
                           ? Text.rich(
-                              textSpan,
-                              style: const TextStyle(
-                                  fontSize: 16, height: 1.5), // 设置整体大小
-                            )
+                        textSpan,
+                        style: const TextStyle(
+                            fontSize: 16, height: 1.5), // 设置整体大小
+                      )
                           : Gaps.empty,
                     ],
                   ),
@@ -98,13 +98,13 @@ class DialogUtil {
   ///输入警告对话框(系统)
   static void showInputAlert(BuildContext context,
       {String? title,
-      String? hintText,
-      String? content,
-      String? inputContent,
-      TextInputType? keyboardType,
-      List<TextInputFormatter>? inputFormatters,
-      bool onWillPop = true,
-      Function(String)? onPressed}) {
+        String? hintText,
+        String? content,
+        String? inputContent,
+        TextInputType? keyboardType,
+        List<TextInputFormatter>? inputFormatters,
+        bool onWillPop = true,
+        Function(String)? onPressed}) {
     //设置textfield使用的控制器对象
     TextEditingController _controller = TextEditingController();
     if (inputContent != null && inputContent.isNotEmpty) {
@@ -175,49 +175,51 @@ class DialogUtil {
   }
 
 //底部弹窗
-  static void showBottomSheetDialog(
-      BuildContext mContext, Map<String, Function()> tips) {
-    if (tips.isEmpty) {
-      return;
-    }
-    List<Function()> values = tips.values.toList();
-    List<String> keys = tips.keys.toList();
-    showModalBottomSheet(
-      context: mContext,
-      builder: (context) => SafeArea(
-        child: SizedBox(
-          height: (60 * tips.length * 1.0),
-          child: ListView.separated(
-              key: UniqueKey(),
-              controller: ScrollController(),
-              itemCount: tips.length,
-              itemBuilder: (BuildContext context, int index) {
-                return TextButton(
-                    onPressed: () {
-                      Function() clickEvent = values[index];
-                      Navigator.pop(mContext);
-                      clickEvent();
-                    },
-                    style: ButtonStyle(minimumSize: MaterialStateProperty.all<Size>(const Size(double.infinity, 60))),
-                    child: Text(
-                      keys[index],
-                      style: const TextStyle(color:Colours.black_333333,fontSize: 18),
-                    ));
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return Container(
-                  color: const Color(0xffC8C8C8),
-                  height: 0.5,
-                );
-              }),
-        ),
-      ),
-    );
+  static void showBottomSheetDialog
+
+  (
+  BuildContext mContext, Map<String, Function()> tips) {
+  if (tips.isEmpty) {
+  return;
+  }
+  List<Function()> values = tips.values.toList();
+  List<String> keys = tips.keys.toList();
+  showModalBottomSheet(
+  context: mContext,
+  builder: (context) => SafeArea(
+  child: SizedBox(
+  height: (60 * tips.length * 1.0),
+  child: ListView.separated(
+  key: UniqueKey(),
+  controller: ScrollController(),
+  itemCount: tips.length,
+  itemBuilder: (BuildContext context, int index) {
+  return TextButton(
+  onPressed: () {
+  Function() clickEvent = values[index];
+  Navigator.pop(mContext);
+  clickEvent();
+  },
+  style: ButtonStyle(minimumSize: MaterialStateProperty.all<Size>(const Size(double.infinity, 60))),
+  child: Text(
+  keys[index],
+  style: const TextStyle(color:Colours.black_333333,fontSize: 18),
+  ));
+  },
+  separatorBuilder: (BuildContext context, int index) {
+  return Container(
+  color: const Color(0xffC8C8C8),
+  height: 0.5,
+  );
+  }),
+  ),
+  ),
+  );
   }
 
   //多选
-  static void showCheckBoxDialog(
-      BuildContext context, String? title, List<String> options,
+  static void showCheckBoxDialog(BuildContext context, String? title,
+      List<String> options,
       {required Function(List<int>, List<String>) onPressed, double? height}) {
     showModalBottomSheet<List<int>>(
         context: context,
@@ -233,7 +235,10 @@ class DialogUtil {
                   topRight: Radius.circular(20.0),
                 ),
               ),
-              height: height ?? MediaQuery.of(context).size.height / 2.0,
+              height: height ?? MediaQuery
+                  .of(context)
+                  .size
+                  .height / 2.0,
               child: CheckBoxDialog(
                 title: title ?? "请选择",
                 options: options,
@@ -271,8 +276,8 @@ class DialogUtil {
   /// 更多的 menu，用于处理会话页面更多按钮等
   static Widget showMoreMenu(List<String> actionList,
       {Widget? child,
-      EdgeInsetsGeometry? padding,
-      Function(String key)? onSelected}) {
+        EdgeInsetsGeometry? padding,
+        Function(String key)? onSelected}) {
     List<PopupMenuEntry<String>> items = [];
     actionList.forEach((key) {
       PopupMenuItem<String> p = PopupMenuItem(

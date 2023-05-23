@@ -53,8 +53,8 @@ class MediaUtil {
   }
 
   Future<Map<String, dynamic>> pickImage(BuildContext context,
-      {int aspectRatio = 1,
-      int cropStyle = 0,
+      {CropAspectRatioPreset aspectRatio = CropAspectRatioPreset.square,
+      CropStyle style = CropStyle.rectangle,
       int imageSize = 500,
       bool cropper = false}) async {
     String? filePath;
@@ -83,26 +83,16 @@ class MediaUtil {
           if (TargetPlatform.android == defaultTargetPlatform) {
             filePath = filePath.replaceFirst("file://", "");
           }
-          List<CropAspectRatioPreset> aspectRatioPresets = [];
-          if (aspectRatio == 1) {
-            aspectRatioPresets.add(CropAspectRatioPreset.square);
-          } else if (aspectRatio == 2) {
-            aspectRatioPresets.add(CropAspectRatioPreset.ratio4x3);
-          }
-          CropStyle style = CropStyle.rectangle;
-          if (cropStyle == 1) {
-            style = CropStyle.circle;
-          }
           CroppedFile? croppedFile = await ImageCropper().cropImage(
               sourcePath: filePath,
-              aspectRatioPresets: aspectRatioPresets,
+              aspectRatioPresets: [aspectRatio],
               cropStyle: style,
               uiSettings: [
                 AndroidUiSettings(
                     // toolbarTitle: '编辑图片',
                     toolbarColor: Colors.white,
                     // toolbarWidgetColor: Colors.white,
-                    initAspectRatio: aspectRatioPresets[0],
+                    initAspectRatio: aspectRatio,
                     hideBottomControls: true,
                     lockAspectRatio: true),
                 IOSUiSettings(
