@@ -7,6 +7,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'file.dart';
 import 'log_utils.dart';
 import 'permission_util.dart';
 import 'picker/picker_method.dart';
@@ -55,7 +56,6 @@ class MediaUtil {
       {int aspectRatio = 1,
       int cropStyle = 0,
       int imageSize = 500,
-      bool compress = false,
       bool cropper = false}) async {
     String? filePath;
     Map<String, dynamic> map = {"code": 0, "message": "", "data": ""};
@@ -65,12 +65,16 @@ class MediaUtil {
         //      =================选择图片======================
         final List<AssetEntity>? result =
             await PickMethod.image(1).method(context, <AssetEntity>[]);
-             // =================剪辑和压缩图片======================
+        // =================剪辑和压缩图片======================
         if (result != null) {
           File file = (await result[0].file)!;
           filePath = file.path;
           //是否需要裁剪 ,不需要直接返回文件路径
           if (!cropper) {
+            if (kDebugMode) {
+              Log.e(
+                  "选择图片后大小 ：${file.lengthSync() == null ? '' : FileUtil.formatFileSize(file.lengthSync())}");
+            }
             map["code"] = 200;
             map["data"] = filePath;
             return map;
@@ -113,40 +117,15 @@ class MediaUtil {
           } else {
             filePath = croppedFile.path;
           }
-          // Log.e(
-          //     "剪辑后大小 ：${croppedFile?.lengthSync() == null ? '' : PeanutiCommonUtils.getRollupSize(croppedFile?.lengthSync())}");
 
-          //是否需要压缩 ,不需要压缩直接返回文件路径
-          if (!compress) {
-            map["code"] = 200;
-            map["data"] = filePath;
-            return map;
+          if (kDebugMode) {
+            var temporaryFile = File(filePath);
+            Log.e(
+                "剪辑后大小 ：${temporaryFile.lengthSync() == null ? '' : FileUtil.formatFileSize(temporaryFile.lengthSync())}");
           }
-          try {
-            String? tempPath = await compressImage(File(filePath));
-            if (!TextUtil.isEmpty(tempPath)) {
-              File tempFile = File(tempPath!);
-              if (tempFile.lengthSync() != null &&
-                  tempFile.lengthSync() < imageSize * 1024) {
-                filePath = tempFile.path;
-                map["code"] = 200;
-                map["data"] = filePath;
-                return map;
-              } else {
-                map["code"] = 202;
-                map["message"] = "图片太大，请裁剪后重新选择！";
-                return map;
-              }
-            } else {
-              map["code"] = 203;
-              map["message"] = "图片格式不正确！";
-              return map;
-            }
-          } catch (e) {
-            map["code"] = 204;
-            // map["message"] = "图片压缩异常！";
-            return map;
-          }
+          map["code"] = 200;
+          map["data"] = filePath;
+          return map;
         } else {
           Log.d("从选择相册页面返回未选择图片");
           map["code"] = 205;
@@ -248,29 +227,59 @@ class MediaUtil {
     return path;
   }
 
-  Future<String?> compressImage(File? imageFile, {int imageSize = 500}) async {
-    if (imageFile != null) {
-      //不足时 无需压缩
-      // if (imageFile != null &&
-      //     imageFile.lengthSync() != null &&
-      //     imageFile.lengthSync() < imageSize * 1024) {
-      //   return imageFile.path;
-      // }
-      var time_start = DateTime.now().millisecondsSinceEpoch;
-      final tempDir = await getTemporaryDirectory();
-      CompressObject compressObject = CompressObject(
-        imageFile: imageFile, //image
-        path: tempDir.path, //compress to path
-        // quality: 100, //first compress quality, default 80
+  Future<Map<String, dynamic>> compressImage(File? imageFile,
+      {int imageSize = 500}) async {
+    Map<String, dynamic> map = {"code": 0, "message": "", "data": ""};
+    try {
+      if (imageFile != null) {
+        //不足时 无需压缩
+        // if (imageFile != null &&
+        //     imageFile.lengthSync() != null &&
+        //     imageFile.lengthSync() < imageSize * 1024) {
+        //   return imageFile.path;
+        // }
+        var time_start = DateTime.now().millisecondsSinceEpoch;
+        final tempDir = await getTemporaryDirectory();
+        CompressObject compressObject = CompressObject(
+          imageFile: imageFile, //image
+          path: tempDir.path, //compress to path
+          // quality: 100, //first compress quality, default 80
 //      step: 9, //compress quality step, The bigger the fast, Smaller is more accurate, default 6
 //      mode: CompressMode.LARGE2SMALL,//default AUTO
-      );
-      String? _path = await Luban.compressImage(compressObject);
-      var time = DateTime.now().millisecondsSinceEpoch - time_start;
-      Log.e("用时 ： " + time.toString());
-      return _path;
+        );
+        String? tempPath = await Luban.compressImage(compressObject);
+        if (!TextUtil.isEmpty(tempPath)) {
+          File tempFile = File(tempPath!);
+          int fileLength = tempFile.lengthSync();
+          if (fileLength != null && fileLength < imageSize * 1024) {
+            if (kDebugMode) {
+              var time = DateTime.now().millisecondsSinceEpoch - time_start;
+              Log.e(
+                  "压缩后大小 ：${FileUtil.formatFileSize(fileLength)}   用时 ： $time");
+            }
+            map["code"] = 200;
+            map["data"] = tempPath;
+            return map;
+          } else {
+            map["code"] = 202;
+            map["message"] = "当前图片$fileLength K,大于 $imageSize K，请裁剪后重新选择！";
+            return map;
+          }
+        } else {
+          map["code"] = 203;
+          map["message"] = "图片压缩异常！";
+          return map;
+        }
+      } else {
+        map["code"] = 204;
+        map["message"] = "未找到相关文件！";
+        return map;
+      }
+    } catch (e) {
+      map["code"] = 205;
+      map["message"] = "图片压缩异常！";
+      return map;
     }
-    return null;
   }
 
   Future<List<String?>?> compressImageList(List<File>? imageFile) async {
