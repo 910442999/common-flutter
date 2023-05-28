@@ -53,14 +53,19 @@ class StateLayout extends StatelessWidget {
             width: double.infinity,
             height: Dimens.gap_dp16,
           ),
-          Text(
-            hintText ?? type.hintText,
-            style: Theme
-                .of(context)
-                .textTheme
-                .subtitle2
-                ?.copyWith(fontSize: Dimens.font_sp14),
-          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 32),
+            child: Text(
+              hintText ?? type.hintText,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  height: 1.5,
+                  color: Colours.gray_666666,
+                  fontSize: Dimens.font_sp14
+              ),
+            ),
+          )
+          ,
           if (onPressed != null)
             const SizedBox(
               width: double.infinity,
