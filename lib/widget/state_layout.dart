@@ -46,15 +46,12 @@ class StateLayout extends StatelessWidget {
                       TextUtil.isEmpty(image)
                       ? '${type.img}'
                       : image!,
-                  width: 120,
+                  width: 160,
                 ),
               ),
-          const SizedBox(
-            width: double.infinity,
-            height: Dimens.gap_dp16,
-          ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 32),
+            width: double.maxFinite,
+            margin: EdgeInsets.only(left: 32, right: 32, top: 30, bottom: 30),
             child: Text(
               hintText ?? type.hintText,
               textAlign: TextAlign.center,
@@ -64,21 +61,19 @@ class StateLayout extends StatelessWidget {
                   fontSize: Dimens.font_sp14
               ),
             ),
-          )
-          ,
+          ),
           if (onPressed != null)
-            const SizedBox(
-              width: double.infinity,
-              height: Dimens.gap_dp20,
-            ),
-          if (onPressed != null)
-            MyButton(
-              text: pressedText ?? "重新加载",
-              minWidth: 120,
-              minHeight: 35,
-              fontSize: 15,
-              onPressed: onPressed,
+            Container(
+              margin: EdgeInsets.only(bottom: 50),
+              child: MyButton(
+                text: pressedText ?? "重新加载",
+                minWidth: 120,
+                minHeight: 35,
+                fontSize: 15,
+                onPressed: onPressed,
+              ),
             )
+
         ]);
   }
 }

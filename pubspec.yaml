@@ -46,6 +46,7 @@ dependencies:
   webview_flutter: ^4.2.0
   flutter_svg: ^2.0.5
   svgaplayer_flutter: ^2.2.0
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
