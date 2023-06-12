@@ -30,7 +30,7 @@ dependencies:
   shared_preferences: ^2.1.1
   synchronized: ^3.1.0
   #  本地化语言，日期格式化，数字格式化等
-  intl: ^0.17.0
+  intl: ^0.18.0
   # 处理键盘事件 https://github.com/diegoveloper/flutter_keyboard_actions
   keyboard_actions: ^4.2.0
   # 启动URL的插件（支持Web） https://pub.flutter-io.cn/packages/url_launcher
@@ -39,7 +39,7 @@ dependencies:
   flutter_picker: ^2.1.0
   audioplayers: ^4.0.1
   cached_network_image: ^3.2.3
-  flutter_tts: ^3.6.3
+  flutter_tts: ^3.7.0
   fluwx: ^3.13.1
   ota_update: ^5.1.0
   # WebView插件 https://github.com/flutter/plugins/tree/master/packages/webview_flutter
