@@ -136,7 +136,7 @@ class _MyTextFieldState extends State<MyTextField> {
             ? null
             : UnderlineInputBorder(
                 borderSide: BorderSide(
-                  color: themeData.dividerTheme.color!,
+                  color: themeData.dividerTheme.color ?? Colours.line,
                   width: 0.8,
                 ),
               ),
