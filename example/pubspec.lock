@@ -476,10 +476,10 @@ packages:
     dependency: transitive
     description:
       name: ota_update
-      sha256: b99d4ae3f745ca313c44d823f684155439513dd60e7faa74c654c6342da69265
+      sha256: "7ce0af2119458cb7cc3122ecdc4e18ec3c0108162bfab9a4b064d686e1a5fc22"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.0.3"
+    version: "5.1.0"
   path:
     dependency: transitive
     description:
