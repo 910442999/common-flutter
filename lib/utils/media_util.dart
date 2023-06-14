@@ -252,7 +252,7 @@ class MediaUtil {
             return map;
           } else {
             map["code"] = 202;
-            map["message"] = "当前图片$fileLength K,大于 $imageSize K，请裁剪后重新选择！";
+            map["message"] = "当前图片大于 $imageSize K，请裁剪后重新选择！";
             return map;
           }
         } else {
