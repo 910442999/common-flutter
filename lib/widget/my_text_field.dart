@@ -10,29 +10,32 @@ import '../../../widget/index.dart';
 
 /// 输入框封装
 class MyTextField extends StatefulWidget {
-  const MyTextField(
-      {Key? key,
-      required this.controller,
-      this.maxLength = 16,
-      this.autoFocus = false,
-      this.keyboardType = TextInputType.text,
-      this.hintText = '',
-      this.focusNode,
-      this.isInputPwd = false,
-      this.getVCode,
-      this.keyName,
-      this.border})
+  const MyTextField({Key? key,
+    required this.controller,
+    this.maxLength,
+    this.autoFocus,
+    this.keyboardType = TextInputType.text,
+    this.hintText = '',
+    this.focusNode,
+    this.isInputPwd = false,
+    this.getVCode,
+    this.keyName,
+    this.style,
+    this.hintStyle,
+    this.border})
       : super(key: key);
 
   final TextEditingController controller;
-  final int maxLength;
-  final bool autoFocus;
+  final int? maxLength;
+  final bool? autoFocus;
   final TextInputType keyboardType;
   final String hintText;
   final FocusNode? focusNode;
   final bool isInputPwd;
   final Future<bool> Function()? getVCode;
   final InputBorder? border;
+  final TextStyle? style;
+  final TextStyle? hintStyle;
 
   /// 用于集成测试寻找widget
   final String? keyName;
@@ -106,40 +109,42 @@ class _MyTextFieldState extends State<MyTextField> {
 
     Widget textField = TextField(
       focusNode: widget.focusNode,
+      style: widget.style,
       maxLength: widget.maxLength,
       obscureText: widget.isInputPwd && !_isShowPwd,
-      autofocus: widget.autoFocus,
+      autofocus: widget.autoFocus ?? false,
       controller: widget.controller,
       textInputAction: TextInputAction.done,
       keyboardType: widget.keyboardType,
       // 数字、手机号限制格式为0到9， 密码限制不包含汉字
       inputFormatters: (widget.keyboardType == TextInputType.number ||
-              widget.keyboardType == TextInputType.phone)
+          widget.keyboardType == TextInputType.phone)
           ? [FilteringTextInputFormatter.allow(RegExp('[0-9]'))]
           : widget.keyboardType == TextInputType.visiblePassword
-              ? [FilteringTextInputFormatter.deny(RegExp('[\u4e00-\u9fa5]'))]
-              : null,
+          ? [FilteringTextInputFormatter.deny(RegExp('[\u4e00-\u9fa5]'))]
+          : null,
       decoration: InputDecoration(
         border: widget.border,
         contentPadding: const EdgeInsets.symmetric(vertical: 16.0),
         hintText: widget.hintText,
+        hintStyle: widget.hintStyle,
         counterText: '',
         focusedBorder: widget.border == InputBorder.none
             ? null
             : UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: themeData.primaryColor,
-                  width: 0.8,
-                ),
-              ),
+          borderSide: BorderSide(
+            color: themeData.primaryColor,
+            width: 0.8,
+          ),
+        ),
         enabledBorder: widget.border == InputBorder.none
             ? null
             : UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: themeData.dividerTheme.color!,
-                  width: 0.8,
-                ),
-              ),
+          borderSide: BorderSide(
+            color: themeData.dividerTheme.color!,
+            width: 0.8,
+          ),
+        ),
       ),
     );
 
@@ -205,7 +210,7 @@ class _MyTextFieldState extends State<MyTextField> {
         disabledTextColor: isDark ? Colours.dark_text : Colors.white,
         backgroundColor: Colors.transparent,
         disabledBackgroundColor:
-            isDark ? Colours.dark_text_gray : Colours.text_gray_c,
+        isDark ? Colours.dark_text_gray : Colours.text_gray_c,
         radius: 1.0,
         minHeight: 26.0,
         minWidth: 76.0,
@@ -224,9 +229,11 @@ class _MyTextFieldState extends State<MyTextField> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+
             /// _isShowDelete参数动态变化，为了不破坏树结构，false时放一个空Widget。
             /// 对于其他参数，为初始配置参数，基本可以确定树结构，就不做空Widget处理。
-            if (_isShowDelete) clearButton else Gaps.empty,
+            if (_isShowDelete) clearButton else
+              Gaps.empty,
             if (widget.isInputPwd) Gaps.hGap15,
             if (widget.isInputPwd) pwdVisible,
             if (widget.getVCode != null) Gaps.hGap15,
