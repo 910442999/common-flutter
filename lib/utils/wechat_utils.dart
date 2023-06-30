@@ -1,47 +1,35 @@
 import 'dart:io';
 
-import 'package:fluwx/fluwx.dart' as fluwx;
+import 'package:fluwx/fluwx.dart';
 
 import 'toast_utils.dart';
 
-///[WeChatScene.SESSION]会话
-///[WeChatScene.TIMELINE]朋友圈
-///[WeChatScene.FAVORITE]收藏
-enum WeChatScene { SESSION, TIMELINE, FAVORITE }
-
 class WechatUtils {
+  static final Fluwx fluwx = Fluwx();
+
   /// 打开链接
   static Future<bool> init(String appId, String universalLink) {
-    return fluwx.registerWxApi(appId: appId, universalLink: universalLink);
+    return fluwx.registerApi(appId: appId, universalLink: universalLink);
   }
 
   static Future<bool> isWeChatInstalled() async {
     return await fluwx.isWeChatInstalled;
   }
 
-  static Future<bool> shareWeChat(
-      String title, String url, WeChatScene chatScene,
+  static Future<bool> shareWeChat(String title, String url, WeChatScene scene,
       {String? transaction, String? thumbnail}) async {
-    fluwx.WeChatScene scene;
-    if (chatScene == WeChatScene.SESSION) {
-      scene = fluwx.WeChatScene.SESSION;
-    } else if (chatScene == WeChatScene.TIMELINE) {
-      scene = fluwx.WeChatScene.TIMELINE;
-    } else {
-      scene = fluwx.WeChatScene.FAVORITE;
-    }
     var result = await isWeChatInstalled();
     if (result) {
-      var model = fluwx.WeChatShareWebPageModel(url,
+      var model = WeChatShareWebPageModel(url,
           title: title,
           thumbnail: thumbnail == null
               ? null
               : thumbnail.startsWith('https:') || thumbnail.startsWith('http:')
-                  ? fluwx.WeChatImage.network(thumbnail)
-                  : fluwx.WeChatImage.asset(thumbnail),
+                  ? WeChatImage.network(thumbnail)
+                  : WeChatImage.asset(thumbnail),
           scene: scene,
           description: transaction); //仅在android上有效。
-      return fluwx.shareToWeChat(model);
+      return await fluwx.share(model);
     } else {
       ToastUtils.show("请检查微信是否为最新版本!");
       return false;
@@ -49,28 +37,20 @@ class WechatUtils {
   }
 
   static Future<bool> shareWeChatImage(
-      String title, File file, WeChatScene chatScene,
+      String title, File file, WeChatScene scene,
       {String? transaction, String? thumbnail}) async {
-    fluwx.WeChatScene scene;
-    if (chatScene == WeChatScene.SESSION) {
-      scene = fluwx.WeChatScene.SESSION;
-    } else if (chatScene == WeChatScene.TIMELINE) {
-      scene = fluwx.WeChatScene.TIMELINE;
-    } else {
-      scene = fluwx.WeChatScene.FAVORITE;
-    }
     var result = await isWeChatInstalled();
     if (result) {
-      var model = fluwx.WeChatShareImageModel(fluwx.WeChatImage.file(file),
+      var model = WeChatShareImageModel(WeChatImage.file(file),
           title: title,
           thumbnail: thumbnail == null
               ? null
               : thumbnail.startsWith('https:') || thumbnail.startsWith('http:')
-                  ? fluwx.WeChatImage.network(thumbnail)
-                  : fluwx.WeChatImage.asset(thumbnail),
+                  ? WeChatImage.network(thumbnail)
+                  : WeChatImage.asset(thumbnail),
           scene: scene,
           description: transaction); //仅在android上有效。
-      return fluwx.shareToWeChat(model);
+      return await fluwx.share(model);
     } else {
       ToastUtils.show("请检查微信是否为最新版本!");
       return false;
@@ -78,22 +58,24 @@ class WechatUtils {
   }
 
   static Future<bool> shareWeChatMiniProgram(
-      String url, String userName, fluwx.WeChatImage thumbnail) {
-    var model = fluwx.WeChatShareMiniProgramModel(
+      String url, String userName, WeChatImage thumbnail) async {
+    var model = WeChatShareMiniProgramModel(
         webPageUrl: url, userName: userName, thumbnail: thumbnail);
-    return fluwx.shareToWeChat(model);
+    return await fluwx.share(model);
   }
 
   static Future<bool> payWeChat(String appId, String partnerId, String prepayId,
       String package, String nonceStr, int timestamp, String sign) async {
-    return await fluwx.payWithWeChat(
-        appId: appId,
-        partnerId: partnerId,
-        prepayId: prepayId,
-        packageValue: package,
-        nonceStr: nonceStr,
-        timeStamp: timestamp,
-        sign: sign);
+    return await fluwx.pay(
+        which: Payment(
+      appId: appId,
+      partnerId: partnerId,
+      prepayId: prepayId,
+      packageValue: package,
+      nonceStr: nonceStr,
+      timestamp: timestamp,
+      sign: sign,
+    ));
   }
 
   /**
@@ -101,6 +83,10 @@ class WechatUtils {
    *
    */
   static Future<bool> sendWeChatAuth(String state) async {
-    return await fluwx.sendWeChatAuth(scope: "snsapi_userinfo", state: state);
+    return await fluwx.authBy(
+        which: NormalAuth(
+      scope: 'snsapi_userinfo',
+      state: state,
+    ));
   }
 }

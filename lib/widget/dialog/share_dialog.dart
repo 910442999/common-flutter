@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluwx/fluwx.dart';
 import '../../res/gaps.dart';
 import '../../utils/index.dart';
 
@@ -98,9 +99,9 @@ class ShareDialog extends StatelessWidget {
 
 void _share(int type) {
   if (type == 0) {
-    _shareWeChat(WeChatScene.SESSION);
+    _shareWeChat(WeChatScene.session);
   } else if (type == 1) {
-    _shareWeChat(WeChatScene.TIMELINE);
+    _shareWeChat(WeChatScene.timeline);
   } else {
     UiUtils.clipboard(url);
   }
