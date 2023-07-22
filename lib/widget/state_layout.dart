@@ -11,6 +11,7 @@ class StateLayout extends StatelessWidget {
     this.hintText,
     this.image,
     this.pressedText,
+    this.pressedColor,
     this.primaryColor,
     this.onPressed})
       : super(key: key);
@@ -21,6 +22,7 @@ class StateLayout extends StatelessWidget {
   final VoidCallback? onPressed;
   final String? pressedText;
   final Color? primaryColor;
+  final Color? pressedColor;
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +69,7 @@ class StateLayout extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 50),
               child: MyButton(
                 text: pressedText ?? "重新加载",
+                textColor: pressedColor,
                 minWidth: 120,
                 minHeight: 35,
                 fontSize: 15,
