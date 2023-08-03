@@ -250,14 +250,15 @@ class DialogUtil {
 
 //分享弹窗
   static void shareDialog(BuildContext context, String title, String url,
-      List<String> nameItems, List<String> urlItems) {
+      List<String> nameItems, List<String> urlItems, Function onSelected) {
     showModalBottomSheet(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         context: context,
         builder: (BuildContext context) {
-          return ShareDialog(nameItems, urlItems, title: title, url: url);
+          return ShareDialog(nameItems, urlItems,
+              title: title, url: url, onSelected: onSelected);
         });
   }
 
