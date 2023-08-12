@@ -53,7 +53,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 backImg,
                 width: 22,
                 height: 22,
-                color: backImgColor ?? Colours.dark_text,
+                color: backImgColor ?? Colours.text,
               ),
             ))
         : Gaps.empty;
