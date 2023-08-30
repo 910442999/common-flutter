@@ -56,7 +56,7 @@ class LoadImage extends StatelessWidget {
         );
       } else if (borderRadius != null) {
         _imageWidget = ClipRRect(
-            borderRadius: borderRadius,
+            borderRadius: borderRadius!,
             child: kIsWeb
                 ? Image.network(
               image!,

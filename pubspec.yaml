@@ -21,7 +21,7 @@ dependencies:
   #  路径管理
   path_provider: ^2.0.15
   #  图片剪辑
-  image_cropper: ^3.0.3
+  image_cropper: ^5.0.0
   #  图片压缩
   flutter_luban: ^0.1.13
   #  十进制数计算
@@ -37,14 +37,14 @@ dependencies:
   url_launcher: ^6.1.11
   #  日期地址选择
   flutter_picker: ^2.1.0
-  audioplayers: ^4.0.1
+  audioplayers: ^5.1.0
   cached_network_image: ^3.2.3
   flutter_tts: ^3.7.0
   ota_update: ^5.1.0
   # WebView插件 https://github.com/flutter/plugins/tree/master/packages/webview_flutter
   webview_flutter: ^4.2.0
   flutter_svg: ^2.0.7
-  svgaplayer_flutter: ^2.2.0
+#  svgaplayer_flutter: ^2.2.0
   auto_size_text: ^3.0.0
 
 dev_dependencies:
