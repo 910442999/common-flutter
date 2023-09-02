@@ -15,19 +15,24 @@ class TextFieldItem extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.hintText = '',
     this.focusNode,
-  }): super(key: key);
+    this.width,
+  }) : super(key: key);
 
   final TextEditingController? controller;
   final String title;
   final String hintText;
   final TextInputType keyboardType;
   final FocusNode? focusNode;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
     final Row child = Row(
       children: <Widget>[
-        Text(title),
+        Container(
+          width: width,
+          child: Text(title),
+        ),
         Gaps.hGap16,
         Expanded(
           child: Semantics(
@@ -39,9 +44,9 @@ class TextFieldItem extends StatelessWidget {
               controller: controller,
               //style: TextStyles.textDark14,
               decoration: InputDecoration(
-                hintText: hintText.isEmpty ? '请输入$title' : hintText,
-                border: InputBorder.none, //去掉下划线
-                hintStyle: TextStyles.textGray14
+                  hintText: hintText.isEmpty ? '请输入$title' : hintText,
+                  border: InputBorder.none, //去掉下划线
+                  hintStyle: TextStyles.textGray14
               ),
             ),
           ),
@@ -49,7 +54,7 @@ class TextFieldItem extends StatelessWidget {
         Gaps.hGap16
       ],
     );
-    
+
     return Container(
       height: 50.0,
       margin: const EdgeInsets.only(left: 16.0),
@@ -67,7 +72,8 @@ class TextFieldItem extends StatelessWidget {
     if (keyboardType == const TextInputType.numberWithOptions(decimal: true)) {
       return <TextInputFormatter>[NumberTextInputFormatter()];
     }
-    if (keyboardType == TextInputType.number || keyboardType == TextInputType.phone) {
+    if (keyboardType == TextInputType.number ||
+        keyboardType == TextInputType.phone) {
       return <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly];
     }
     return null;
