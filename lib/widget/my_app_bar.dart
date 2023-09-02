@@ -69,7 +69,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           fontSize: Dimens.font_sp16,
           minWidth: 42,
           text: actionName.toString(),
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
           textColor: Theme
               .of(context)
               .brightness == Brightness.dark ? Colours.dark_text : Colours.text,
@@ -81,7 +81,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       actionWidget = Positioned(
         right: 0.0,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: action!,
         ),
       );

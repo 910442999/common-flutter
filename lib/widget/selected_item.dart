@@ -8,7 +8,8 @@ class SelectedItem extends StatelessWidget {
     required this.title,
     this.content = '',
     this.textAlign = TextAlign.start,
-    this.style})
+    this.style,
+    this.width,})
       : super(key: key);
 
   final GestureTapCallback? onTap;
@@ -16,6 +17,7 @@ class SelectedItem extends StatelessWidget {
   final String content;
   final TextAlign textAlign;
   final TextStyle? style;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,10 @@ class SelectedItem extends StatelessWidget {
         ),
         child: Row(
           children: <Widget>[
-            Text(title),
+            Container(
+              width: width,
+              child: Text(title),
+            ),
             Gaps.hGap16,
             Expanded(
               child: Text(content,
