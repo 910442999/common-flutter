@@ -3,13 +3,12 @@ import '../res/colors.dart';
 import '../res/gaps.dart';
 
 class SelectedItem extends StatelessWidget {
-  const SelectedItem(
-      {Key? key,
-      this.onTap,
-      required this.title,
-      this.content = '',
-      this.textAlign = TextAlign.start,
-      this.style})
+  const SelectedItem({Key? key,
+    this.onTap,
+    required this.title,
+    this.content = '',
+    this.textAlign = TextAlign.start,
+    this.style})
       : super(key: key);
 
   final GestureTapCallback? onTap;
@@ -43,11 +42,12 @@ class SelectedItem extends StatelessWidget {
                   style: style),
             ),
             Gaps.hGap8,
-            Icon(
-              Icons.chevron_right,
-              size: 25,
-              color: Colours.dark_text,
-            )
+            if(onTap != null)
+              Icon(
+                Icons.chevron_right,
+                size: 25,
+                color: Colours.dark_text,
+              )
           ],
         ),
       ),
