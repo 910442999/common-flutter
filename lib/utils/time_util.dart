@@ -138,19 +138,6 @@ class TimeUtil {
     return (sentTime1 - sentTime2).abs() > 5 * 60 * 1000;
   }
 
-  ///是否需要显示时间，相差 5 分钟
-  static bool needShowTime2(String? sentTime1, String? sentTime2) {
-    if (TextUtil.isEmpty(sentTime1) || TextUtil.isEmpty(sentTime2)) {
-      return false;
-    }
-    DateTime time1 = DateTime.parse(sentTime1!);
-    DateTime time2 = DateTime.parse(sentTime2!);
-    int minutes = time2
-        .difference(time1)
-        .inMinutes; // 15414648 分钟
-    return minutes.abs() > 10;
-  }
-
   ///判读相差多少分钟
   static bool needShowTime3(String? sentTime1, String? sentTime2, int differ) {
     if (TextUtil.isEmpty(sentTime1) || TextUtil.isEmpty(sentTime2)) {
