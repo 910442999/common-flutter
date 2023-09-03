@@ -139,7 +139,7 @@ class TimeUtil {
   }
 
   ///判读相差多少分钟
-  static bool needShowTime3(String? sentTime1, String? sentTime2, int differ) {
+  static bool needShowTime2(String? sentTime1, String? sentTime2, int differ) {
     if (TextUtil.isEmpty(sentTime1) || TextUtil.isEmpty(sentTime2)) {
       return false;
     }
