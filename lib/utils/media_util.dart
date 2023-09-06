@@ -58,7 +58,7 @@ class MediaUtil {
       int imageSize = 500,
       bool cropper = false}) async {
     String? filePath;
-    Map<String, dynamic> map = {"code": 0, "message": "", "data": ""};
+    Map<String, dynamic> map = {"code": 0, "message": "", "data": null};
     try {
       bool permission = await PermissionUtils.requestStorage(context);
       if (permission) {
@@ -219,7 +219,7 @@ class MediaUtil {
 
   Future<Map<String, dynamic>> compressImage(File? imageFile,
       {int imageSize = 500}) async {
-    Map<String, dynamic> map = {"code": 0, "message": "", "data": ""};
+    Map<String, dynamic> map = {"code": 0, "message": "", "data": null};
     try {
       if (imageFile != null) {
         //不足时 无需压缩
