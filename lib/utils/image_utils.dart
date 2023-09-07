@@ -14,8 +14,11 @@ class ImageUtils {
     return 'assets/images/$name.${format.value}';
   }
 
-  static ImageProvider getImageProvider(String imageUrl) {
-    return CachedNetworkImageProvider(imageUrl);
+  static ImageProvider getImageProvider(String? imageUrl, {String holderImg = 'none'}) {
+    if (TextUtil.isEmpty(imageUrl)) {
+      return AssetImage(getImgPath(holderImg));
+    }
+    return CachedNetworkImageProvider(imageUrl!);
   }
 }
 
