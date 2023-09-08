@@ -35,7 +35,7 @@ dependencies:
   # 处理键盘事件 https://github.com/diegoveloper/flutter_keyboard_actions
   keyboard_actions: ^4.2.0
   # 启动URL的插件（支持Web） https://pub.flutter-io.cn/packages/url_launcher
-  url_launcher: ^6.1.11
+  url_launcher: ^6.1.12
   #  日期地址选择
   flutter_picker: ^2.1.0
   audioplayers: ^5.1.0
