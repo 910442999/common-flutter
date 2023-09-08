@@ -13,3 +13,4 @@ export 'count_item_widget.dart';
 export 'check_box_widget.dart';
 export 'chip_widget.dart';
 export 'time_line_widget.dart';
+export 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
