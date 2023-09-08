@@ -6,7 +6,8 @@ import 'package:flutter_luban/flutter_luban.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'package:wechat_camera_picker/wechat_camera_picker.dart';
+
 import 'file.dart';
 import 'log_utils.dart';
 import 'permission_util.dart';
@@ -113,6 +114,53 @@ class MediaUtil {
             Log.e(
                 "剪辑后大小 ：${temporaryFile.lengthSync() == null ? '' : FileUtil.formatFileSize(temporaryFile.lengthSync())}");
           }
+          map["code"] = 200;
+          map["data"] = filePath;
+          return map;
+        } else {
+          Log.d("从选择相册页面返回未选择图片");
+          map["code"] = 205;
+          // map["message"] = "从选择相册页面返回未选择图片！";
+          return map;
+        }
+      } else {
+        map["code"] = 206;
+        map["message"] = "您暂未授权访问相册权限，请打开设置页授权";
+        return map;
+      }
+    } catch (e) {
+      map["code"] = 207;
+      map["message"] = "图片处理异常";
+      return map;
+    }
+  }
+
+  Future<Map<String, dynamic>> pickIdCardCamera(BuildContext context,
+      {int imageSize = 500}) async {
+    String? filePath;
+    Map<String, dynamic> map = {"code": 0, "message": "", "data": null};
+    try {
+      bool permission = await PermissionUtils.requestStorage(context);
+      if (permission) {
+        //      =================拍摄证件======================
+        final AssetEntity? entity = await CameraPicker.pickFromCamera(
+          context,
+          pickerConfig: CameraPickerConfig(
+            foregroundBuilder: (
+              BuildContext context,
+              CameraController? controller,
+            ) {
+              return Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                child: new Image.asset('assets/images/bg_identify_idcard.png'),
+              );
+            },
+          ),
+        );
+        if (entity != null) {
+          File file = (await entity.file)!;
+          filePath = file.path;
           map["code"] = 200;
           map["data"] = filePath;
           return map;
