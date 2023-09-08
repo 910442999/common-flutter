@@ -12,8 +12,8 @@ import 'toast_utils.dart';
 
 class DialogUtil {
   ///加载对话框
-  static void showLoading({String? defValue}) {
-    EasyLoading.show(status: '正在加载...');
+  static void showLoading({String defValue = "正在加载..."}) {
+    EasyLoading.show(status: defValue);
   }
 
   static void dismissLoading() {
@@ -30,7 +30,8 @@ class DialogUtil {
       Function? onCancel,
       bool isCancel = true,
       bool onWillPop = true,
-      bool confirmDismiss = true}) {
+      bool confirmDismiss = true,
+      bool cancelDismiss = true}) {
     List<Widget> actions = [];
     if (isCancel) {
       actions.add(CupertinoDialogAction(
@@ -39,7 +40,9 @@ class DialogUtil {
               fontSize: 18,
             )),
         onPressed: () {
-          Navigator.pop(context);
+          if (cancelDismiss) {
+            Navigator.pop(context);
+          }
           if (onCancel != null) {
             onCancel();
           }
@@ -198,10 +201,13 @@ class DialogUtil {
                       Navigator.pop(mContext);
                       clickEvent();
                     },
-                    style: ButtonStyle(minimumSize: MaterialStateProperty.all<Size>(const Size(double.infinity, 60))),
+                    style: ButtonStyle(
+                        minimumSize: MaterialStateProperty.all<Size>(
+                            const Size(double.infinity, 60))),
                     child: Text(
                       keys[index],
-                      style: const TextStyle(color:Colours.black_333333,fontSize: 18),
+                      style: const TextStyle(
+                          color: Colours.black_333333, fontSize: 18),
                     ));
               },
               separatorBuilder: (BuildContext context, int index) {
@@ -244,14 +250,15 @@ class DialogUtil {
 
 //分享弹窗
   static void shareDialog(BuildContext context, String title, String url,
-      List<String> nameItems, List<String> urlItems) {
+      List<String> nameItems, List<String> urlItems, Function onSelected) {
     showModalBottomSheet(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         context: context,
         builder: (BuildContext context) {
-          return ShareDialog(nameItems, urlItems, title: title, url: url);
+          return ShareDialog(nameItems, urlItems,
+              title: title, url: url, onSelected: onSelected);
         });
   }
 

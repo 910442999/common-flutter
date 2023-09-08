@@ -9,6 +9,7 @@ import '/widget/my_button.dart';
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({Key? key,
     this.backgroundColor,
+    this.titleColor,
     this.title = '',
     this.fontSize = Dimens.font_sp18,
     this.centerTitle = '',
@@ -21,6 +22,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       : super(key: key);
 
   final Color? backgroundColor;
+  final Color? titleColor;
   final String title;
   final double fontSize;
   final String centerTitle;
@@ -56,7 +58,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             backImg,
             width: 22,
             height: 22,
-            color: backImgColor ?? Colours.dark_text,
+            color: backImgColor ?? Colours.text,
           ),
         ))
         : Gaps.empty;
@@ -69,7 +71,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           fontSize: Dimens.font_sp16,
           minWidth: 42,
           text: actionName.toString(),
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
           textColor: Theme
               .of(context)
               .brightness == Brightness.dark ? Colours.dark_text : Colours.text,
@@ -81,7 +83,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       actionWidget = Positioned(
         right: 0.0,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: action!,
         ),
       );
@@ -99,6 +101,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Text(
           title.isEmpty ? centerTitle : title,
           style: TextStyle(
+              color: titleColor
               fontSize: fontSize,
               fontWeight: FontWeight.bold
           ),

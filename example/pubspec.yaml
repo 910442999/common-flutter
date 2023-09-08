@@ -81,3 +81,18 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+fluwx:
+  app_id: wx2eebd934555cfbbd
+  # only debug in debug mode
+  debug_logging: false
+  android:
+  #      interrupt_wx_request: true # default is true
+  #      flutter_activity: MainActivity #Default to launch app's launcher
+  ios:
+    universal_link: https://www.yuanquanapp.cn/
+  #    scene_delegate: true #default false
+  # payment is enabled by default
+#    no_pay: true
+
+tobias:
+  url_scheme: yuanquanapp

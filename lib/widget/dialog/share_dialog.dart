@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../res/gaps.dart';
-import '../../utils/index.dart';
 
 class ShareDialog extends StatelessWidget {
   List<String> nameItems;
   List<String> urlItems;
+  Function onSelected;
 
   ShareDialog(
     this.nameItems,
@@ -15,6 +15,7 @@ class ShareDialog extends StatelessWidget {
     this.transaction,
     this.height,
     this.showCancel,
+    required this.onSelected,
   });
 
   final String url;
@@ -76,7 +77,7 @@ class ShareDialog extends StatelessWidget {
     return GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
-          _share(index);
+          onSelected(index);
           if (showCancel ?? true) Navigator.pop(context);
         },
         child: Container(
@@ -94,13 +95,5 @@ class ShareDialog extends StatelessWidget {
             ],
           ),
         ));
-  }
-
-  void _share(int type) {
-    if (type == 0) {
-    } else if (type == 1) {
-    } else {
-      UiUtils.clipboard(url);
-    }
   }
 }

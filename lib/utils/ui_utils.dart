@@ -60,7 +60,7 @@ class UiUtils {
 
   static KeyboardActionsConfig getKeyboardActionsConfig(List<FocusNode> list) {
     return KeyboardActionsConfig(
-      keyboardBarColor: Colours.dark_bg_color,
+      keyboardBarColor: Colours.bg_color,
       nextFocus: true,
       actions: List.generate(
           list.length,

@@ -11,6 +11,7 @@ class StateLayout extends StatelessWidget {
     this.hintText,
     this.image,
     this.pressedText,
+    this.pressedColor,
     this.primaryColor,
     this.onPressed})
       : super(key: key);
@@ -21,6 +22,7 @@ class StateLayout extends StatelessWidget {
   final VoidCallback? onPressed;
   final String? pressedText;
   final Color? primaryColor;
+  final Color? pressedColor;
 
   @override
   Widget build(BuildContext context) {
@@ -46,34 +48,35 @@ class StateLayout extends StatelessWidget {
                       TextUtil.isEmpty(image)
                       ? '${type.img}'
                       : image!,
-                  width: 120,
+                  width: 160,
                 ),
               ),
-          const SizedBox(
-            width: double.infinity,
-            height: Dimens.gap_dp16,
-          ),
-          Text(
-            hintText ?? type.hintText,
-            style: Theme
-                .of(context)
-                .textTheme
-                .subtitle2
-                ?.copyWith(fontSize: Dimens.font_sp14),
-          ),
-          if (onPressed != null)
-            const SizedBox(
-              width: double.infinity,
-              height: Dimens.gap_dp20,
+          Container(
+            width: double.maxFinite,
+            margin: EdgeInsets.only(left: 32, right: 32, top: 30, bottom: 30),
+            child: Text(
+              hintText ?? type.hintText,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  height: 1.5,
+                  color: Colours.gray_666666,
+                  fontSize: Dimens.font_sp14
+              ),
             ),
+          ),
           if (onPressed != null)
-            MyButton(
-              text: pressedText ?? "重新加载",
-              minWidth: 120,
-              minHeight: 35,
-              fontSize: 15,
-              onPressed: onPressed,
+            Container(
+              margin: EdgeInsets.only(bottom: 50),
+              child: MyButton(
+                text: pressedText ?? "重新加载",
+                textColor: pressedColor,
+                minWidth: 120,
+                minHeight: 35,
+                fontSize: 15,
+                onPressed: onPressed,
+              ),
             )
+
         ]);
   }
 }
