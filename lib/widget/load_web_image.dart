@@ -63,7 +63,7 @@ class LoadImage extends StatelessWidget {
             ));
       } else if (borderRadius != null) {
         _imageWidget = ClipRRect(
-            borderRadius: borderRadius,
+            borderRadius: borderRadius!,
             child: Image.network(
               image!,
               height: height,
