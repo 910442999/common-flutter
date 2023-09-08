@@ -26,7 +26,6 @@ class MyTextField extends StatefulWidget {
     this.textInputFormatter,
     this.style,
     this.hintStyle,
-    this.border
   })
       : super(key: key);
 
