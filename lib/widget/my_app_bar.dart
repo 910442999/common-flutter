@@ -48,7 +48,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         behavior: HitTestBehavior.opaque,
         onTap: () {
           FocusManager.instance.primaryFocus?.unfocus();
-          Navigator.maybePop(context);
+          Navigator.pop(context);
         },
         child: Container(
           padding: const EdgeInsets.all(10.0),
