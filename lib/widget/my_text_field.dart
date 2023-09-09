@@ -10,7 +10,8 @@ import '../../../widget/index.dart';
 
 /// 输入框封装
 class MyTextField extends StatefulWidget {
-  const MyTextField({Key? key,
+  const MyTextField({
+    Key? key,
     required this.controller,
     this.maxLength = 16,
     this.autoFocus = false,
@@ -26,12 +27,12 @@ class MyTextField extends StatefulWidget {
     this.textInputFormatter,
     this.style,
     this.hintStyle,
-  })
-      : super(key: key);
+    this.onFieldSubmitted,
+  }) : super(key: key);
 
   final TextEditingController controller;
-  final int? maxLength;
-  final bool? autoFocus;
+  final int maxLength;
+  final bool autoFocus;
   final TextInputType keyboardType;
   final String hintText;
   final FocusNode? focusNode;
@@ -41,12 +42,12 @@ class MyTextField extends StatefulWidget {
   final bool enabled;
   final TextStyle? style;
   final TextStyle? hintStyle;
+  final ValueChanged<String>? onFieldSubmitted;
 
   /// 用于集成测试寻找widget
   final String? keyName;
   final TextAlign textAlign;
   final List<TextInputFormatter>? textInputFormatter;
-
 
   @override
   _MyTextFieldState createState() => _MyTextFieldState();
@@ -115,47 +116,47 @@ class _MyTextFieldState extends State<MyTextField> {
     final ThemeData themeData = Theme.of(context);
     final bool isDark = themeData.brightness == Brightness.dark;
 
-    Widget textField = TextField(
+    Widget textField = TextFormField(
       focusNode: widget.focusNode,
       style: widget.style,
       maxLength: widget.maxLength,
       obscureText: widget.isInputPwd && !_isShowPwd,
-      autofocus: widget.autoFocus ?? false,
+      autofocus: widget.autoFocus,
       controller: widget.controller,
       textInputAction: TextInputAction.done,
       keyboardType: widget.keyboardType,
       enabled: widget.enabled,
       textAlign: widget.textAlign,
+      onFieldSubmitted: widget.onFieldSubmitted,
       // 数字、手机号限制格式为0到9， 密码限制不包含汉字
       inputFormatters: (widget.keyboardType == TextInputType.number ||
-          widget.keyboardType == TextInputType.phone)
+              widget.keyboardType == TextInputType.phone)
           ? [FilteringTextInputFormatter.allow(RegExp('[0-9]'))]
           : widget.keyboardType == TextInputType.visiblePassword
-          ? [FilteringTextInputFormatter.deny(RegExp('[\u4e00-\u9fa5]'))]
-          : widget.textInputFormatter,
+              ? [FilteringTextInputFormatter.deny(RegExp('[\u4e00-\u9fa5]'))]
+              : widget.textInputFormatter,
       decoration: InputDecoration(
         border: widget.border,
-        contentPadding: EdgeInsets.only(
-            right: widget.enabled ? 20 : 0),
+        contentPadding: EdgeInsets.only(right: widget.enabled ? 20 : 0),
         hintText: widget.hintText,
         hintStyle: widget.hintStyle,
         counterText: '',
         focusedBorder: widget.border == InputBorder.none
             ? null
             : UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: themeData.primaryColor,
-            width: 0.8,
-          ),
-        ),
+                borderSide: BorderSide(
+                  color: themeData.primaryColor,
+                  width: 0.8,
+                ),
+              ),
         enabledBorder: widget.border == InputBorder.none
             ? null
             : UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: themeData.dividerTheme.color ?? Colours.line,
-            width: 0.8,
-          ),
-        ),
+                borderSide: BorderSide(
+                  color: themeData.dividerTheme.color ?? Colours.line,
+                  width: 0.8,
+                ),
+              ),
       ),
     );
 
@@ -195,12 +196,8 @@ class _MyTextFieldState extends State<MyTextField> {
         hint: '密码是否可见',
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          child: LoadAssetImage(
-              _isShowPwd ? 'icon_display' : 'icon_hide',
-              key: Key('${widget.keyName}_showPwd'),
-              width: 18.0,
-              height: 40.0
-          ),
+          child: LoadAssetImage(_isShowPwd ? 'icon_display' : 'icon_hide',
+              key: Key('${widget.keyName}_showPwd'), width: 18.0, height: 40.0),
           onTap: () {
             setState(() {
               _isShowPwd = !_isShowPwd;
@@ -221,7 +218,7 @@ class _MyTextFieldState extends State<MyTextField> {
         disabledTextColor: isDark ? Colours.dark_text : Colors.white,
         backgroundColor: Colors.transparent,
         disabledBackgroundColor:
-        isDark ? Colours.dark_text_gray : Colours.text_gray_c,
+            isDark ? Colours.dark_text_gray : Colours.text_gray_c,
         radius: 1.0,
         minHeight: 26.0,
         minWidth: 76.0,
@@ -240,11 +237,9 @@ class _MyTextFieldState extends State<MyTextField> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-
             /// _isShowDelete参数动态变化，为了不破坏树结构，false时放一个空Widget。
             /// 对于其他参数，为初始配置参数，基本可以确定树结构，就不做空Widget处理。
-            if (_isShowDelete && widget.enabled) clearButton else
-              Gaps.empty,
+            if (_isShowDelete && widget.enabled) clearButton else Gaps.empty,
             if (widget.isInputPwd) Gaps.hGap15,
             if (widget.isInputPwd) pwdVisible,
             if (widget.getVCode != null) Gaps.hGap15,
