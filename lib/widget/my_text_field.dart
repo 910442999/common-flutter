@@ -28,6 +28,7 @@ class MyTextField extends StatefulWidget {
     this.style,
     this.hintStyle,
     this.onFieldSubmitted,
+    this.validator,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -43,6 +44,7 @@ class MyTextField extends StatefulWidget {
   final TextStyle? style;
   final TextStyle? hintStyle;
   final ValueChanged<String>? onFieldSubmitted;
+  final FormFieldValidator? validator;
 
   /// 用于集成测试寻找widget
   final String? keyName;
@@ -128,6 +130,7 @@ class _MyTextFieldState extends State<MyTextField> {
       enabled: widget.enabled,
       textAlign: widget.textAlign,
       onFieldSubmitted: widget.onFieldSubmitted,
+      validator: widget.validator,
       // 数字、手机号限制格式为0到9， 密码限制不包含汉字
       inputFormatters: (widget.keyboardType == TextInputType.number ||
               widget.keyboardType == TextInputType.phone)
