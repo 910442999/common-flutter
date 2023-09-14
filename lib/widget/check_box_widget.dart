@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../res/index.dart';
+import '../res/colors.dart';
+
 
 /**
  * 复选框

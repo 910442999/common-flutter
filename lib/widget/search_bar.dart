@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import '../../../widget/index.dart';
-import '../res/index.dart';
+import '../res/colors.dart';
+import '../res/dimens.dart';
+import '../res/gaps.dart';
 
 /// 搜索页的AppBar
 class SearchBar extends StatefulWidget implements PreferredSizeWidget {

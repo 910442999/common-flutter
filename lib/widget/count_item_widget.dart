@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yqcommon/utils/index.dart';
 
-import '../res/index.dart';
+import '../res/colors.dart';
 
 typedef clickCallback = void Function(int value);
 
