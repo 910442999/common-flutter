@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
 
-Widget FormTextField(
-  String label,
-  IconData? icon, {
-  TextEditingController? controller,
-  bool obscureText = false,
-  FocusNode? focusNode,
-  bool notEmpty = false,
-  String? value,
-  FormFieldSetter<String>? onSaved,
-  ValueChanged<String>? onFieldSubmitted,
-  int? maxLines = 1,
-  double? width,
-  double? height,
-  EdgeInsetsGeometry margin = const EdgeInsets.only(top: 20),
-}) {
+Widget FormTextField(String label,
+    IconData? icon, {
+      TextEditingController? controller,
+      bool obscureText = false,
+      FocusNode? focusNode,
+      bool notEmpty = false,
+      String? value,
+      FormFieldSetter<String>? onSaved,
+      ValueChanged<String>? onFieldSubmitted,
+      int? maxLines = 1,
+      double? width,
+      double? height,
+      EdgeInsetsGeometry margin = const EdgeInsets.only(top: 20),
+      EdgeInsetsGeometry padding = const EdgeInsets.symmetric(horizontal: 16),
+      InputBorder? border,
+      TextStyle? labelStyle,
+    }) {
   return Container(
     width: width,
     height: height,
     margin: margin,
-    padding: const EdgeInsets.symmetric(horizontal: 16),
+    padding: padding,
     child: TextFormField(
       style: const TextStyle(color: Colors.black, fontSize: 14),
       controller: controller ?? TextEditingController(text: value),
@@ -38,16 +40,17 @@ Widget FormTextField(
       decoration: InputDecoration(
         isCollapsed: true,
         contentPadding:
-            const EdgeInsets.only(right: 15, left: 15, top: 15, bottom: 15),
+        const EdgeInsets.only(right: 15, left: 15, top: 15, bottom: 15),
 //这里是关键
-        border: const OutlineInputBorder(),
+        border: border ?? const OutlineInputBorder(),
         labelText: label,
+        labelStyle: labelStyle,
         icon: icon != null
             ? Icon(
-                icon,
-                size: 20,
-                color: Colors.black54,
-              )
+          icon,
+          size: 20,
+          color: Colors.black54,
+        )
             : null,
       ),
       onSaved: onSaved,
