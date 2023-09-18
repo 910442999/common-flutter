@@ -1,4 +1,3 @@
-import 'dart:convert' as convert;
 import 'dart:developer';
 import 'package:flutter/foundation.dart';
 
@@ -18,7 +17,6 @@ class Log {
     }
   }
 
-
   static void e(String? msg, {String tag = tag, int level = 1000}) {
     if (kDebugMode) {
       _printLog(tag, level, msg);
@@ -33,6 +31,6 @@ class Log {
 
   static void _printLog(String? tag, int level, Object? object) {
     String da = object?.toString() ?? 'null';
-    log(da, name: tag ?? Log.tag, level: level);
+    debugPrint("[${tag ?? Log.tag}] : $da");
   }
 }
