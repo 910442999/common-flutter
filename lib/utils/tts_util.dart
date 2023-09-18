@@ -15,7 +15,7 @@ final TTSUtil ttsUtil = TTSUtil();
 /// @date 2021/12/31
 ///
 class TTSUtil {
-  static late FlutterTts _tts;
+  late FlutterTts _tts;
 
   factory TTSUtil() => _getInstance();
 

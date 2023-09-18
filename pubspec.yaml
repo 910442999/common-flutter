@@ -40,7 +40,7 @@ dependencies:
   flutter_picker: ^2.1.0
   audioplayers: ^5.1.0
   cached_network_image: ^3.2.3
-  flutter_tts: ^3.7.0
+  flutter_tts: ^3.8.3
   ota_update: ^5.1.0
   # WebView插件 https://github.com/flutter/plugins/tree/master/packages/webview_flutter
   webview_flutter: ^4.2.0
