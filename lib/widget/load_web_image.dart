@@ -5,8 +5,7 @@ import '../../../utils/index.dart';
 
 /// 图片加载（支持本地与网络图片）
 class LoadImage extends StatelessWidget {
-  LoadImage(
-    this.image, {
+  LoadImage(this.image, {
     Key? key,
     this.width,
     this.height,
@@ -58,6 +57,10 @@ class LoadImage extends StatelessWidget {
               width: width,
               cacheWidth: cacheWidth,
               cacheHeight: cacheHeight,
+              errorBuilder: (BuildContext context, Object exception,
+                  StackTrace? stackTrace) {
+                return _image;
+              },
               fit: fit,
               excludeFromSemantics: true,
             ));
@@ -70,6 +73,10 @@ class LoadImage extends StatelessWidget {
               width: width,
               cacheWidth: cacheWidth,
               cacheHeight: cacheHeight,
+              errorBuilder: (BuildContext context, Object exception,
+                  StackTrace? stackTrace) {
+                return _image;
+              },
               fit: fit,
               excludeFromSemantics: true,
             ));
@@ -80,6 +87,10 @@ class LoadImage extends StatelessWidget {
           width: width,
           cacheWidth: cacheWidth,
           cacheHeight: cacheHeight,
+          errorBuilder: (BuildContext context, Object exception,
+              StackTrace? stackTrace) {
+            return _image;
+          },
           fit: fit,
           excludeFromSemantics: true,
         );
@@ -96,15 +107,15 @@ class LoadImage extends StatelessWidget {
 class LoadAssetImage extends StatelessWidget {
   const LoadAssetImage(this.image,
       {Key? key,
-      this.width,
-      this.height,
-      this.cacheWidth,
-      this.cacheHeight,
-      this.fit,
-      this.format = ImageFormat.png,
-      this.color,
-      this.package,
-      this.onPressed})
+        this.width,
+        this.height,
+        this.cacheWidth,
+        this.cacheHeight,
+        this.fit,
+        this.format = ImageFormat.png,
+        this.color,
+        this.package,
+        this.onPressed})
       : super(key: key);
 
   final String? image;
@@ -123,18 +134,18 @@ class LoadAssetImage extends StatelessWidget {
     Widget widget = image == null
         ? SizedBox(height: height, width: width)
         : Image.asset(
-            ImageUtils.getImgPath(image!, format: format),
-            height: height,
-            width: width,
-            cacheWidth: cacheWidth,
-            cacheHeight: cacheHeight,
-            fit: fit,
-            color: color,
-            package: package,
+      ImageUtils.getImgPath(image!, format: format),
+      height: height,
+      width: width,
+      cacheWidth: cacheWidth,
+      cacheHeight: cacheHeight,
+      fit: fit,
+      color: color,
+      package: package,
 
-            /// 忽略图片语义
-            excludeFromSemantics: true,
-          );
+      /// 忽略图片语义
+      excludeFromSemantics: true,
+    );
     if (onPressed == null) {
       return widget;
     }
