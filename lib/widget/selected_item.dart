@@ -3,18 +3,21 @@ import '../res/colors.dart';
 import '../res/gaps.dart';
 
 class SelectedItem extends StatelessWidget {
-  const SelectedItem({Key? key,
+  const SelectedItem({
+    Key? key,
     this.onTap,
     required this.title,
     this.content = '',
     this.textAlign = TextAlign.start,
     this.style,
-    this.width,})
-      : super(key: key);
+    this.widget,
+    this.width,
+  }) : super(key: key);
 
   final GestureTapCallback? onTap;
   final String title;
   final String content;
+  final Widget? widget;
   final TextAlign textAlign;
   final TextStyle? style;
   final double? width;
@@ -40,14 +43,16 @@ class SelectedItem extends StatelessWidget {
             ),
             Gaps.hGap16,
             Expanded(
-              child: Text(content,
-                  maxLines: 2,
-                  textAlign: textAlign,
-                  overflow: TextOverflow.ellipsis,
-                  style: style),
+              child: widget == null
+                  ? Text(content,
+                      maxLines: 2,
+                      textAlign: textAlign,
+                      overflow: TextOverflow.ellipsis,
+                      style: style)
+                  : widget!,
             ),
             Gaps.hGap8,
-            if(onTap != null)
+            if (onTap != null)
               Icon(
                 Icons.chevron_right,
                 size: 25,
