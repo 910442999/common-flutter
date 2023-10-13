@@ -7,17 +7,19 @@ import '/widget/my_button.dart';
 
 /// 自定义AppBar
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyAppBar({Key? key,
-    this.backgroundColor,
-    this.titleColor,
-    this.title = '',
-    this.centerTitle = '',
-    this.actionName,
-    this.backImg = 'assets/images/ic_back_black.png',
-    this.backImgColor,
-    this.onPressed,
-    this.action,
-    this.isBack = true})
+  const MyAppBar(
+      {Key? key,
+      this.backgroundColor,
+      this.titleColor,
+      this.title = '',
+      this.centerTitle = '',
+      this.actionName,
+      this.backImg = 'assets/images/ic_back_black.png',
+      this.backImgColor,
+      this.onPressed,
+      this.padding = const EdgeInsets.only(top: 12.0, bottom: 12),
+      this.action,
+      this.isBack = true})
       : super(key: key);
 
   final Color? backgroundColor;
@@ -30,35 +32,28 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onPressed;
   final bool isBack;
   final Widget? action;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
-    final Color _backgroundColor = backgroundColor ?? Theme
-        .of(context)
-        .scaffoldBackgroundColor;
+    final Color _backgroundColor =
+        backgroundColor ?? Theme.of(context).scaffoldBackgroundColor;
 
     final SystemUiOverlayStyle _overlayStyle =
-    ThemeData.estimateBrightnessForColor(_backgroundColor) ==
-        Brightness.dark
-        ? SystemUiOverlayStyle.light
-        : SystemUiOverlayStyle.dark;
+        ThemeData.estimateBrightnessForColor(_backgroundColor) ==
+                Brightness.dark
+            ? SystemUiOverlayStyle.light
+            : SystemUiOverlayStyle.dark;
 
     final Widget back = isBack
-        ? GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          FocusManager.instance.primaryFocus?.unfocus();
-          Navigator.pop(context);
-        },
-        child: Container(
-          padding: const EdgeInsets.all(10.0),
-          child: Image.asset(
-            backImg,
-            width: 22,
-            height: 22,
-            color: backImgColor ?? Colours.text,
-          ),
-        ))
+        ? IconButton(
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              Navigator.maybePop(context);
+            },
+            padding: padding,
+            icon: Image.asset(backImg, color: backImgColor ?? Colours.text),
+          )
         : Gaps.empty;
     Widget actionWidget;
     if (actionName != null && actionName!.isNotEmpty) {
@@ -70,9 +65,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           minWidth: 42,
           text: actionName.toString(),
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          textColor: Theme
-              .of(context)
-              .brightness == Brightness.dark ? Colours.dark_text : Colours.text,
+          textColor: Theme.of(context).brightness == Brightness.dark
+              ? Colours.dark_text
+              : Colours.text,
           backgroundColor: Colors.transparent,
           onPressed: onPressed,
         ),
@@ -94,14 +89,11 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       header: true,
       child: Container(
         alignment:
-        centerTitle.isEmpty ? Alignment.centerLeft : Alignment.center,
+            centerTitle.isEmpty ? Alignment.centerLeft : Alignment.center,
         width: double.infinity,
         child: Text(
           title.isEmpty ? centerTitle : title,
-          style: TextStyle(
-              fontSize: Dimens.font_sp18,
-              color: titleColor
-          ),
+          style: TextStyle(fontSize: Dimens.font_sp18, color: titleColor),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
