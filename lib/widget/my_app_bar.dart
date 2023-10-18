@@ -36,7 +36,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final Color _backgroundColor =
-        backgroundColor ?? Colours.white_ffffff;
+        backgroundColor ?? Theme
+            .of(context)
+            .appBarTheme
+            .backgroundColor ?? Colours.white_ffffff;
 
     final SystemUiOverlayStyle _overlayStyle =
     ThemeData.estimateBrightnessForColor(_backgroundColor) ==
