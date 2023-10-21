@@ -49,14 +49,9 @@ class LoadImage extends StatelessWidget {
     if (TextUtil.isEmpty(image)) {
       _imageWidget = _image;
     } else {
-      if (circleRadius != null) {
-        _imageWidget = CircleAvatar(
-          radius: circleRadius,
-          backgroundImage: ImageUtils.getImageProvider(image!),
-        );
-      } else if (borderRadius != null) {
+      if (borderRadius != null || circleRadius != null) {
         _imageWidget = ClipRRect(
-            borderRadius: borderRadius!,
+            borderRadius: borderRadius ?? BorderRadius.circular(circleRadius!),
             child: kIsWeb
                 ? Image.network(
               image!,

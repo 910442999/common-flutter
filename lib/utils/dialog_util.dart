@@ -158,7 +158,11 @@ class DialogUtil {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text('取消'),
+                    child: Text("取消",
+                        style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.black
+                        ))
                   ),
                   CupertinoDialogAction(
                     onPressed: () {
@@ -172,7 +176,11 @@ class DialogUtil {
                         }
                       }
                     },
-                    child: const Text('确定'),
+                    child: Text("确定",
+                        style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.blue
+                        )),
                   ),
                 ],
               ));
