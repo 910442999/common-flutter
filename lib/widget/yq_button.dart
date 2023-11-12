@@ -3,8 +3,8 @@ import '/res/yq_colors.dart';
 import '/res/yq_dimens.dart';
 
 /// 默认字号18，白字蓝底，高度48
-class YQMyButton extends StatelessWidget {
-  const YQMyButton({
+class YQButton extends StatelessWidget {
+  const YQButton({
     Key? key,
     required this.text,
     this.fontSize = YQDimens.font_sp18,

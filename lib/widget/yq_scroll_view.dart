@@ -5,10 +5,10 @@ import 'package:keyboard_actions/keyboard_actions.dart';
 /// 本项目通用的布局（SingleChildScrollView）
 /// 1.底部存在按钮
 /// 2.底部没有按钮
-class YQMyScrollView extends StatelessWidget {
+class YQScrollView extends StatelessWidget {
   /// 注意：同时存在底部按钮与keyboardConfig配置时，为保证软键盘弹出高度正常。需要在`Scaffold`使用 `resizeToAvoidBottomInset: defaultTargetPlatform != TargetPlatform.iOS,`
   /// 除非Android与iOS平台均使用keyboard_actions
-  const YQMyScrollView(
+  const YQScrollView(
       {Key? key,
       required this.children,
       this.padding,

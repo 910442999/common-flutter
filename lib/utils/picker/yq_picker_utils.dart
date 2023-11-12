@@ -16,7 +16,7 @@ const double kTextFontSize = 17.0;
 class YQPickerUtils {
   /** 日期选择器*/
   static void showDatePicker(BuildContext context, {
-    DateType? dateType,
+    YQDateType? dateType,
     String? title,
     DateTime? maxValue,
     DateTime? minValue,
@@ -27,9 +27,9 @@ class YQPickerUtils {
     required Function(dynamic selectDateStr, dynamic selectDate) clickCallback,
   }) {
     int timeType;
-    if (dateType == DateType.YM) {
+    if (dateType == YQDateType.YM) {
       timeType = PickerDateTimeType.kYM;
-    } else if (dateType == DateType.YMD_HM) {
+    } else if (dateType == YQDateType.YMD_HM) {
       timeType = PickerDateTimeType.kYMDHM;
     } else {
       timeType = PickerDateTimeType.kYMD;
@@ -118,34 +118,34 @@ class YQPickerUtils {
     required Function(int selectIndex, String selectStr) clickCallBack,
   }) {
     List mData = [];
-    if (data is PickerType) {
-      if (data == PickerType.sex) {
-        mData = singleData[PickerType.sex]!;
-      } else if (data == PickerType.education) {
-        mData = singleData[PickerType.education]!;
-      } else if (data == PickerType.subject) {
-        mData = singleData[PickerType.subject]!;
-      } else if (data == PickerType.constellation) {
-        mData = singleData[PickerType.constellation]!;
-      } else if (data == PickerType.zodiac) {
-        mData = singleData[PickerType.zodiac]!;
-      } else if (data == PickerType.ethnicity) {
+    if (data is YQPickerType) {
+      if (data == YQPickerType.sex) {
+        mData = singleData[YQPickerType.sex]!;
+      } else if (data == YQPickerType.education) {
+        mData = singleData[YQPickerType.education]!;
+      } else if (data == YQPickerType.subject) {
+        mData = singleData[YQPickerType.subject]!;
+      } else if (data == YQPickerType.constellation) {
+        mData = singleData[YQPickerType.constellation]!;
+      } else if (data == YQPickerType.zodiac) {
+        mData = singleData[YQPickerType.zodiac]!;
+      } else if (data == YQPickerType.ethnicity) {
         mData = ethnicityData;
-      } else if (data == PickerType.emotion) {
-        mData = singleData[PickerType.emotion]!;
-      } else if (data == PickerType.living) {
-        mData = singleData[PickerType.living]!;
-      } else if (data == PickerType.buyHouse) {
-        mData = singleData[PickerType.buyHouse]!;
-      } else if (data == PickerType.buyCar) {
-        mData = singleData[PickerType.buyCar]!;
-      } else if (data == PickerType.income) {
-        mData = singleData[PickerType.income]!;
-      } else if (data == PickerType.height) {
+      } else if (data == YQPickerType.emotion) {
+        mData = singleData[YQPickerType.emotion]!;
+      } else if (data == YQPickerType.living) {
+        mData = singleData[YQPickerType.living]!;
+      } else if (data == YQPickerType.buyHouse) {
+        mData = singleData[YQPickerType.buyHouse]!;
+      } else if (data == YQPickerType.buyCar) {
+        mData = singleData[YQPickerType.buyCar]!;
+      } else if (data == YQPickerType.income) {
+        mData = singleData[YQPickerType.income]!;
+      } else if (data == YQPickerType.height) {
         mData.addAll(
             List.generate(120, (index) => (100 + index).toString() + "cm"));
         mData.add("220cm以上");
-      } else if (data == PickerType.weight) {
+      } else if (data == YQPickerType.weight) {
         mData.addAll(
             List.generate(100, (index) => (30 + index).toString() + "kg"));
         mData.add("130kg以上");

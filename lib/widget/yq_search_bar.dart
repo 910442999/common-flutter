@@ -125,7 +125,7 @@ class _YQSearchBarState extends State<YQSearchBar> {
             border: InputBorder.none,
             icon: Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 8.0),
-              child: LoadAssetImage(
+              child: YQLoadAssetImage(
                 "search",
                 color: iconColor,
               ),
@@ -138,7 +138,7 @@ class _YQSearchBarState extends State<YQSearchBar> {
                 child: Padding(
                   padding:
                       const EdgeInsets.only(left: 16.0, top: 8.0, bottom: 8.0),
-                  child: LoadAssetImage("delete", color: iconColor),
+                  child: YQLoadAssetImage("delete", color: iconColor),
                 ),
               ),
               onTap: () {
@@ -153,7 +153,7 @@ class _YQSearchBarState extends State<YQSearchBar> {
       ),
     );
 
-    final Widget search = YQMyButton(
+    final Widget search = YQButton(
       minHeight: 32.0,
       minWidth: 44.0,
       fontSize: YQDimens.font_sp14,

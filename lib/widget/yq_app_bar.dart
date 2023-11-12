@@ -3,11 +3,11 @@ import 'package:flutter/services.dart';
 import '/res/yq_colors.dart';
 import '/res/yq_dimens.dart';
 import '/res/yq_gaps.dart';
-import '/widget/yq_my_button.dart';
+import '/widget/yq_button.dart';
 
 /// 自定义AppBar
-class YQMyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const YQMyAppBar({Key? key,
+class YQAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const YQAppBar({Key? key,
     this.backgroundColor,
     this.titleColor,
     this.title = '',
@@ -61,7 +61,7 @@ class YQMyAppBar extends StatelessWidget implements PreferredSizeWidget {
     if (actionName != null && actionName!.isNotEmpty) {
       actionWidget = Positioned(
         right: 0.0,
-        child: YQMyButton(
+        child: YQButton(
           key: const Key('actionName'),
           fontSize: YQDimens.font_sp16,
           minWidth: 42,

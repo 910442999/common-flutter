@@ -36,7 +36,7 @@ class YQLoadImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Widget _image = LoadAssetImage(
+    final Widget _image = YQLoadAssetImage(
       holderImg,
       height: height,
       width: width,
@@ -103,8 +103,8 @@ class YQLoadImage extends StatelessWidget {
 }
 
 /// 加载本地资源图片
-class LoadAssetImage extends StatelessWidget {
-  const LoadAssetImage(this.image,
+class YQLoadAssetImage extends StatelessWidget {
+  const YQLoadAssetImage(this.image,
       {Key? key,
         this.width,
         this.height,

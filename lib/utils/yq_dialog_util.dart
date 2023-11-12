@@ -7,7 +7,7 @@ import '../res/yq_gaps.dart';
 import '../widget/dialog/yq_check_box_dialog.dart';
 import '../widget/dialog/yq_menu_dialog.dart';
 import '../widget/dialog/yq_share_dialog.dart';
-import '../widget/yq_my_button.dart';
+import '../widget/yq_button.dart';
 import 'yq_toast_utils.dart';
 
 class YQDialogUtil {

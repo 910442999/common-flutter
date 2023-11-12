@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/yq_toast_utils.dart';
-import '../yq_my_app_bar.dart';
+import '../yq_app_bar.dart';
 
 ///多选选对话框
 class YQCheckBoxDialog extends StatefulWidget {
@@ -54,7 +54,7 @@ class _YQCheckBoxDialog extends State<YQCheckBoxDialog> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: YQMyAppBar(
+        appBar: YQAppBar(
             centerTitle: widget.title != null ? widget.title.toString() : "",
             isBack: false,
             actionName: "完成",

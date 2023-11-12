@@ -43,7 +43,7 @@ class YQStateLayout extends StatelessWidget {
                 Theme
                     .of(context)
                     .brightness == Brightness.dark ? 0.5 : 1,
-                child: LoadAssetImage(
+                child: YQLoadAssetImage(
                   image == null &&
                       YQTextUtil.isEmpty(image)
                       ? '${type.img}'
@@ -67,7 +67,7 @@ class YQStateLayout extends StatelessWidget {
           if (onPressed != null)
             Container(
               margin: EdgeInsets.only(bottom: 50),
-              child: YQMyButton(
+              child: YQButton(
                 text: pressedText ?? "重新加载",
                 textColor: pressedColor,
                 minWidth: 120,

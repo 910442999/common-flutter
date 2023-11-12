@@ -9,8 +9,8 @@ import '../../../utils/yq_index.dart';
 import '../../../widget/yq_index.dart';
 
 /// 输入框封装
-class YQMyTextField extends StatefulWidget {
-  const YQMyTextField({
+class YQTextField extends StatefulWidget {
+  const YQTextField({
     Key? key,
     required this.controller,
     this.maxLength = 16,
@@ -52,10 +52,10 @@ class YQMyTextField extends StatefulWidget {
   final List<TextInputFormatter>? textInputFormatter;
 
   @override
-  _YQMyTextFieldState createState() => _YQMyTextFieldState();
+  _YQTextFieldState createState() => _YQTextFieldState();
 }
 
-class _YQMyTextFieldState extends State<YQMyTextField> {
+class _YQTextFieldState extends State<YQTextField> {
   bool _isShowPwd = false;
   bool _isShowDelete = false;
   bool _clickable = true;
@@ -181,7 +181,7 @@ class _YQMyTextFieldState extends State<YQMyTextField> {
         hint: '清空输入框',
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          child: LoadAssetImage(
+          child: YQLoadAssetImage(
             'icon_delete',
             key: Key('${widget.keyName}_delete'),
             width: 18.0,
@@ -199,7 +199,7 @@ class _YQMyTextFieldState extends State<YQMyTextField> {
         hint: '密码是否可见',
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          child: LoadAssetImage(_isShowPwd ? 'icon_display' : 'icon_hide',
+          child: YQLoadAssetImage(_isShowPwd ? 'icon_display' : 'icon_hide',
               key: Key('${widget.keyName}_showPwd'), width: 18.0, height: 40.0),
           onTap: () {
             setState(() {
@@ -212,7 +212,7 @@ class _YQMyTextFieldState extends State<YQMyTextField> {
 
     late Widget getVCodeButton;
     if (widget.getVCode != null) {
-      getVCodeButton = YQMyButton(
+      getVCodeButton = YQButton(
         key: const Key('getVerificationCode'),
         onPressed: _clickable ? _getVCode : null,
         fontSize: YQDimens.font_sp12,

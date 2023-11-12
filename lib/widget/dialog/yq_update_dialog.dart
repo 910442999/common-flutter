@@ -8,7 +8,7 @@ import '/res/yq_dimens.dart';
 import '/res/yq_gaps.dart';
 import '/res/yq_styles.dart';
 import '../../../utils/yq_index.dart';
-import '/widget/yq_my_button.dart';
+import '/widget/yq_button.dart';
 
 class YQUpdateDialog extends StatefulWidget {
   String versionName;
@@ -137,7 +137,7 @@ class _YQUpdateDialogState extends State<YQUpdateDialog> {
         SizedBox(
           width: 110.0,
           height: 36.0,
-          child: YQMyButton(
+          child: YQButton(
             text: serverFlag == 1 ? "稍后" : "退出",
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             fontSize: YQDimens.font_sp16,
@@ -163,7 +163,7 @@ class _YQUpdateDialogState extends State<YQUpdateDialog> {
         SizedBox(
           width: 110.0,
           height: 36.0,
-          child: YQMyButton(
+          child: YQButton(
             text: '立即更新',
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             fontSize: YQDimens.font_sp16,
