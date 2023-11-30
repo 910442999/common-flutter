@@ -139,25 +139,11 @@ class YQMediaUtil {
     String? filePath;
     Map<String, dynamic> map = {"code": 0, "message": "", "data": null};
     try {
-      bool permission = await YQPermissionUtils.requestStorage(context);
+      bool permission = await YQPermissionUtils.requestCamera(context);
       if (permission) {
         //      =================拍摄证件======================
         final XFile? result =
             await _picker.pickImage(source: ImageSource.camera);
-
-        // final AssetEntity? entity = await CameraPicker.pickFromCamera(
-        //   context,
-        //   pickerConfig: CameraPickerConfig(
-        //     foregroundBuilder: (BuildContext context,
-        //         CameraController? controller,) {
-        //       return Container(
-        //         alignment: Alignment.center,
-        //         margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-        //         child: new Image.asset('assets/images/bg_identify_idcard.png'),
-        //       );
-        //     },
-        //   ),
-        // );
         if (result != null) {
           filePath = await result.path;
           map["code"] = 200;
@@ -171,7 +157,7 @@ class YQMediaUtil {
         }
       } else {
         map["code"] = 206;
-        map["message"] = "您暂未授权访问相册权限，请打开设置页授权";
+        map["message"] = "您暂未授权相机权限，请打开设置页授权";
         return map;
       }
     } catch (e) {

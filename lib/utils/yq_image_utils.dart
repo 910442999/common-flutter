@@ -16,7 +16,7 @@ class YQImageUtils {
 
   static ImageProvider getImageProvider(String? imageUrl, {String holderImg = 'none'}) {
     if (YQTextUtil.isEmpty(imageUrl)) {
-      return AssetImage(getImgPath(holderImg));
+      return AssetImage(holderImg);
     }
     return CachedNetworkImageProvider(imageUrl!);
   }

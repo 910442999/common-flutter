@@ -17,6 +17,9 @@ class YQTextField extends StatefulWidget {
     this.autoFocus = false,
     this.keyboardType = TextInputType.text,
     this.hintText = '',
+    this.iconDelete = 'assets/images/icon_delete.png',
+    this.iconDisplay = 'assets/images/icon_display.png',
+    this.iconHide = 'assets/images/icon_hide.png',
     this.focusNode,
     this.isInputPwd = false,
     this.getVCode,
@@ -36,6 +39,9 @@ class YQTextField extends StatefulWidget {
   final bool autoFocus;
   final TextInputType keyboardType;
   final String hintText;
+  final String iconDelete;
+  final String iconDisplay;
+  final String iconHide;
   final FocusNode? focusNode;
   final bool isInputPwd;
   final Future<bool> Function()? getVCode;
@@ -182,7 +188,7 @@ class _YQTextFieldState extends State<YQTextField> {
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           child: YQLoadAssetImage(
-            'icon_delete',
+            widget.iconDelete,
             key: Key('${widget.keyName}_delete'),
             width: 18.0,
             height: 40.0,
@@ -199,7 +205,7 @@ class _YQTextFieldState extends State<YQTextField> {
         hint: '密码是否可见',
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          child: YQLoadAssetImage(_isShowPwd ? 'icon_display' : 'icon_hide',
+          child: YQLoadAssetImage(_isShowPwd ? widget.iconDisplay : widget.iconHide,
               key: Key('${widget.keyName}_showPwd'), width: 18.0, height: 40.0),
           onTap: () {
             setState(() {

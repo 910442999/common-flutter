@@ -41,7 +41,6 @@ class YQLoadImage extends StatelessWidget {
       height: height,
       width: width,
       fit: fit,
-      format: format,
       cacheWidth: cacheWidth,
       cacheHeight: cacheHeight,
     );
@@ -111,7 +110,6 @@ class YQLoadAssetImage extends StatelessWidget {
         this.cacheWidth,
         this.cacheHeight,
         this.fit,
-        this.format = ImageFormat.png,
         this.color,
         this.package,
         this.onPressed})
@@ -123,7 +121,6 @@ class YQLoadAssetImage extends StatelessWidget {
   final int? cacheWidth;
   final int? cacheHeight;
   final BoxFit? fit;
-  final ImageFormat format;
   final Color? color;
   final VoidCallback? onPressed;
   final String? package;
@@ -131,10 +128,8 @@ class YQLoadAssetImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget widget = image == null
-        ? SizedBox(height: height,
-        width: width)
-        : Image.asset(
-      YQImageUtils.getImgPath(image!, format: format),
+        ? SizedBox()
+        : Image.asset(image!,
       height: height,
       width: width,
       cacheWidth: cacheWidth,
@@ -155,8 +150,8 @@ class YQLoadAssetImage extends StatelessWidget {
 }
 
 /// 加载SVG资源图片
-class LoadSvgImage extends StatelessWidget {
-  const LoadSvgImage(this.image,
+class YQLoadSvgImage extends StatelessWidget {
+  const YQLoadSvgImage(this.image,
       {Key? key, this.width, this.height, this.color, this.onPressed})
       : super(key: key);
 
@@ -168,8 +163,7 @@ class LoadSvgImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget widget = SvgPicture.asset(
-      "assets/svg/" + image,
+    Widget widget = SvgPicture.asset(image,
       height: height,
       width: width,
       color: color,
