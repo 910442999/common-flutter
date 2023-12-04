@@ -32,6 +32,7 @@ class YQTextField extends StatefulWidget {
     this.hintStyle,
     this.onFieldSubmitted,
     this.validator,
+    this.textInputAction,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -56,6 +57,7 @@ class YQTextField extends StatefulWidget {
   final String? keyName;
   final TextAlign textAlign;
   final List<TextInputFormatter>? textInputFormatter;
+  final TextInputAction? textInputAction;
 
   @override
   _YQTextFieldState createState() => _YQTextFieldState();
@@ -131,7 +133,7 @@ class _YQTextFieldState extends State<YQTextField> {
       obscureText: widget.isInputPwd && !_isShowPwd,
       autofocus: widget.autoFocus,
       controller: widget.controller,
-      textInputAction: TextInputAction.done,
+      textInputAction: widget.textInputAction ?? TextInputAction.done,
       keyboardType: widget.keyboardType,
       enabled: widget.enabled,
       textAlign: widget.textAlign,
@@ -139,11 +141,11 @@ class _YQTextFieldState extends State<YQTextField> {
       validator: widget.validator,
       // 数字、手机号限制格式为0到9， 密码限制不包含汉字
       inputFormatters: (widget.keyboardType == TextInputType.number ||
-              widget.keyboardType == TextInputType.phone)
+          widget.keyboardType == TextInputType.phone)
           ? [FilteringTextInputFormatter.allow(RegExp('[0-9]'))]
           : widget.keyboardType == TextInputType.visiblePassword
-              ? [FilteringTextInputFormatter.deny(RegExp('[\u4e00-\u9fa5]'))]
-              : widget.textInputFormatter,
+          ? [FilteringTextInputFormatter.deny(RegExp('[\u4e00-\u9fa5]'))]
+          : widget.textInputFormatter,
       decoration: InputDecoration(
         border: widget.border,
         contentPadding: EdgeInsets.only(right: widget.enabled ? 20 : 0),
@@ -153,19 +155,19 @@ class _YQTextFieldState extends State<YQTextField> {
         focusedBorder: widget.border == InputBorder.none
             ? null
             : UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: themeData.primaryColor,
-                  width: 0.8,
-                ),
-              ),
+          borderSide: BorderSide(
+            color: themeData.primaryColor,
+            width: 0.8,
+          ),
+        ),
         enabledBorder: widget.border == InputBorder.none
             ? null
             : UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: themeData.dividerTheme.color ?? YQColours.line,
-                  width: 0.8,
-                ),
-              ),
+          borderSide: BorderSide(
+            color: themeData.dividerTheme.color ?? YQColours.line,
+            width: 0.8,
+          ),
+        ),
       ),
     );
 
@@ -205,7 +207,8 @@ class _YQTextFieldState extends State<YQTextField> {
         hint: '密码是否可见',
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          child: YQLoadAssetImage(_isShowPwd ? widget.iconDisplay : widget.iconHide,
+          child: YQLoadAssetImage(
+              _isShowPwd ? widget.iconDisplay : widget.iconHide,
               key: Key('${widget.keyName}_showPwd'), width: 18.0, height: 40.0),
           onTap: () {
             setState(() {
@@ -227,7 +230,7 @@ class _YQTextFieldState extends State<YQTextField> {
         disabledTextColor: isDark ? YQColours.dark_text : Colors.white,
         backgroundColor: Colors.transparent,
         disabledBackgroundColor:
-            isDark ? YQColours.dark_text_gray : YQColours.text_gray_c,
+        isDark ? YQColours.dark_text_gray : YQColours.text_gray_c,
         radius: 1.0,
         minHeight: 26.0,
         minWidth: 76.0,
@@ -246,9 +249,11 @@ class _YQTextFieldState extends State<YQTextField> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+
             /// _isShowDelete参数动态变化，为了不破坏树结构，false时放一个空Widget。
             /// 对于其他参数，为初始配置参数，基本可以确定树结构，就不做空Widget处理。
-            if (_isShowDelete && widget.enabled) clearButton else YQGaps.empty,
+            if (_isShowDelete && widget.enabled) clearButton else
+              YQGaps.empty,
             if (widget.isInputPwd) YQGaps.hGap15,
             if (widget.isInputPwd) pwdVisible,
             if (widget.getVCode != null) YQGaps.hGap15,

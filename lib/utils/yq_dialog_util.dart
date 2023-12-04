@@ -23,22 +23,22 @@ class YQDialogUtil {
   ///警告对话框(系统)
   static void showAlert(BuildContext context, String? content,
       {String? title,
-      TextSpan? textSpan,
-      String? confirmText, //确定按钮文本
-      String? cancelText, //取消按钮文本
-      Function? onPressed,
-      Function? onCancel,
-      bool isCancel = true,
-      bool onWillPop = true,
-      bool confirmDismiss = true,
-      bool cancelDismiss = true}) {
+        TextSpan? textSpan,
+        String? confirmText, //确定按钮文本
+        String? cancelText, //取消按钮文本
+        Function? onPressed,
+        Function? onCancel,
+        bool isCancel = true,
+        bool onWillPop = true,
+        bool confirmDismiss = true,
+        bool cancelDismiss = true}) {
     List<Widget> actions = [];
     if (isCancel) {
       actions.add(CupertinoDialogAction(
         child: Text(cancelText ?? "取消",
             style: const TextStyle(
-              fontSize: 18,
-              color: Colors.black
+                fontSize: 18,
+                color: Colors.black
             )),
         onPressed: () {
           if (cancelDismiss) {
@@ -53,7 +53,7 @@ class YQDialogUtil {
     actions.add(CupertinoDialogAction(
       child: Text(confirmText ?? "确定",
           style: const TextStyle(
-            fontSize: 18,
+              fontSize: 18,
               color: Colors.blue
           )),
       onPressed: () {
@@ -81,16 +81,16 @@ class YQDialogUtil {
                     children: <Widget>[
                       content != null && content.isNotEmpty
                           ? Text(
-                              content,
-                              style: const TextStyle(fontSize: 16, height: 1.5),
-                            )
+                        content,
+                        style: const TextStyle(fontSize: 16, height: 1.5),
+                      )
                           : YQGaps.empty,
                       textSpan != null
                           ? Text.rich(
-                              textSpan,
-                              style: const TextStyle(
-                                  fontSize: 16, height: 1.5), // 设置整体大小
-                            )
+                        textSpan,
+                        style: const TextStyle(
+                            fontSize: 16, height: 1.5), // 设置整体大小
+                      )
                           : YQGaps.empty,
                     ],
                   ),
@@ -103,13 +103,13 @@ class YQDialogUtil {
   ///输入警告对话框(系统)
   static void showInputAlert(BuildContext context,
       {String? title,
-      String? hintText,
-      String? content,
-      String? inputContent,
-      TextInputType? keyboardType,
-      List<TextInputFormatter>? inputFormatters,
-      bool onWillPop = true,
-      Function(String)? onPressed}) {
+        String? hintText,
+        String? content,
+        String? inputContent,
+        TextInputType? keyboardType,
+        List<TextInputFormatter>? inputFormatters,
+        bool onWillPop = true,
+        Function(String)? onPressed}) {
     //设置textfield使用的控制器对象
     TextEditingController _controller = TextEditingController();
     if (inputContent != null && inputContent.isNotEmpty) {
@@ -155,14 +155,14 @@ class YQDialogUtil {
                 ),
                 actions: <Widget>[
                   CupertinoDialogAction(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text("取消",
-                        style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.black
-                        ))
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text("取消",
+                          style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.black
+                          ))
                   ),
                   CupertinoDialogAction(
                     onPressed: () {
@@ -232,9 +232,10 @@ class YQDialogUtil {
 //   }
 
   //多选
-  static void showCheckBoxDialog(
-      BuildContext context, String? title, List<String> options,
-      {required Function(List<int>, List<String>) onPressed, double? height}) {
+  static void showCheckBoxDialog(BuildContext context, String? title,
+      List<String> options,
+      {required Function(List<int>, List<
+          String>) onPressed, double? height, Color? activeColor }) {
     showModalBottomSheet<List<int>>(
         context: context,
         backgroundColor: Colors.transparent,
@@ -249,11 +250,15 @@ class YQDialogUtil {
                   topRight: Radius.circular(20.0),
                 ),
               ),
-              height: height ?? MediaQuery.of(context).size.height / 2.0,
+              height: height ?? MediaQuery
+                  .of(context)
+                  .size
+                  .height / 2.0,
               child: YQCheckBoxDialog(
                 title: title ?? "请选择",
                 options: options,
                 onPressed: onPressed,
+                activeColor: activeColor,
               ));
         });
   }
@@ -288,8 +293,8 @@ class YQDialogUtil {
   /// 更多的 menu，用于处理会话页面更多按钮等
   static Widget showMoreMenu(List<String> actionList,
       {Widget? child,
-      EdgeInsetsGeometry? padding,
-      Function(String key)? onSelected}) {
+        EdgeInsetsGeometry? padding,
+        Function(String key)? onSelected}) {
     List<PopupMenuEntry<String>> items = [];
     actionList.forEach((key) {
       PopupMenuItem<String> p = PopupMenuItem(

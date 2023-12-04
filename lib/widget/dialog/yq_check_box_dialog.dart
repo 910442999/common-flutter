@@ -10,11 +10,13 @@ class YQCheckBoxDialog extends StatefulWidget {
     required this.options,
     required this.onPressed,
     this.title,
+    this.activeColor,
   }) : super(key: key);
 
   final Function(List<int>, List<String>) onPressed;
   final List<String> options;
   final String? title;
+  Color? activeColor;
 
   @override
   _YQCheckBoxDialog createState() => _YQCheckBoxDialog();
@@ -31,6 +33,7 @@ class _YQCheckBoxDialog extends State<YQCheckBoxDialog> {
         height: 42.0,
         child: CheckboxListTile(
           value: selectedIndex.contains(index),
+          activeColor: widget.activeColor,
           onChanged: (value) {
             if (mounted) {
               setState(() {
