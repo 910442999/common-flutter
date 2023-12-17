@@ -15,7 +15,7 @@ dependencies:
   #  plugin_platform_interface: ^2.1.4
   oktoast: ^3.4.0
   flutter_easyloading: ^3.0.5
-  permission_handler: ^10.2.0
+  permission_handler: ^11.1.0
   #  路径管理
   path_provider: ^2.1.1
   image_picker: ^0.8.5+3
