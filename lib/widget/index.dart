@@ -14,4 +14,3 @@ export 'check_box_widget.dart';
 export 'chip_widget.dart';
 export 'time_line_widget.dart';
 export 'form_text_field.dart';
-export 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
