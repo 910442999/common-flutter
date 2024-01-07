@@ -88,9 +88,21 @@ class YQTextUtil {
       return "";
     }
     if (string!.length > start) {
-      return string.replaceRange(start, string.length, replacement);
+      return string!.replaceRange(start, string!.length, replacement);
     }
-    return string.replaceRange(1, string.length, replacement);
+    return string!.replaceRange(1, string!.length, replacement);
+  }
+
+  ///隐藏昵称
+  static String hideName(String? string,
+      {int type = 0, String replacement = '**'}) {
+    if (isEmpty(string)) {
+      return "";
+    }
+    if (type == 1 && string!.length > 2) {
+      return string!.replaceRange(1, string!.length - 1, replacement);
+    }
+    return string!.replaceRange(0, string!.length - 1, replacement);
   }
 
   /// replace
