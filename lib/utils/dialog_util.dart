@@ -38,6 +38,7 @@ class DialogUtil {
         child: Text(cancelText ?? "取消",
             style: const TextStyle(
               fontSize: 18,
+              color: Colors.black
             )),
         onPressed: () {
           if (cancelDismiss) {
@@ -53,6 +54,7 @@ class DialogUtil {
       child: Text(confirmText ?? "确定",
           style: const TextStyle(
             fontSize: 18,
+              color: Colors.blue
           )),
       onPressed: () {
         if (confirmDismiss) {
@@ -156,7 +158,11 @@ class DialogUtil {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text('取消'),
+                    child: Text("取消",
+                        style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.black
+                        ))
                   ),
                   CupertinoDialogAction(
                     onPressed: () {
@@ -170,7 +176,11 @@ class DialogUtil {
                         }
                       }
                     },
-                    child: const Text('确定'),
+                    child: Text("确定",
+                        style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.blue
+                        )),
                   ),
                 ],
               ));
@@ -178,48 +188,48 @@ class DialogUtil {
   }
 
 //底部弹窗
-  static void showBottomSheetDialog(
-      BuildContext mContext, Map<String, Function()> tips) {
-    if (tips.isEmpty) {
-      return;
-    }
-    List<Function()> values = tips.values.toList();
-    List<String> keys = tips.keys.toList();
-    showModalBottomSheet(
-      context: mContext,
-      builder: (context) => SafeArea(
-        child: SizedBox(
-          height: (60 * tips.length * 1.0),
-          child: ListView.separated(
-              key: UniqueKey(),
-              controller: ScrollController(),
-              itemCount: tips.length,
-              itemBuilder: (BuildContext context, int index) {
-                return TextButton(
-                    onPressed: () {
-                      Function() clickEvent = values[index];
-                      Navigator.pop(mContext);
-                      clickEvent();
-                    },
-                    style: ButtonStyle(
-                        minimumSize: MaterialStateProperty.all<Size>(
-                            const Size(double.infinity, 60))),
-                    child: Text(
-                      keys[index],
-                      style: const TextStyle(
-                          color: Colours.black_333333, fontSize: 18),
-                    ));
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return Container(
-                  color: const Color(0xffC8C8C8),
-                  height: 0.5,
-                );
-              }),
-        ),
-      ),
-    );
-  }
+//   static void showBottomSheetDialog(
+//       BuildContext mContext, Map<String, Function()> tips) {
+//     if (tips.isEmpty) {
+//       return;
+//     }
+//     List<Function()> values = tips.values.toList();
+//     List<String> keys = tips.keys.toList();
+//     showModalBottomSheet(
+//       context: mContext,
+//       builder: (context) => SafeArea(
+//         child: SizedBox(
+//           height: (60 * tips.length * 1.0),
+//           child: ListView.separated(
+//               key: UniqueKey(),
+//               controller: ScrollController(),
+//               itemCount: tips.length,
+//               itemBuilder: (BuildContext context, int index) {
+//                 return TextButton(
+//                     onPressed: () {
+//                       Function() clickEvent = values[index];
+//                       Navigator.pop(mContext);
+//                       clickEvent();
+//                     },
+//                     style: ButtonStyle(
+//                         minimumSize: MaterialStateProperty.all<Size>(
+//                             const Size(double.infinity, 60))),
+//                     child: Text(
+//                       keys[index],
+//                       style: const TextStyle(
+//                           color: Colours.black_333333, fontSize: 18),
+//                     ));
+//               },
+//               separatorBuilder: (BuildContext context, int index) {
+//                 return Container(
+//                   color: const Color(0xffC8C8C8),
+//                   height: 0.5,
+//                 );
+//               }),
+//         ),
+//       ),
+//     );
+//   }
 
   //多选
   static void showCheckBoxDialog(

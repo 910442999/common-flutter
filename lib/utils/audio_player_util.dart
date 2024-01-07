@@ -15,8 +15,8 @@ final AudioPlayerUtil audioPlayerUtil = AudioPlayerUtil();
 /// @date 2021/12/31
 ///
 class AudioPlayerUtil {
-  static late AudioPlayer _audioPlayer;
-  static late AudioCache _audioCache;
+  late AudioPlayer _audioPlayer;
+  late AudioCache _audioCache;
 
   // 工厂方法构造函数
   factory AudioPlayerUtil() => _getInstance();

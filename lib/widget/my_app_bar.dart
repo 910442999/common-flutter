@@ -17,6 +17,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backImg = 'assets/images/ic_back_black.png',
     this.backImgColor,
     this.onPressed,
+    this.padding = const EdgeInsets.only(top: 12.0, bottom: 12),
     this.action,
     this.isBack = true})
       : super(key: key);
@@ -32,12 +33,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onPressed;
   final bool isBack;
   final Widget? action;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
-    final Color _backgroundColor = backgroundColor ?? Theme
-        .of(context)
-        .scaffoldBackgroundColor;
+    final Color _backgroundColor =
+        backgroundColor ?? Theme
+            .of(context)
+            .appBarTheme
+            .backgroundColor ?? Colours.white_ffffff;
 
     final SystemUiOverlayStyle _overlayStyle =
     ThemeData.estimateBrightnessForColor(_backgroundColor) ==
@@ -46,21 +50,14 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         : SystemUiOverlayStyle.dark;
 
     final Widget back = isBack
-        ? GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          FocusManager.instance.primaryFocus?.unfocus();
-          Navigator.pop(context);
-        },
-        child: Container(
-          padding: const EdgeInsets.all(10.0),
-          child: Image.asset(
-            backImg,
-            width: 22,
-            height: 22,
-            color: backImgColor ?? Colours.text,
-          ),
-        ))
+        ? IconButton(
+      onPressed: () {
+        FocusScope.of(context).unfocus();
+        Navigator.maybePop(context);
+      },
+      padding: padding,
+      icon: Image.asset(backImg, color: backImgColor ?? Colours.text),
+    )
         : Gaps.empty;
     Widget actionWidget;
     if (actionName != null && actionName!.isNotEmpty) {
@@ -74,7 +71,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           textColor: Theme
               .of(context)
-              .brightness == Brightness.dark ? Colours.dark_text : Colours.text,
+              .brightness == Brightness.dark
+              ? Colours.dark_text
+              : Colours.text,
           backgroundColor: Colors.transparent,
           onPressed: onPressed,
         ),
