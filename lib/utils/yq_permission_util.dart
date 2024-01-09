@@ -10,26 +10,48 @@ import 'yq_dialog_util.dart';
  * 动态申请权限问题
  */
 class YQPermissionUtils {
+
+  /**
+   * 请求相关权限
+   */
+  static Future<bool> hasCamera() async {
+    // 检查结果 有一个未授予，则为失败
+    PermissionStatus camera = await Permission.camera.status;
+    if (camera.isGranted || camera.isLimited) {} else {
+      return false;
+    }
+    return true;
+  }
+
   //请求相机权限
   static Future<bool> requestCamera(BuildContext context) async {
-    List<Permission> permissionsList;
-    if (Platform.isIOS) {
-      permissionsList = [
-        Permission.photos,
-        Permission.camera,
-      ];
+    PermissionStatus status = await Permission.camera.request();
+    if (status.isGranted || status.isLimited) {
+      return true;
     } else {
-      permissionsList = [
-        Permission.camera,
-        Permission.storage,
-      ];
+      return false;
     }
-    return requestPermission(context, permissionsList);
   }
+
 
   ///请求电话权限
   static Future<bool> requestCallPhone(BuildContext context) async {
     PermissionStatus status = await Permission.phone.request();
+    if (status.isGranted || status.isLimited) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  ///存储权限
+  static Future<bool> hasStorage() async {
+    PermissionStatus status;
+    if (Platform.isIOS) {
+      status = await Permission.photos.status;
+    } else {
+      status = await Permission.storage.status;
+    }
     if (status.isGranted || status.isLimited) {
       return true;
     } else {
@@ -81,18 +103,17 @@ class YQPermissionUtils {
   /**
    * 请求相关权限
    */
-  static Future<bool> requestPermission(
-      BuildContext context, List<Permission> permissionsList) async {
+  static Future<bool> requestPermission(BuildContext context,
+      List<Permission> permissionsList) async {
     // 申请权限
     Map<Permission, PermissionStatus> permissions =
-        await permissionsList.request();
+    await permissionsList.request();
 
     // 申请结果 有一个未授予，则为失败
     bool permissionStatus = true;
     permissions.forEach((key, value) {
       print("--key, value--${key} ${value}");
-      if (value.isGranted || value.isLimited) {
-      } else {
+      if (value.isGranted || value.isLimited) {} else {
         permissionStatus = false;
       }
     });

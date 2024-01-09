@@ -54,9 +54,9 @@ class YQMediaUtil {
 
   Future<Map<String, dynamic>> pickImage(BuildContext context,
       {CropAspectRatioPreset aspectRatio = CropAspectRatioPreset.square,
-      CropStyle style = CropStyle.rectangle,
-      int imageSize = 500,
-      bool cropper = false}) async {
+        CropStyle style = CropStyle.rectangle,
+        int imageSize = 500,
+        bool cropper = false}) async {
     String? filePath;
     Map<String, dynamic> map = {"code": 0, "message": "", "data": null};
     try {
@@ -64,7 +64,7 @@ class YQMediaUtil {
       if (permission) {
         //      =================选择图片======================
         final XFile? result =
-            await _picker.pickImage(source: ImageSource.gallery);
+        await _picker.pickImage(source: ImageSource.gallery);
         // =================剪辑和压缩图片======================
         if (result != null) {
           filePath = await result.path;
@@ -73,7 +73,8 @@ class YQMediaUtil {
             if (kDebugMode) {
               File file = File(filePath);
               YQLog.e(
-                  "选择图片后大小 ：${file.lengthSync() == null ? '' : YQFileUtil.formatFileSize(file.lengthSync())}");
+                  "选择图片后大小 ：${file.lengthSync() == null ? '' : YQFileUtil
+                      .formatFileSize(file.lengthSync())}");
             }
             map["code"] = 200;
             map["data"] = filePath;
@@ -89,7 +90,7 @@ class YQMediaUtil {
               cropStyle: style,
               uiSettings: [
                 AndroidUiSettings(
-                    // toolbarTitle: '编辑图片',
+                  // toolbarTitle: '编辑图片',
                     toolbarColor: Colors.white,
                     // toolbarWidgetColor: Colors.white,
                     initAspectRatio: aspectRatio,
@@ -111,7 +112,9 @@ class YQMediaUtil {
           if (kDebugMode) {
             var temporaryFile = File(filePath);
             YQLog.e(
-                "剪辑后大小 ：${temporaryFile.lengthSync() == null ? '' : YQFileUtil.formatFileSize(temporaryFile.lengthSync())}");
+                "剪辑后大小 ：${temporaryFile.lengthSync() == null
+                    ? ''
+                    : YQFileUtil.formatFileSize(temporaryFile.lengthSync())}");
           }
           map["code"] = 200;
           map["data"] = filePath;
@@ -124,7 +127,7 @@ class YQMediaUtil {
         }
       } else {
         map["code"] = 206;
-        map["message"] = "您暂未授权访问相册权限，请打开设置页授权";
+        map["message"] = "已被禁止访问相册权限，您可以打开设置进行手动授权！";
         return map;
       }
     } catch (e) {
@@ -143,21 +146,21 @@ class YQMediaUtil {
       if (permission) {
         //      =================拍摄证件======================
         final XFile? result =
-            await _picker.pickImage(source: ImageSource.camera);
+        await _picker.pickImage(source: ImageSource.camera);
         if (result != null) {
           filePath = await result.path;
           map["code"] = 200;
           map["data"] = filePath;
           return map;
         } else {
-          YQLog.d("从选择相册页面返回未选择图片");
+          YQLog.d("从相机页面返回未选择图片");
           map["code"] = 205;
           // map["message"] = "从选择相册页面返回未选择图片！";
           return map;
         }
       } else {
         map["code"] = 206;
-        map["message"] = "您暂未授权相机权限，请打开设置页授权";
+        map["message"] = "已被禁止访问相机权限，您可以打开设置进行手动授权！";
         return map;
       }
     } catch (e) {
@@ -276,7 +279,9 @@ class YQMediaUtil {
         //     imageFile.lengthSync() < imageSize * 1024) {
         //   return imageFile.path;
         // }
-        var time_start = DateTime.now().millisecondsSinceEpoch;
+        var time_start = DateTime
+            .now()
+            .millisecondsSinceEpoch;
         final tempDir = await getTemporaryDirectory();
         CompressObject compressObject = CompressObject(
           imageFile: imageFile, //image
@@ -291,9 +296,12 @@ class YQMediaUtil {
           int fileLength = tempFile.lengthSync();
           if (fileLength != null && fileLength < imageSize * 1024) {
             if (kDebugMode) {
-              var time = DateTime.now().millisecondsSinceEpoch - time_start;
+              var time = DateTime
+                  .now()
+                  .millisecondsSinceEpoch - time_start;
               YQLog.e(
-                  "压缩后大小 ：${YQFileUtil.formatFileSize(fileLength)}   用时 ： $time");
+                  "压缩后大小 ：${YQFileUtil.formatFileSize(
+                      fileLength)}   用时 ： $time");
             }
             map["code"] = 200;
             map["data"] = tempPath;
@@ -322,7 +330,9 @@ class YQMediaUtil {
 
   Future<List<String?>?> compressImageList(List<File>? imageFile) async {
     if (imageFile != null) {
-      var time_start = DateTime.now().millisecondsSinceEpoch;
+      var time_start = DateTime
+          .now()
+          .millisecondsSinceEpoch;
       final tempDir = await getTemporaryDirectory();
 
       List<String?> results = [];
@@ -338,7 +348,9 @@ class YQMediaUtil {
         results.add(_path);
       }
 
-      var time = DateTime.now().millisecondsSinceEpoch - time_start;
+      var time = DateTime
+          .now()
+          .millisecondsSinceEpoch - time_start;
       YQLog.e("用时 ： " + time.toString());
       return results;
     }
