@@ -106,6 +106,8 @@ class YQDialogUtil {
         String? hintText,
         String? content,
         String? inputContent,
+        int? maxLength,
+        int? minLines,
         TextInputType? keyboardType,
         List<TextInputFormatter>? inputFormatters,
         bool onWillPop = true,
@@ -142,6 +144,8 @@ class YQDialogUtil {
                           maxLines: null,
                           keyboardType: keyboardType ?? TextInputType.multiline,
                           autofocus: true,
+                          maxLength: maxLength,
+                          minLines: minLines,
                           decoration: InputDecoration.collapsed(
                             hintText: hintText != null && hintText.isNotEmpty
                                 ? hintText
