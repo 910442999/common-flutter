@@ -50,17 +50,18 @@ class _YQCountItemWidgetState extends State<YQCountItemWidget> {
     return Container(
       decoration: BoxDecoration(
           border: Border.all(
-        width: 1,
-        color: Colors.black12,
-      )),
+            width: 1,
+            color: Colors.black12,
+          )),
       child: Row(
         children: <Widget>[
           Container(
             alignment: Alignment.center,
             width: 40,
-            height: 22,
+            // height: 22,
             child: Text(
-                "${this._multiplier == null || this._multiplier < 1 ? this._count : this._count * this._multiplier}",
+                "${this._multiplier == null || this._multiplier < 1 ? this
+                    ._count : this._count * this._multiplier}",
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
@@ -100,24 +101,25 @@ class _YQCountItemWidgetState extends State<YQCountItemWidget> {
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(
-          width: 1,
-          color: Colors.black12,
-        )),
-        child: Row(
-          children: <Widget>[
-            Container(
-              alignment: Alignment.center,
-              width: 22,
-              height: 22,
-              child: Text("+",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: YQColours.red,
-                  )),
-            ),
-          ],
+              width: 1,
+              color: Colors.black12,
+            )),
+        child:
+        // Row(
+        //   children: <Widget>[
+        Container(
+          alignment: Alignment.center,
+          width: 22,
+          height: 22,
+          child: Text("+",
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: YQColours.red,
+              )),
         ),
+        // ],
+        // ),
       ),
     );
   }
@@ -141,24 +143,26 @@ class _YQCountItemWidgetState extends State<YQCountItemWidget> {
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(
-          width: 1,
-          color: Colors.black12,
-        )),
-        child: Row(
-          children: <Widget>[
-            Container(
-              alignment: Alignment.center,
-              width: 22,
-              height: 22,
-              child: Text("-",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: YQColours.blue,
-                  )),
-            ),
-          ],
+              width: 1,
+              color: Colors.black12,
+            )),
+        child:
+        // Row(
+        //   children: <Widget>[
+
+        Container(
+          alignment: Alignment.center,
+          width: 22,
+          height: 22,
+          child: Text("-",
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: YQColours.blue,
+              )),
         ),
+        // ],
+        // ),
       ),
     );
   }
