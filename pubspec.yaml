@@ -15,10 +15,10 @@ dependencies:
   #  plugin_platform_interface: ^2.1.4
   oktoast: ^3.4.0
   flutter_easyloading: ^3.0.5
-  permission_handler: ^11.1.0
+  permission_handler: ^11.3.0
   #  路径管理
   path_provider: ^2.1.1
-  image_picker: ^1.0.6
+  image_picker: ^1.0.7
   #  图片剪辑
   image_cropper: ^5.0.1
   #  图片压缩
@@ -41,8 +41,8 @@ dependencies:
   flutter_tts: ^3.8.5
   ota_update: ^6.0.0
   # WebView插件 https://github.com/flutter/plugins/tree/master/packages/webview_flutter
-  webview_flutter: ^4.4.3
-  flutter_svg: ^2.0.9
+  webview_flutter: ^4.7.0
+  flutter_svg: ^2.0.10+1
 #  svgaplayer_flutter: ^2.2.0
   auto_size_text: ^3.0.0
 
