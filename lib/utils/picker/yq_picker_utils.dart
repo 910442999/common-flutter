@@ -24,7 +24,7 @@ class YQPickerUtils {
     DateTimePickerAdapter? adapter,
     String? cancelText,
     VoidCallback? onCancel,
-    required Function(dynamic selectDateStr, dynamic selectDate) clickCallback,
+    required Function(DateTime? selectDateStr, dynamic selectDate) clickCallback,
   }) {
     int timeType;
     if (dateType == YQDateType.YM) {
@@ -52,11 +52,10 @@ class YQPickerUtils {
         cancelText: cancelText,
         clickCallBack: (Picker picker, List<int> selecteds) {
           var time = (picker.adapter as DateTimePickerAdapter).value;
-          var timeStr =
-              '${time!.year.toString()}-${time.month.toString().padLeft(
-              2, '0')}-${time.day.toString().padLeft(2, '0')}';
-          print(timeStr + "-------" + "------" + picker.adapter.text);
-          clickCallback(timeStr, picker.adapter.text);
+          // var timeStr =
+          //     '${time!.year.toString()}-${time.month.toString().padLeft(
+          //     2, '0')}-${time.day.toString().padLeft(2, '0')}';
+          clickCallback(time, picker.adapter.text);
         },
         onCancel: onCancel);
   }
