@@ -10,15 +10,15 @@ class YQTextStyles {
     fontSize: YQDimens.font_sp16,
   );
   static const TextStyle textBold14 =
-  TextStyle(fontSize: YQDimens.font_sp14, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: YQDimens.font_sp14, fontWeight: FontWeight.bold);
   static const TextStyle textBold16 =
-  TextStyle(fontSize: YQDimens.font_sp16, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: YQDimens.font_sp16, fontWeight: FontWeight.bold);
   static const TextStyle textBold18 =
-  TextStyle(fontSize: YQDimens.font_sp18, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: YQDimens.font_sp18, fontWeight: FontWeight.bold);
   static const TextStyle textBold24 =
-  TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold);
   static const TextStyle textBold26 =
-  TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold);
 
   static const TextStyle textWhite14 = TextStyle(
     fontSize: YQDimens.font_sp14,
@@ -59,6 +59,10 @@ class YQTextStyles {
       color: YQColours.black_333333,
       fontWeight: FontWeight.bold);
   static const TextStyle textBoldDark16 = TextStyle(
+      fontSize: YQDimens.font_sp16,
+      color: YQColours.black_333333,
+      fontWeight: FontWeight.bold);
+  static const TextStyle textBoldDark18 = TextStyle(
       fontSize: YQDimens.font_sp18,
       color: YQColours.black_333333,
       fontWeight: FontWeight.bold);
@@ -88,5 +92,6 @@ class YQTextStyles {
     color: YQColours.dark_text_gray,
   );
   static const TextStyle textHint14 = TextStyle(
-      fontSize: YQDimens.font_sp14, color: YQColours.dark_unselected_item_color);
+      fontSize: YQDimens.font_sp14,
+      color: YQColours.dark_unselected_item_color);
 }

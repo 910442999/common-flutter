@@ -6,6 +6,8 @@ import 'package:yqcommon/res/yq_colors.dart';
 import '../res/yq_gaps.dart';
 import '../widget/dialog/yq_check_box_dialog.dart';
 import '../widget/dialog/yq_menu_dialog.dart';
+import '../widget/dialog/yq_radio_dialog.dart';
+import '../widget/dialog/yq_selected_dialog.dart';
 import '../widget/dialog/yq_share_dialog.dart';
 import '../widget/yq_button.dart';
 import 'yq_toast_utils.dart';
@@ -23,23 +25,20 @@ class YQDialogUtil {
   ///警告对话框(系统)
   static void showAlert(BuildContext context, String? content,
       {String? title,
-        TextSpan? textSpan,
-        String? confirmText, //确定按钮文本
-        String? cancelText, //取消按钮文本
-        Function? onPressed,
-        Function? onCancel,
-        bool isCancel = true,
-        bool onWillPop = true,
-        bool confirmDismiss = true,
-        bool cancelDismiss = true}) {
+      TextSpan? textSpan,
+      String? confirmText, //确定按钮文本
+      String? cancelText, //取消按钮文本
+      Function? onPressed,
+      Function? onCancel,
+      bool isCancel = true,
+      bool onWillPop = true,
+      bool confirmDismiss = true,
+      bool cancelDismiss = true}) {
     List<Widget> actions = [];
     if (isCancel) {
       actions.add(CupertinoDialogAction(
         child: Text(cancelText ?? "取消",
-            style: const TextStyle(
-                fontSize: 18,
-                color: Colors.black
-            )),
+            style: const TextStyle(fontSize: 18, color: Colors.black)),
         onPressed: () {
           if (cancelDismiss) {
             Navigator.pop(context);
@@ -52,10 +51,7 @@ class YQDialogUtil {
     }
     actions.add(CupertinoDialogAction(
       child: Text(confirmText ?? "确定",
-          style: const TextStyle(
-              fontSize: 18,
-              color: Colors.blue
-          )),
+          style: const TextStyle(fontSize: 18, color: Colors.blue)),
       onPressed: () {
         if (confirmDismiss) {
           Navigator.pop(context);
@@ -81,16 +77,16 @@ class YQDialogUtil {
                     children: <Widget>[
                       content != null && content.isNotEmpty
                           ? Text(
-                        content,
-                        style: const TextStyle(fontSize: 16, height: 1.5),
-                      )
+                              content,
+                              style: const TextStyle(fontSize: 16, height: 1.5),
+                            )
                           : YQGaps.empty,
                       textSpan != null
                           ? Text.rich(
-                        textSpan,
-                        style: const TextStyle(
-                            fontSize: 16, height: 1.5), // 设置整体大小
-                      )
+                              textSpan,
+                              style: const TextStyle(
+                                  fontSize: 16, height: 1.5), // 设置整体大小
+                            )
                           : YQGaps.empty,
                     ],
                   ),
@@ -103,15 +99,15 @@ class YQDialogUtil {
   ///输入警告对话框(系统)
   static void showInputAlert(BuildContext context,
       {String? title,
-        String? hintText,
-        String? content,
-        String? inputContent,
-        int? maxLength,
-        int? minLines,
-        TextInputType? keyboardType,
-        List<TextInputFormatter>? inputFormatters,
-        bool onWillPop = true,
-        Function(String)? onPressed}) {
+      String? hintText,
+      String? content,
+      String? inputContent,
+      int? maxLength,
+      int? minLines,
+      TextInputType? keyboardType,
+      List<TextInputFormatter>? inputFormatters,
+      bool onWillPop = true,
+      Function(String)? onPressed}) {
     //设置textfield使用的控制器对象
     TextEditingController _controller = TextEditingController();
     if (inputContent != null && inputContent.isNotEmpty) {
@@ -164,10 +160,7 @@ class YQDialogUtil {
                       },
                       child: Text("取消",
                           style: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.black
-                          ))
-                  ),
+                              fontSize: 18, color: Colors.black))),
                   CupertinoDialogAction(
                     onPressed: () {
                       String text = _controller.text.trim().toString();
@@ -181,14 +174,50 @@ class YQDialogUtil {
                       }
                     },
                     child: Text("确定",
-                        style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.blue
-                        )),
+                        style:
+                            const TextStyle(fontSize: 18, color: Colors.blue)),
                   ),
                 ],
               ));
         });
+  }
+
+  //单选
+  static void showRadioDialog(
+      BuildContext context, String title, List<String> list,
+      {height = 200, Function(int, String)? onPressed}) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: height,
+          child: YQRadioDialog(
+            title: title ?? "请选择",
+            list: list,
+            onPressed: onPressed,
+          ),
+        );
+      },
+    );
+  }
+
+  //选择
+  static void showSelectedDialog(
+      BuildContext context, String title, List<String> list,
+      {height = 200, Function(int, String)? onPressed}) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: height,
+          child: YQSelectedDialog(
+            title: title ?? "请选择",
+            list: list,
+            onPressed: onPressed,
+          ),
+        );
+      },
+    );
   }
 
 //底部弹窗
@@ -236,10 +265,11 @@ class YQDialogUtil {
 //   }
 
   //多选
-  static void showCheckBoxDialog(BuildContext context, String? title,
-      List<String> options,
-      {required Function(List<int>, List<
-          String>) onPressed, double? height, Color? activeColor }) {
+  static void showCheckBoxDialog(
+      BuildContext context, String? title, List<String> options,
+      {required Function(List<int>, List<String>) onPressed,
+      double? height,
+      Color? activeColor}) {
     showModalBottomSheet<List<int>>(
         context: context,
         backgroundColor: Colors.transparent,
@@ -254,10 +284,7 @@ class YQDialogUtil {
                   topRight: Radius.circular(20.0),
                 ),
               ),
-              height: height ?? MediaQuery
-                  .of(context)
-                  .size
-                  .height / 2.0,
+              height: height ?? MediaQuery.of(context).size.height / 2.0,
               child: YQCheckBoxDialog(
                 title: title ?? "请选择",
                 options: options,
@@ -297,8 +324,8 @@ class YQDialogUtil {
   /// 更多的 menu，用于处理会话页面更多按钮等
   static Widget showMoreMenu(List<String> actionList,
       {Widget? child,
-        EdgeInsetsGeometry? padding,
-        Function(String key)? onSelected}) {
+      EdgeInsetsGeometry? padding,
+      Function(String key)? onSelected}) {
     List<PopupMenuEntry<String>> items = [];
     actionList.forEach((key) {
       PopupMenuItem<String> p = PopupMenuItem(
