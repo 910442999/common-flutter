@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_picker/picker.dart';
+import '../yq_index.dart';
 import 'data/yq_ethnicity_data.dart';
 import 'data/yq_locations_data.dart';
-import 'data/yq_picker_data.dart';
 import 'data/yq_work_data.dart';
 
 const double kPickerHeight = 216.0;
