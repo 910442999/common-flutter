@@ -33,6 +33,7 @@ typedef YQTextExpandedCallback = Function(bool);
 class YQExpandableText extends StatefulWidget {
   ///显示的文本
   final String text;
+  final String expandedText;
 
   ///显示的最多行数
   final int? maxLines;
@@ -52,6 +53,7 @@ class YQExpandableText extends StatefulWidget {
       this.maxLines = 1000000,
       this.textStyle,
       this.onExpanded,
+      this.expandedText = "...查看全部",
       this.color})
       : super(key: key);
 
@@ -106,10 +108,9 @@ class _YQExpandableTextState extends State<YQExpandableText> {
 
   Widget _clickExpandTextWidget(context) {
     Color btnColor = widget.color ?? Colors.white;
-
-    Text tx = const Text(
-      "...查看全部",
-      style: TextStyle(color: YQColours.blue, fontSize: 14),
+    Text tx = Text(
+      widget.expandedText,
+      style: const TextStyle(color: YQColours.blue, fontSize: 14),
     );
     Container cnt = Container(
       padding: EdgeInsets.only(left: 7),
