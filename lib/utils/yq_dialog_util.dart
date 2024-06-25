@@ -23,44 +23,50 @@ class YQDialogUtil {
   }
 
   ///警告对话框(系统)
-  static void showAlert(BuildContext context, String? content,
-      {String? title,
-      TextSpan? textSpan,
-      String? confirmText, //确定按钮文本
-      String? cancelText, //取消按钮文本
-      Function? onPressed,
-      Function? onCancel,
-      bool isCancel = true,
-      bool onWillPop = true,
-      bool confirmDismiss = true,
-      bool cancelDismiss = true}) {
+  static void showAlert(
+    BuildContext context,
+    String? content, {
+    String? title,
+    TextSpan? textSpan,
+    String? confirmText, //确定按钮文本
+    String? cancelText, //取消按钮文本
+    Function? onPressed,
+    Function? onCancel,
+    bool isCancel = true,
+    bool onWillPop = true,
+    bool confirmDismiss = true,
+    bool cancelDismiss = true,
+    List<Widget>? actionList,
+  }) {
     List<Widget> actions = [];
-    if (isCancel) {
+    if (actionList == null) {
+      if (isCancel) {
+        actions.add(CupertinoDialogAction(
+          child: Text(cancelText ?? "取消",
+              style: const TextStyle(fontSize: 18, color: Colors.black)),
+          onPressed: () {
+            if (cancelDismiss) {
+              Navigator.pop(context);
+            }
+            if (onCancel != null) {
+              onCancel();
+            }
+          },
+        ));
+      }
       actions.add(CupertinoDialogAction(
-        child: Text(cancelText ?? "取消",
-            style: const TextStyle(fontSize: 18, color: Colors.black)),
+        child: Text(confirmText ?? "确定",
+            style: const TextStyle(fontSize: 18, color: Colors.blue)),
         onPressed: () {
-          if (cancelDismiss) {
+          if (confirmDismiss) {
             Navigator.pop(context);
           }
-          if (onCancel != null) {
-            onCancel();
+          if (onPressed != null) {
+            onPressed();
           }
         },
       ));
     }
-    actions.add(CupertinoDialogAction(
-      child: Text(confirmText ?? "确定",
-          style: const TextStyle(fontSize: 18, color: Colors.blue)),
-      onPressed: () {
-        if (confirmDismiss) {
-          Navigator.pop(context);
-        }
-        if (onPressed != null) {
-          onPressed();
-        }
-      },
-    ));
 
     showDialog(
         context: context,
@@ -91,7 +97,7 @@ class YQDialogUtil {
                     ],
                   ),
                 ),
-                actions: actions,
+                actions: actionList ?? actions,
               ));
         });
   }

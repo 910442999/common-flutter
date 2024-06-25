@@ -53,7 +53,9 @@ class YQTimeUtil {
   }
 
   static int getNowDateMs() {
-    return DateTime.now().millisecondsSinceEpoch;
+    return DateTime
+        .now()
+        .millisecondsSinceEpoch;
   }
 
   //将 unix 时间戳转换为特定时间文本，如年月日
@@ -113,7 +115,7 @@ class YQTimeUtil {
 
   static String converTimeT(String strTime,
       {String oldFormat = "yyyy-MM-dd'T'HH:mm:ss",
-      String newFormat = "MM-dd HH:mm"}) {
+        String newFormat = "MM-dd HH:mm"}) {
     //将yyyy-MM-dd'T'HH:mm:ss格式转换为DateTime
     DateTime timeWithT = DateFormat(oldFormat, "en_US").parse(strTime);
     //将DateTime转换为MM-dd HH:mm格式
@@ -123,11 +125,23 @@ class YQTimeUtil {
 
   static String converTime(String strTime,
       {String oldFormat = "yyyy-MM-dd HH:mm:ss",
-      String newFormat = "MM-dd HH:mm"}) {
+        String newFormat = "MM-dd HH:mm"}) {
     //将yyyy-MM-dd HH:mm:ss格式转换为DateTime
     DateTime timeWith = DateFormat(oldFormat).parse(strTime);
     //将DateTime转换为MM-dd HH:mm格式
     var strLastTime = DateFormat(newFormat).format(timeWith);
+    return strLastTime.toString();
+  }
+
+//根据给定时间增加分钟后的时间
+  static String converTime2(String strTime, int minutes,
+      {String oldFormat = "yyyy-MM-dd HH:mm:ss",
+        String newFormat = "MM-dd HH:mm"}) {
+    //将yyyy-MM-dd HH:mm:ss格式转换为DateTime
+    DateTime timeWith = DateFormat(oldFormat).parse(strTime);
+    DateTime fifteenMinutesLater = timeWith.add(Duration(minutes: minutes)); // 在当前时间基础上增加分钟
+    //将DateTime转换为MM-dd HH:mm格式
+    var strLastTime = DateFormat(newFormat).format(fifteenMinutesLater);
     return strLastTime.toString();
   }
 
@@ -136,25 +150,43 @@ class YQTimeUtil {
     return (sentTime1 - sentTime2).abs() > 5 * 60 * 1000;
   }
 
-  ///判读相差多少分钟
+  ///判读是否相差多少分钟
   static bool needShowTime2(String? sentTime1, String? sentTime2, int differ) {
     if (YQTextUtil.isEmpty(sentTime1) || YQTextUtil.isEmpty(sentTime2)) {
       return false;
     }
     DateTime time1 = DateTime.parse(sentTime1!);
     DateTime time2 = DateTime.parse(sentTime2!);
-    int minutes = time2.difference(time1).inMinutes; // 15414648 分钟
+    int minutes = time2
+        .difference(time1)
+        .inMinutes; // 15414648 分钟
     return minutes.abs() > differ;
   }
 
+  ///判读相差多少分钟
   static int needShowTime3(String? sentTime1, String? sentTime2) {
     if (YQTextUtil.isEmpty(sentTime1) || YQTextUtil.isEmpty(sentTime2)) {
       return -1;
     }
     DateTime time1 = DateTime.parse(sentTime1!);
     DateTime time2 = DateTime.parse(sentTime2!);
-    int minutes = time2.difference(time1).inMinutes; // 15414648 分钟
+    int minutes = time2
+        .difference(time1)
+        .inMinutes; // 15414648 分钟
     return minutes;
+  }
+
+  ///判读相差多少秒
+  static int needShowTime4(String? sentTime1, String? sentTime2) {
+    if (YQTextUtil.isEmpty(sentTime1) || YQTextUtil.isEmpty(sentTime2)) {
+      return -1;
+    }
+    DateTime time1 = DateTime.parse(sentTime1!);
+    DateTime time2 = DateTime.parse(sentTime2!);
+    int seconds = time2
+        .difference(time1)
+        .inSeconds; // 15414648 分钟
+    return seconds;
   }
 
   ///判断两个时间相差多少天
@@ -164,7 +196,9 @@ class YQTimeUtil {
     }
     DateTime startDate = DateTime.parse(startTime);
     DateTime endDate = DateTime.now(); // 结束日期
-    int days = endDate.difference(startDate).inDays;
+    int days = endDate
+        .difference(startDate)
+        .inDays;
     return days;
   }
 
@@ -346,9 +380,9 @@ class YQTimeUtil {
     }
 
     DateTime old =
-        _now.millisecondsSinceEpoch > _old.millisecondsSinceEpoch ? _old : _now;
+    _now.millisecondsSinceEpoch > _old.millisecondsSinceEpoch ? _old : _now;
     DateTime now =
-        _now.millisecondsSinceEpoch > _old.millisecondsSinceEpoch ? _now : _old;
+    _now.millisecondsSinceEpoch > _old.millisecondsSinceEpoch ? _now : _old;
     return (now.weekday >= old.weekday) &&
         (now.millisecondsSinceEpoch - old.millisecondsSinceEpoch <=
             7 * 24 * 60 * 60 * 1000);
