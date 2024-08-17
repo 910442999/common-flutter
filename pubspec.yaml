@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
   #  plugin_platform_interface: ^2.1.4
   oktoast: ^3.4.0
   flutter_easyloading: ^3.0.5
@@ -18,14 +20,14 @@ dependencies:
 #  path_provider: ^2.1.1
   image_picker: ^1.0.6
   #  图片剪辑
-  image_cropper: ^5.0.1
+  image_cropper: ^7.0.5
   #  图片压缩
 #  flutter_luban: ^0.1.13
   #  十进制数计算
-  decimal: ^2.3.3
+  decimal: ^3.0.2
   #  数据存储
-  shared_preferences: ^2.2.2
-  synchronized: ^3.1.0
+  shared_preferences: ^2.2.3
+  synchronized: ^3.1.0+1
   #  本地化语言，日期格式化，数字格式化等
   intl: ^0.19.0
   # 处理键盘事件 https://github.com/diegoveloper/flutter_keyboard_actions
@@ -34,13 +36,13 @@ dependencies:
 #  url_launcher: ^6.2.2
   #  日期地址选择
 #  flutter_picker: ^2.1.0
-  audioplayers: ^5.2.1
+  audioplayers: ^6.0.0
 #  cached_network_image: ^3.3.1
-  flutter_tts: ^3.8.5
+  flutter_tts: ^4.0.2
 #  ota_update: ^6.0.0
   # WebView插件 https://github.com/flutter/plugins/tree/master/packages/webview_flutter
 #  webview_flutter: ^4.4.3
-  flutter_svg: ^2.0.9
+  flutter_svg: ^2.0.10+1
 #  svgaplayer_flutter: ^2.2.0
   auto_size_text: ^3.0.0
 

@@ -82,23 +82,24 @@ class YQMediaUtil {
           if (TargetPlatform.android == defaultTargetPlatform) {
             filePath = filePath.replaceFirst("file://", "");
           }
-          CroppedFile? croppedFile = await ImageCropper().cropImage(
-              sourcePath: filePath,
+          CroppedFile? croppedFile =
+              await ImageCropper().cropImage(sourcePath: filePath, uiSettings: [
+            AndroidUiSettings(
+                // toolbarTitle: '编辑图片',
+                toolbarColor: Colors.white,
+                // toolbarWidgetColor: Colors.white,
+                initAspectRatio: aspectRatio,
+                aspectRatioPresets: [aspectRatio],
+                hideBottomControls: true,
+                cropStyle: style,
+                lockAspectRatio: true),
+            IOSUiSettings(
+              minimumAspectRatio: 1.0,
               aspectRatioPresets: [aspectRatio],
               cropStyle: style,
-              uiSettings: [
-                AndroidUiSettings(
-                    // toolbarTitle: '编辑图片',
-                    toolbarColor: Colors.white,
-                    // toolbarWidgetColor: Colors.white,
-                    initAspectRatio: aspectRatio,
-                    hideBottomControls: true,
-                    lockAspectRatio: true),
-                IOSUiSettings(
-                  minimumAspectRatio: 1.0,
-                  aspectRatioLockEnabled: true,
-                )
-              ]);
+              aspectRatioLockEnabled: true,
+            )
+          ]);
           if (croppedFile == null) {
             map["code"] = 201;
             // map["message"] = "图片未裁剪！";

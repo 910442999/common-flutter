@@ -81,7 +81,7 @@ class YQTextUtil {
     return phoneNo.replaceRange(start, end, replacement);
   }
 
-  ///隐藏昵称
+  ///隐藏字符串
   static String hideString(String? string,
       {int start = 2, String replacement = '**'}) {
     if (isEmpty(string)) {
@@ -91,6 +91,18 @@ class YQTextUtil {
       return string!.replaceRange(start, string!.length, replacement);
     }
     return string!.replaceRange(1, string!.length, replacement);
+  }
+
+  ///隐藏字符串
+  static String hideEndString(String? string,
+      {int end = 2, String replacement = '**'}) {
+    if (isEmpty(string)) {
+      return "";
+    }
+    if (string!.length > end) {
+      return string!.replaceRange(0, string!.length - end, replacement);
+    }
+    return string;
   }
 
   ///隐藏昵称

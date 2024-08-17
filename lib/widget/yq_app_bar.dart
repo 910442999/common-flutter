@@ -12,6 +12,7 @@ class YQAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.titleColor,
     this.title = '',
     this.centerTitle = '',
+    this.centerWidget,
     this.actionName,
     this.backImg = 'assets/images/ic_back_black.png',
     this.backImgColor,
@@ -25,6 +26,7 @@ class YQAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? titleColor;
   final String title;
   final String centerTitle;
+  final Widget? centerWidget;
   final String backImg;
   final Color? backImgColor;
   final String? actionName;
@@ -87,23 +89,27 @@ class YQAppBar extends StatelessWidget implements PreferredSizeWidget {
     } else {
       actionWidget = YQGaps.empty;
     }
-
-    final Widget titleWidget = Semantics(
-      namesRoute: true,
-      header: true,
-      child: Container(
-        alignment:
-        centerTitle.isEmpty ? Alignment.centerLeft : Alignment.center,
-        width: double.infinity,
-        child: Text(
-          title.isEmpty ? centerTitle : title,
-          style: TextStyle(fontSize: YQDimens.font_sp18, color: titleColor),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
+    Widget titleWidget;
+    if (centerWidget != null) {
+      titleWidget = centerWidget!;
+    } else {
+      titleWidget = Semantics(
+        namesRoute: true,
+        header: true,
+        child: Container(
+          alignment:
+          centerTitle.isEmpty ? Alignment.centerLeft : Alignment.center,
+          width: double.infinity,
+          child: Text(
+            title.isEmpty ? centerTitle : title,
+            style: TextStyle(fontSize: YQDimens.font_sp18, color: titleColor),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          margin: const EdgeInsets.symmetric(horizontal: 48.0),
         ),
-        margin: const EdgeInsets.symmetric(horizontal: 48.0),
-      ),
-    );
+      );
+    }
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: _overlayStyle,

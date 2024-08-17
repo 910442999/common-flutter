@@ -19,3 +19,5 @@ export 'yq_selected_item.dart';
 export 'yq_text_field_item.dart';
 export 'tab_bar/yq_index.dart';
 export 'dialog/yq_index.dart';
+export 'yq_num_change_widget.dart';
+export 'package:auto_size_text/auto_size_text.dart';
