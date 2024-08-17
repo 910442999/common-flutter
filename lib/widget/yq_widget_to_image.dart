@@ -8,7 +8,6 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
 /// create by zwb
@@ -146,12 +145,12 @@ class getWidgetToImage {
   }
 
   // 返回 文件
-  Future<File> getFile() async {
-    String _filePath = await _getPath();
-    Uint8List? uint8List = await getUint8List();
-    return File(_filePath + getNowDateAndFormatFileName() + ".png")
-        .writeAsBytes(uint8List!);
-  }
+  // Future<File> getFile() async {
+  //   String _filePath = await _getPath();
+  //   Uint8List? uint8List = await getUint8List();
+  //   return File(_filePath + getNowDateAndFormatFileName() + ".png")
+  //       .writeAsBytes(uint8List!);
+  // }
 
   // 返回Base64流
   Future<String> getByte64() async {
@@ -159,9 +158,9 @@ class getWidgetToImage {
     return base64Encode(uint8List!);
   }
 
-  getNowDateAndFormatFileName({int? randomLen}) {
-    var formatter = DateFormat(
-        'yyyyMMddHHmmssSSS_' + Random().nextInt(randomLen ?? 99999).toString());
-    return formatter.format(DateTime.now());
-  }
+  // getNowDateAndFormatFileName({int? randomLen}) {
+  //   var formatter = DateFormat(
+  //       'yyyyMMddHHmmssSSS_' + Random().nextInt(randomLen ?? 99999).toString());
+  //   return formatter.format(DateTime.now());
+  // }
 }

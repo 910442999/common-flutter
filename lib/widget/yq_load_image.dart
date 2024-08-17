@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,7 +5,8 @@ import '../../../utils/yq_index.dart';
 
 /// 图片加载（支持本地与网络图片）
 class YQLoadImage extends StatelessWidget {
-  YQLoadImage(this.image, {
+  YQLoadImage(
+    this.image, {
     Key? key,
     this.width,
     this.height,
@@ -51,47 +51,23 @@ class YQLoadImage extends StatelessWidget {
       if (borderRadius != null || circleRadius != null) {
         _imageWidget = ClipRRect(
             borderRadius: borderRadius ?? BorderRadius.circular(circleRadius!),
-            child: kIsWeb
-                ? Image.network(
-              image!,
-              height: height,
-              width: width,
-              cacheWidth: cacheWidth,
-              cacheHeight: cacheHeight,
-              fit: fit,
-              excludeFromSemantics: true,
-            )
-                : CachedNetworkImage(
-              imageUrl: image!,
-              placeholder: (_, __) => _image,
-              errorWidget: (_, __, dynamic error) => _image,
-              width: width,
-              height: height,
-              fit: fit,
-              memCacheWidth: cacheWidth,
-              memCacheHeight: cacheHeight,
-            ));
+            child: Image.network(image!,
+                height: height,
+                width: width,
+                cacheWidth: cacheWidth,
+                cacheHeight: cacheHeight,
+                fit: fit,
+                excludeFromSemantics: true,
+                errorBuilder: (context, error, stackTrace) => _image));
       } else {
-        _imageWidget = kIsWeb
-            ? Image.network(
-          image!,
-          height: height,
-          width: width,
-          cacheWidth: cacheWidth,
-          cacheHeight: cacheHeight,
-          fit: fit,
-          excludeFromSemantics: true,
-        )
-            : CachedNetworkImage(
-          imageUrl: image!,
-          placeholder: (_, __) => _image,
-          errorWidget: (_, __, dynamic error) => _image,
-          width: width,
-          height: height,
-          fit: fit,
-          memCacheWidth: cacheWidth,
-          memCacheHeight: cacheHeight,
-        );
+        _imageWidget = Image.network(image!,
+            height: height,
+            width: width,
+            cacheWidth: cacheWidth,
+            cacheHeight: cacheHeight,
+            fit: fit,
+            excludeFromSemantics: true,
+            errorBuilder: (context, error, stackTrace) => _image);
       }
     }
     return GestureDetector(
@@ -105,14 +81,14 @@ class YQLoadImage extends StatelessWidget {
 class YQLoadAssetImage extends StatelessWidget {
   const YQLoadAssetImage(this.image,
       {Key? key,
-        this.width,
-        this.height,
-        this.cacheWidth,
-        this.cacheHeight,
-        this.fit,
-        this.color,
-        this.package,
-        this.onPressed})
+      this.width,
+      this.height,
+      this.cacheWidth,
+      this.cacheHeight,
+      this.fit,
+      this.color,
+      this.package,
+      this.onPressed})
       : super(key: key);
 
   final String? image;
@@ -129,18 +105,19 @@ class YQLoadAssetImage extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget widget = image == null
         ? SizedBox()
-        : Image.asset(image!,
-      height: height,
-      width: width,
-      cacheWidth: cacheWidth,
-      cacheHeight: cacheHeight,
-      fit: fit,
-      color: color,
-      package: package,
+        : Image.asset(
+            image!,
+            height: height,
+            width: width,
+            cacheWidth: cacheWidth,
+            cacheHeight: cacheHeight,
+            fit: fit,
+            color: color,
+            package: package,
 
-      /// 忽略图片语义
-      excludeFromSemantics: true,
-    );
+            /// 忽略图片语义
+            excludeFromSemantics: true,
+          );
     if (onPressed == null) {
       return widget;
     }
@@ -163,7 +140,8 @@ class YQLoadSvgImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget widget = SvgPicture.asset(image,
+    Widget widget = SvgPicture.asset(
+      image,
       height: height,
       width: width,
       color: color,

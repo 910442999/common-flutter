@@ -2,9 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:keyboard_actions/keyboard_actions.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import '../res/yq_colors.dart';
 import '/utils/yq_toast_utils.dart';
 import 'yq_number_text_input_formatter.dart';
@@ -12,76 +9,12 @@ import 'yq_number_text_input_formatter.dart';
 enum YQInputFormat { text, noText, decimal, number, pinyin, pinyinNumber }
 
 class YQUiUtils {
-  /// 打开链接
-  /// 需要参考https://pub.flutter-io.cn/packages/url_launcher 配置 URL schemes
-  static void launchWebURL(String url) async {
-    if (await canLaunchUrlString(url)) {
-      await launchUrlString(url);
-    } else {
-      YQToastUtils.show('打开链接失败！');
-    }
-  }
-
-  /// 调起拨号页
-  static void launchTelUri(String phone) async {
-    final Uri url = Uri(scheme: 'tel', path: phone);
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      YQToastUtils.show('拨号失败！');
-    }
-  }
-
-  //发送短信
-  static void launchSmsUri(BuildContext context, String phone,
-      {String? content}) async {
-    final Uri smsLaunchUri = Uri(
-      scheme: 'sms',
-      path: phone,
-      queryParameters: content == null
-          ? null
-          : <String, String>{
-              'body': Uri.encodeComponent(content),
-            },
-    );
-    if (await canLaunchUrl(smsLaunchUri)) {
-      await launchUrl(smsLaunchUri);
-    } else {
-      YQToastUtils.show('发送短信失败！');
-    }
-  }
-
   // static String formatPrice(String price,
   //     {MoneyFormat format = MoneyFormat.END_INTEGER}) {
   //   return MoneyUtil.changeYWithUnit(
   //       NumUtil.getDoubleByValueStr(price) ?? 0, MoneyUnit.YUAN,
   //       format: format);
   // }
-
-  static KeyboardActionsConfig getKeyboardActionsConfig(List<FocusNode> list) {
-    return KeyboardActionsConfig(
-      keyboardBarColor: YQColours.bg_color,
-      nextFocus: true,
-      actions: List.generate(
-          list.length,
-          (i) => KeyboardActionsItem(
-                focusNode: list[i],
-                toolbarButtons: [
-                  (node) {
-                    return GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () => node.unfocus(),
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 16.0),
-                        child: Text(getCurrLocale() == 'zh' ? '关闭' : 'Close'),
-                      ),
-                    );
-                  },
-                ],
-              )),
-    );
-  }
-
   static String? getCurrLocale() {
     return window.locale.languageCode;
   }

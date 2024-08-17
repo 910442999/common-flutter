@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_luban/flutter_luban.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -54,9 +53,9 @@ class YQMediaUtil {
 
   Future<Map<String, dynamic>> pickImage(BuildContext context,
       {CropAspectRatioPreset aspectRatio = CropAspectRatioPreset.square,
-        CropStyle style = CropStyle.rectangle,
-        int imageSize = 500,
-        bool cropper = false}) async {
+      CropStyle style = CropStyle.rectangle,
+      int imageSize = 500,
+      bool cropper = false}) async {
     String? filePath;
     Map<String, dynamic> map = {"code": 0, "message": "", "data": null};
     try {
@@ -64,7 +63,7 @@ class YQMediaUtil {
       if (permission) {
         //      =================选择图片======================
         final XFile? result =
-        await _picker.pickImage(source: ImageSource.gallery);
+            await _picker.pickImage(source: ImageSource.gallery);
         // =================剪辑和压缩图片======================
         if (result != null) {
           filePath = await result.path;
@@ -73,8 +72,7 @@ class YQMediaUtil {
             if (kDebugMode) {
               File file = File(filePath);
               YQLog.e(
-                  "选择图片后大小 ：${file.lengthSync() == null ? '' : YQFileUtil
-                      .formatFileSize(file.lengthSync())}");
+                  "选择图片后大小 ：${file.lengthSync() == null ? '' : YQFileUtil.formatFileSize(file.lengthSync())}");
             }
             map["code"] = 200;
             map["data"] = filePath;
@@ -90,7 +88,7 @@ class YQMediaUtil {
               cropStyle: style,
               uiSettings: [
                 AndroidUiSettings(
-                  // toolbarTitle: '编辑图片',
+                    // toolbarTitle: '编辑图片',
                     toolbarColor: Colors.white,
                     // toolbarWidgetColor: Colors.white,
                     initAspectRatio: aspectRatio,
@@ -112,9 +110,7 @@ class YQMediaUtil {
           if (kDebugMode) {
             var temporaryFile = File(filePath);
             YQLog.e(
-                "剪辑后大小 ：${temporaryFile.lengthSync() == null
-                    ? ''
-                    : YQFileUtil.formatFileSize(temporaryFile.lengthSync())}");
+                "剪辑后大小 ：${temporaryFile.lengthSync() == null ? '' : YQFileUtil.formatFileSize(temporaryFile.lengthSync())}");
           }
           map["code"] = 200;
           map["data"] = filePath;
@@ -146,7 +142,7 @@ class YQMediaUtil {
       if (permission) {
         //      =================拍摄证件======================
         final XFile? result =
-        await _picker.pickImage(source: ImageSource.camera);
+            await _picker.pickImage(source: ImageSource.camera);
         if (result != null) {
           filePath = await result.path;
           map["code"] = 200;
@@ -279,41 +275,21 @@ class YQMediaUtil {
         //     imageFile.lengthSync() < imageSize * 1024) {
         //   return imageFile.path;
         // }
-        var time_start = DateTime
-            .now()
-            .millisecondsSinceEpoch;
+        var time_start = DateTime.now().millisecondsSinceEpoch;
         final tempDir = await getTemporaryDirectory();
-        CompressObject compressObject = CompressObject(
-          imageFile: imageFile, //image
-          path: tempDir.path, //compress to path
-          // quality: 100, //first compress quality, default 80
-//      step: 9, //compress quality step, The bigger the fast, Smaller is more accurate, default 6
-//      mode: CompressMode.LARGE2SMALL,//default AUTO
-        );
-        String? tempPath = await Luban.compressImage(compressObject);
-        if (!YQTextUtil.isEmpty(tempPath)) {
-          File tempFile = File(tempPath!);
-          int fileLength = tempFile.lengthSync();
-          if (fileLength != null && fileLength < imageSize * 1024) {
-            if (kDebugMode) {
-              var time = DateTime
-                  .now()
-                  .millisecondsSinceEpoch - time_start;
-              YQLog.e(
-                  "压缩后大小 ：${YQFileUtil.formatFileSize(
-                      fileLength)}   用时 ： $time");
-            }
-            map["code"] = 200;
-            map["data"] = tempPath;
-            return map;
-          } else {
-            map["code"] = 202;
-            map["message"] = "当前图片大于 $imageSize K，请裁剪后重新选择！";
-            return map;
+        int fileLength = imageFile.lengthSync();
+        if (fileLength != null && fileLength < imageSize * 1024) {
+          if (kDebugMode) {
+            var time = DateTime.now().millisecondsSinceEpoch - time_start;
+            YQLog.e(
+                "压缩后大小 ：${YQFileUtil.formatFileSize(fileLength)}   用时 ： $time");
           }
+          map["code"] = 200;
+          map["data"] = imageFile.path;
+          return map;
         } else {
-          map["code"] = 203;
-          map["message"] = "图片压缩异常！";
+          map["code"] = 202;
+          map["message"] = "当前图片大于 $imageSize K，请裁剪后重新选择！";
           return map;
         }
       } else {
@@ -328,32 +304,28 @@ class YQMediaUtil {
     }
   }
 
-  Future<List<String?>?> compressImageList(List<File>? imageFile) async {
-    if (imageFile != null) {
-      var time_start = DateTime
-          .now()
-          .millisecondsSinceEpoch;
-      final tempDir = await getTemporaryDirectory();
-
-      List<String?> results = [];
-      for (int i = 0; i < imageFile.length; i++) {
-        CompressObject compressObject = CompressObject(
-          imageFile: imageFile[i], //image
-          path: tempDir.path, //compress to path
-          // quality: 100, //first compress quality, default 80
-//      step: 9, //compress quality step, The bigger the fast, Smaller is more accurate, default 6
-//      mode: CompressMode.LARGE2SMALL,//default AUTO
-        );
-        String? _path = await Luban.compressImage(compressObject);
-        results.add(_path);
-      }
-
-      var time = DateTime
-          .now()
-          .millisecondsSinceEpoch - time_start;
-      YQLog.e("用时 ： " + time.toString());
-      return results;
-    }
-    return null;
-  }
+//   Future<List<String?>?> compressImageList(List<File>? imageFile) async {
+//     if (imageFile != null) {
+//       var time_start = DateTime.now().millisecondsSinceEpoch;
+//       final tempDir = await getTemporaryDirectory();
+//
+//       List<String?> results = [];
+//       for (int i = 0; i < imageFile.length; i++) {
+//         CompressObject compressObject = CompressObject(
+//           imageFile: imageFile[i], //image
+//           path: tempDir.path, //compress to path
+//           // quality: 100, //first compress quality, default 80
+// //      step: 9, //compress quality step, The bigger the fast, Smaller is more accurate, default 6
+// //      mode: CompressMode.LARGE2SMALL,//default AUTO
+//         );
+//         String? _path = await Luban.compressImage(compressObject);
+//         results.add(_path);
+//       }
+//
+//       var time = DateTime.now().millisecondsSinceEpoch - time_start;
+//       YQLog.e("用时 ： " + time.toString());
+//       return results;
+//     }
+//     return null;
+//   }
 }

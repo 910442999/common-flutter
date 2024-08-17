@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:keyboard_actions/keyboard_actions.dart';
 
 /// 本项目通用的布局（SingleChildScrollView）
 /// 1.底部存在按钮
@@ -15,7 +14,6 @@ class YQScrollView extends StatelessWidget {
       this.physics = const BouncingScrollPhysics(),
       this.crossAxisAlignment = CrossAxisAlignment.start,
       this.bottomButton,
-      this.keyboardConfig,
       this.tapOutsideToDismiss = false,
       this.overScroll = 16.0,
       this.controller})
@@ -26,7 +24,6 @@ class YQScrollView extends StatelessWidget {
   final ScrollPhysics physics;
   final CrossAxisAlignment crossAxisAlignment;
   final Widget? bottomButton;
-  final KeyboardActionsConfig? keyboardConfig;
   final ScrollController? controller;
 
   /// 键盘外部按下将其关闭
@@ -41,28 +38,12 @@ class YQScrollView extends StatelessWidget {
       crossAxisAlignment: crossAxisAlignment,
       children: children,
     );
-
-    if (defaultTargetPlatform == TargetPlatform.iOS && keyboardConfig != null) {
-      /// iOS 键盘处理
-
-      if (padding != null) {
-        contents = Padding(padding: padding!, child: contents);
-      }
-
-      contents = KeyboardActions(
-          isDialog: bottomButton != null,
-          overscroll: overScroll,
-          config: keyboardConfig!,
-          tapOutsideToDismiss: tapOutsideToDismiss,
-          child: contents);
-    } else {
-      contents = SingleChildScrollView(
-        padding: padding,
-        physics: physics,
-        child: contents,
-        controller: controller,
-      );
-    }
+    contents = SingleChildScrollView(
+      padding: padding,
+      physics: physics,
+      child: contents,
+      controller: controller,
+    );
 
     if (bottomButton != null) {
       contents = SafeArea(
