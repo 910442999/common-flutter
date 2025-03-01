@@ -20,7 +20,7 @@ dependencies:
   path_provider: ^2.1.4
   image_picker: ^1.1.2
   #  图片剪辑
-  image_cropper: ^8.0.2
+  image_cropper: "8.0.2"
   #  图片压缩
   flutter_luban: ^0.1.14
   #  十进制数计算
