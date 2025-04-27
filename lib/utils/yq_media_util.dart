@@ -281,7 +281,7 @@ class YQMediaUtil {
         final tempDir = await getTemporaryDirectory();
         CompressObject compressObject = CompressObject(
           imageFile: imageFile, //image
-          path: tempDir.path, //compress to path
+          targetPath: tempDir.path, //compress to path
           // quality: 100, //first compress quality, default 80
 //      step: 9, //compress quality step, The bigger the fast, Smaller is more accurate, default 6
 //      mode: CompressMode.LARGE2SMALL,//default AUTO
@@ -330,7 +330,7 @@ class YQMediaUtil {
       for (int i = 0; i < imageFile.length; i++) {
         CompressObject compressObject = CompressObject(
           imageFile: imageFile[i], //image
-          path: tempDir.path, //compress to path
+          targetPath: tempDir.path, //compress to path
           // quality: 100, //first compress quality, default 80
 //      step: 9, //compress quality step, The bigger the fast, Smaller is more accurate, default 6
 //      mode: CompressMode.LARGE2SMALL,//default AUTO
